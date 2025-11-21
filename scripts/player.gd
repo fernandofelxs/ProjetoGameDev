@@ -9,12 +9,13 @@ enum PlayerState {
 	ATTACK
 }
 var state: PlayerState = PlayerState.IDLE
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation: AnimationPlayer = $AnimationPlayer
 var attacking: bool = false
+@onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
-	sprite.play("idle_down")
-	sprite.connect("animation_finished", Callable(self, "_on_animation_finished"))
+	animation.play("idle_down")
+	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 
 func _process(_delta: float) -> void:
 	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -49,7 +50,7 @@ func update_animation() -> void:
 			animation_state = "run"
 		PlayerState.ATTACK:
 			animation_state = "attack"
-	sprite.play(animation_state + "_" + animation_direction())
+	animation.play(animation_state + "_" + animation_direction())
 
 func update_direction() -> bool:
 	var new_direction : Vector2 = cardinal_direction
@@ -75,6 +76,6 @@ func animation_direction() -> String:
 	else:
 		return "side"
 
-func _on_animation_finished():
+func _on_animation_finished(_anim_name: String):
 	if state == PlayerState.ATTACK:
 		attacking = false
