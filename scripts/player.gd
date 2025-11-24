@@ -1,6 +1,6 @@
 class_name Player extends CharacterBody2D
 
-var move_speed : float = 100.0
+@export var speed : float = 100.0
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
 enum PlayerState {
@@ -12,6 +12,7 @@ var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
 var attacking: bool = false
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var attack_area : Area2D = $AttackArea
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -21,9 +22,9 @@ func _process(_delta: float) -> void:
 	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	direction.y = Input.get_action_raw_strength("ui_down") - Input.get_action_strength("ui_up")
 	
-	velocity = direction * move_speed
+	velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
 	
-	if update_direction() || update_state():
+	if update_direction() or update_state():
 		update_animation()
 	
 	if Input.get_action_raw_strength("attack") and !attacking:
@@ -40,6 +41,7 @@ func update_state() -> bool:
 	
 	if new_state == state:
 		return false
+	
 	state = new_state
 	return true
 
@@ -54,6 +56,7 @@ func update_animation() -> void:
 
 func update_direction() -> bool:
 	var new_direction : Vector2 = cardinal_direction
+	
 	if direction == Vector2.ZERO:
 		return false
 	
@@ -66,6 +69,7 @@ func update_direction() -> bool:
 		return false
 	cardinal_direction = new_direction
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+	attack_area.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	return true
 
 func animation_direction() -> String:
