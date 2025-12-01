@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://n2y480mgegdy"]
 
-[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://sprites/player/player.tscn" id="1_wfgbq"]
+[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://assets/sprites/player/player.tscn" id="1_wfgbq"]
 
 [node name="Room407" type="Node2D"]
 

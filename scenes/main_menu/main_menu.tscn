@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu0nqgqmc2e1v"]
+
+[ext_resource type="Script" uid="uid://cnqb58xx7k1kf" path="res://scripts/main_menu.gd" id="1_0ebjn"]
+[ext_resource type="Texture2D" uid="uid://b18bd1eu5s6gc" path="res://assets/ui/MainMenuImage.png" id="1_fsom3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsom3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ebjn"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob46e"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_0ebjn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.99997
+offset_top = -8.99998
+offset_right = 379.0
+offset_bottom = 367.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.754153, 0.645101)
+texture = ExtResource("1_fsom3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 976.0
+offset_top = 459.0
+offset_right = 1099.0
+offset_bottom = 626.0
+scale = Vector2(1.34159, 1.14849)
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_fsom3")
+text = "Jogar"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_0ebjn")
+text = "Opções"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_ob46e")
+text = "Sair"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
