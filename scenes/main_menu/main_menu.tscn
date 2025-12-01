@@ -63,3 +63,4 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ob46e")
 text = "Sair"
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

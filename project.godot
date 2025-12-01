@@ -15,6 +15,10 @@ run/main_scene="uid://bu0nqgqmc2e1v"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Inventory="*res://scripts/inventory.gd"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

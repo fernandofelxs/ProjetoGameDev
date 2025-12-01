@@ -9,3 +9,27 @@ position = Vector2(112, 173)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3.025, 3.025)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryUI" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_right = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot1" type="TextureRect" parent="UI/InventoryUI"]
+layout_mode = 2
+
+[node name="Slot2" type="TextureRect" parent="UI/InventoryUI"]
+layout_mode = 2
