@@ -23,14 +23,16 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
 func _process(_delta: float) -> void:
-	direction = to_local(navigation.get_next_path_position())
-	velocity = direction.normalized() * speed
+	if not navigation.is_target_reached():
+		direction = to_local(navigation.get_next_path_position())
+		velocity = direction.normalized() * speed
 	
 	if update_direction() or update_state():
 		update_animation()
 
 func make_path() -> void:
-	navigation.target_position = player.global_position
+	if navigation.target_position != player.global_position:
+		navigation.target_position = player.global_position
 
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN

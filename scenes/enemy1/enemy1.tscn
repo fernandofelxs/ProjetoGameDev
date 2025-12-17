@@ -544,6 +544,9 @@ position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_4p43l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_postprocessing = 1
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
