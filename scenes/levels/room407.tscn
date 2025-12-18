@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bx8omw2b8dn3g"]
 
-[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://assets/sprites/player/player.tscn" id="1_wfgbq"]
+[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_wfgbq"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="2_giiwm"]
 
 [node name="Room407" type="Node2D"]
