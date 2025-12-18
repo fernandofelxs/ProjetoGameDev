@@ -6,12 +6,12 @@
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dvo5g"]
 vertices = PackedVector2Array(82.3438, 28.4766, 33.5625, 64.6484, -24.2578, -23.7266, 46.6016, -56.1094, 129.508, -21.0391, 106.156, -90.6875, 163.25, -84.1406, 217.289, -71.3594, 301.953, 31.4688, 279.398, 63.2031, 188.242, 49.6719, 299.992, -44.75, 316.211, -13.1016)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 3, 5, 6, 7), PackedInt32Array(8, 9, 10, 4, 7, 11, 12)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-39, -28, 31, 79, 89, 36, 129, -6, 183, 59, 284, 74, 311, 36, 327, -14, 307, -53, 220, -81, 165, -94, 104, -101, 42, -65)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-39, -28, 1.7569, 34.2998, 31, 79, 89, 36, 129, -6, 183, 59, 284, 74, 311, 36, 327, -14, 307, -53, 220, -81, 165, -94, 104, -101, 42, -65)])
 
 [node name="TestRoom" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_dvo5g")]
-position = Vector2(180, -16)
+position = Vector2(347, 75)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(5.975, 5.975)
@@ -21,5 +21,5 @@ position = Vector2(103, -59)
 player = NodePath("../Player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-position = Vector2(-14, -2)
+position = Vector2(73, -56)
 navigation_polygon = SubResource("NavigationPolygon_dvo5g")
