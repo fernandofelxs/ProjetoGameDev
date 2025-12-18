@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://dss1ywedevgpg"]
+
+[ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/ui/PongBgImage.jpg" id="1_0u5b8"]
+[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://assets/sprites/player/player.tscn" id="2_0m1ty"]
+[ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://levels/pong.gd" id="2_dnnam"]
+[ext_resource type="Script" uid="uid://drdi7ib282431" path="res://levels/ball.gd" id="4_3ir3i"]
+[ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://levels/left_bar.gd" id="4_citqa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m1ty"]
+size = Vector2(41, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dnnam"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_citqa"]
+size = Vector2(1920, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ir3i"]
+size = Vector2(1920, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ym5j"]
+size = Vector2(128, 1344)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58hqk"]
+size = Vector2(128, 1344)
+
+[node name="Sprite2D" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_0u5b8")
+centered = false
+script = ExtResource("2_dnnam")
+
+[node name="Player" parent="." instance=ExtResource("2_0m1ty")]
+position = Vector2(200, 200)
+scale = Vector2(5, 5)
+collision_layer = 2
+collision_mask = 5
+speed = 500.0
+
+[node name="LeftBar" type="StaticBody2D" parent="."]
+position = Vector2(80, 880)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("4_citqa")
+
+[node name="ColorRect" type="ColorRect" parent="LeftBar"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_right = 40.0
+offset_bottom = 100.0
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBar"]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_0m1ty")
+
+[node name="RightBar" type="StaticBody2D" parent="."]
+position = Vector2(1800, 200)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("4_citqa")
+
+[node name="ColorRect" type="ColorRect" parent="RightBar"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_right = 40.0
+offset_bottom = 100.0
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBar"]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_0m1ty")
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(960, 1400)
+script = ExtResource("4_3ir3i")
+
+[node name="ColorRect" type="ColorRect" parent="Ball"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_dnnam")
+
+[node name="Borders" type="StaticBody2D" parent="."]
+
+[node name="BottomCollisionBox" type="CollisionShape2D" parent="Borders"]
+position = Vector2(960, 1148)
+shape = SubResource("RectangleShape2D_citqa")
+
+[node name="TopCollisionBox" type="CollisionShape2D" parent="Borders"]
+position = Vector2(960, -64)
+shape = SubResource("RectangleShape2D_3ir3i")
+
+[node name="Left" type="Area2D" parent="Borders"]
+
+[node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/Left"]
+position = Vector2(-64, 544)
+shape = SubResource("RectangleShape2D_1ym5j")
+
+[node name="Right" type="Area2D" parent="Borders"]
+
+[node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/Right"]
+position = Vector2(1984, 544)
+shape = SubResource("RectangleShape2D_58hqk")
+
+[node name="LeftBarrier" type="StaticBody2D" parent="Borders"]
+collision_layer = 4
+
+[node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/LeftBarrier"]
+position = Vector2(-64, 544)
+shape = SubResource("RectangleShape2D_1ym5j")
+
+[node name="RightBarrier" type="StaticBody2D" parent="Borders"]
+collision_layer = 4
+
+[node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/RightBarrier"]
+position = Vector2(1984, 544)
+shape = SubResource("RectangleShape2D_58hqk")
+
+[node name="BallTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Borders/Left" to="." method="_on_left_body_entered"]
+[connection signal="body_entered" from="Borders/Right" to="." method="_on_right_body_entered"]
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
