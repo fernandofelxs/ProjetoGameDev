@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 var direction : Vector2 = Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation: AnimationPlayer = $AnimationPlayer
 @export var hp : int = 3
 var cardinal_direction : Vector2 = Vector2.DOWN
 @export var speed : float = 50
@@ -13,13 +14,22 @@ enum EnemyState {
 }
 var state: EnemyState = EnemyState.IDLE
 @onready var timer: Timer = $Timer
+var knockback: Vector2 = Vector2.ZERO
+var knockback_timer: float = 0.0
+@export var knockback_force : float = 150.0
+@export var knockback_duration: float = 0.2
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var area: Area2D = $Area2D
 
 func _ready() -> void:
 	timer.connect("timeout", _on_timeout)
 	sprite.play("idle_down")
+	area.connect("body_entered", Callable(self, "_on_area_activated"))
 	make_path()
 	
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if knockback_timer > 0.0:
+		move_and_knockback(delta)
 	move_and_slide()
 	
 func _process(_delta: float) -> void:
@@ -77,3 +87,30 @@ func animation_direction() -> String:
 		return "up"
 	else:
 		return "side"
+
+func apply_damage(damage: int, knockback_direction: Vector2) -> void:
+	hp -= damage
+	apply_knockback(
+		knockback_direction, 
+		knockback_force,
+		knockback_duration
+	)
+	if hp <= 0:
+		queue_free()
+	
+func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
+	knockback = specific_direction * force
+	knockback_timer = duration
+
+func move_and_knockback(delta: float) -> void:
+	velocity = knockback
+	knockback_timer -= delta
+	animation.play("hit_flash")
+	if knockback_timer <= 0.0:
+		knockback = Vector2.ZERO
+		animation.play("no_flash")
+
+func _on_area_activated(body: Node2D) -> void:
+	if body is Player:
+		var knockback_direction = (body.global_position - global_position).normalized()
+		body.apply_damage(1, knockback_direction)		
