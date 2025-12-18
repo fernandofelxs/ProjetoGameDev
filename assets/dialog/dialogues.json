@@ -1,0 +1,10 @@
+{
+	"start_dialogue": [
+		"Hello there!",
+		"Welcome to Godot JSON Tutorial."
+	],
+	"quest_giver": [
+		"I need help with a quest.",
+		"Will you accept the challenge?"
+	],
+}
