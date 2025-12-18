@@ -11,6 +11,7 @@ var cardinal_direction : Vector2 = Vector2.DOWN
 enum EnemyState {
 	IDLE,
 	RUN,
+	DAMAGE
 }
 var state: EnemyState = EnemyState.IDLE
 @onready var timer: Timer = $Timer
@@ -20,17 +21,21 @@ var knockback_timer: float = 0.0
 @export var knockback_duration: float = 0.2
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var area: Area2D = $Area2D
+var knockbacking: bool = false
 
 func _ready() -> void:
 	timer.connect("timeout", _on_timeout)
 	sprite.play("idle_down")
 	area.connect("body_entered", Callable(self, "_on_area_activated"))
+	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	make_path()
 	
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
-	move_and_slide()
+	
+	if hp > 0:
+		move_and_slide()
 	
 func _process(_delta: float) -> void:
 	if not navigation.is_target_reached():
@@ -47,6 +52,9 @@ func make_path() -> void:
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN
 	
+	if knockbacking:
+		new_state = EnemyState.DAMAGE
+	
 	if new_state == state:
 		return false
 	
@@ -61,6 +69,8 @@ func update_animation() -> void:
 	match state:
 		EnemyState.RUN:
 			animation_state = "run"
+		EnemyState.DAMAGE:
+			animation_state = "damage"
 	sprite.play(animation_state + "_" + animation_direction())
 
 func update_direction() -> bool:
@@ -69,11 +79,8 @@ func update_direction() -> bool:
 	if direction == Vector2.ZERO:
 		return false
 	
-	if direction.y == 0:
-		new_direction = Vector2.LEFT if direction.x < 0 else Vector2.RIGHT
-	elif direction.x == 0:
-		new_direction = Vector2.UP if direction.y < 0 else Vector2.DOWN
-
+	var angle: float = direction.angle()
+	
 	if new_direction == cardinal_direction:
 		return false
 	cardinal_direction = new_direction
@@ -95,8 +102,6 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_force,
 		knockback_duration
 	)
-	if hp <= 0:
-		queue_free()
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force
@@ -106,11 +111,21 @@ func move_and_knockback(delta: float) -> void:
 	velocity = knockback
 	knockback_timer -= delta
 	animation.play("hit_flash")
+	knockbacking = true
+
 	if knockback_timer <= 0.0:
 		knockback = Vector2.ZERO
 		animation.play("no_flash")
+		knockbacking = false
+
+	if hp <= 0:
+		animation.play("death")
 
 func _on_area_activated(body: Node2D) -> void:
 	if body is Player:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(1, knockback_direction)		
+
+func _on_animation_finished(anim_name: String) -> void:
+	if anim_name == "death":
+		queue_free()
