@@ -99,7 +99,7 @@ func _on_animation_finished(_anim_name: String) -> void:
 func _on_attack_area_activated(body: Node2D) -> void:
 	if body is Enemy and attacking:
 		var knockback_direction = (body.global_position - global_position).normalized()
-		body.apply_damage(1, knockback_direction)
+		body.apply_damage(35, knockback_direction)
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 	hp -= damage

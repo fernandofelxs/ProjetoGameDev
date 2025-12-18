@@ -1,8 +1,9 @@
-[gd_scene load_steps=78 format=3 uid="uid://b2foc0juo3axl"]
+[gd_scene load_steps=79 format=3 uid="uid://b2foc0juo3axl"]
 
 [ext_resource type="Texture2D" uid="uid://bm8xv8gyoqw31" path="res://assets/sprites/enemy/slime.png" id="1_7nbmt"]
 [ext_resource type="Script" uid="uid://ck5djahgc7w4f" path="res://scripts/enemy.gd" id="1_64rcg"]
 [ext_resource type="Shader" uid="uid://yiduyptlkibx" path="res://shaders/hit.gdshader" id="2_0ac8m"]
+[ext_resource type="PackedScene" uid="uid://cim0rqyrtolkx" path="res://scenes/ui/health_bar.tscn" id="4_5m3u0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5m3u0"]
 shader = ExtResource("2_0ac8m")
@@ -655,3 +656,7 @@ shape = SubResource("RectangleShape2D_64rcg")
 libraries = {
 &"": SubResource("AnimationLibrary_5m3u0")
 }
+
+[node name="HealthBar" parent="." instance=ExtResource("4_5m3u0")]
+position = Vector2(-12, 10)
+scale = Vector2(0.5, 0.5)

@@ -3,7 +3,7 @@ class_name Enemy extends CharacterBody2D
 var direction : Vector2 = Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation: AnimationPlayer = $AnimationPlayer
-@export var hp : int = 3
+@export var hp : int = 100
 var cardinal_direction : Vector2 = Vector2.DOWN
 @export var speed : float = 50
 @export var player: Player
@@ -22,6 +22,7 @@ var knockback_timer: float = 0.0
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var area: Area2D = $Area2D
 var knockbacking: bool = false
+@onready var health_bar: HealthBar = $HealthBar
 
 func _ready() -> void:
 	timer.connect("timeout", _on_timeout)
@@ -97,6 +98,7 @@ func animation_direction() -> String:
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 	hp -= damage
+	health_bar.update_health(hp)
 	apply_knockback(
 		knockback_direction, 
 		knockback_force,
