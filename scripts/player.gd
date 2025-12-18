@@ -11,8 +11,9 @@ enum PlayerState {
 var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
 var attacking: bool = false
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var flip_container: Sprite2D = $Sprite2D
 @onready var attack_area : Area2D = $AttackArea
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -68,8 +69,10 @@ func update_direction() -> bool:
 	if new_direction == cardinal_direction:
 		return false
 	cardinal_direction = new_direction
-	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+	flip_container.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	attack_area.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+	
+	collision_shape.position.x *= flip_container.scale.x
 	return true
 
 func animation_direction() -> String:

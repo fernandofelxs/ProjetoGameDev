@@ -1,6 +1,6 @@
 [gd_scene load_steps=70 format=3 uid="uid://b2foc0juo3axl"]
 
-[ext_resource type="Texture2D" uid="uid://bm8xv8gyoqw31" path="res://sprites/enemy/slime.png" id="1_7nbmt"]
+[ext_resource type="Texture2D" uid="uid://bm8xv8gyoqw31" path="res://assets/sprites/enemy/slime.png" id="1_7nbmt"]
 [ext_resource type="Script" uid="uid://ck5djahgc7w4f" path="res://scripts/enemy.gd" id="1_64rcg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3pyr"]

@@ -14,7 +14,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-39, -28, 31, 79, 89, 3
 position = Vector2(180, -16)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(3.025, 3.025)
+zoom = Vector2(5.975, 5.975)
 
 [node name="Enemy1" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_xndyt")]
 position = Vector2(103, -59)

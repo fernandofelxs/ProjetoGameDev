@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm8xv8gyoqw31"
-path="res://.godot/imported/slime.png-cd8c4e8798ec4304a12ee35d034385d6.ctex"
+uid="uid://bohy88r3dur4l"
+path="res://.godot/imported/rock_in_water_01.png-97d89a8ef4d24d102ceea54052590f56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/enemy/slime.png"
-dest_files=["res://.godot/imported/slime.png-cd8c4e8798ec4304a12ee35d034385d6.ctex"]
+source_file="res://assets/sprites/tileset/rock_in_water_01.png"
+dest_files=["res://.godot/imported/rock_in_water_01.png-97d89a8ef4d24d102ceea54052590f56.ctex"]
 
 [params]
 
