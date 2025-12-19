@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqslu82ee6ynk"]
+[gd_scene load_steps=5 format=3 uid="uid://dqslu82ee6ynk"]
 
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_dvo5g"]
+[ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="2_eivy4"]
 [ext_resource type="PackedScene" uid="uid://b2foc0juo3axl" path="res://scenes/enemy1/enemy1.tscn" id="2_xndyt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dvo5g"]
@@ -23,3 +24,11 @@ player = NodePath("../Player")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(73, -56)
 navigation_polygon = SubResource("NavigationPolygon_dvo5g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("2_eivy4")]
+offset_left = -8.0
+offset_top = -1.0
+offset_right = -8.0
+offset_bottom = -1.0

@@ -80,7 +80,7 @@ func update_direction() -> bool:
 	if direction == Vector2.ZERO:
 		return false
 	
-	var angle: float = direction.angle()
+	#var angle: float = direction.angle()
 	
 	if new_direction == cardinal_direction:
 		return false

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://qmbh7eaq4ldl"]
+[gd_scene load_steps=2 format=3 uid="uid://qmbh7eaq4ldl"]
+
+[ext_resource type="Texture2D" uid="uid://bmirq3fnsg6hm" path="res://assets/sprites/ui/vingette.png" id="1_gwk6t"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -23,3 +25,10 @@ layout_mode = 2
 
 [node name="Slot2" type="TextureRect" parent="InventoryUI"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.388235)
+layout_mode = 0
+offset_right = 1943.0
+offset_bottom = 1078.0
+texture = ExtResource("1_gwk6t")
