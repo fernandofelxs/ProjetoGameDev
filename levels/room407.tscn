@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=28 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="Texture2D" uid="uid://bthc17nqyfha2" path="res://assets/sprites/tileset/Inside_C.png" id="1_nvryj"]
 [ext_resource type="Texture2D" uid="uid://d1y5kcd4vcvt4" path="res://assets/sprites/tileset/Inside_D.png" id="2_4bjn3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cr747c01qcggw" path="res://scripts/lighting.gd" id="9_a1a4m"]
 [ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="10_p4qdi"]
 [ext_resource type="PackedScene" uid="uid://cbey13cqfjhge" path="res://scenes/npc/npc.tscn" id="11_r8xtp"]
+[ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="12_4bjn3"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7121,22 +7122,6 @@ tile_set = SubResource("TileSet_jfyw0")
 position = Vector2(497, 11)
 scale = Vector2(1.5, 1.5)
 
-[node name="Player" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(112, 173)
-scale = Vector2(1.5, 1.5)
-collision_mask = 10
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(5.615, 5.615)
-limit_left = -60
-limit_top = -700
-limit_right = 2840
-limit_bottom = 400
-editor_draw_limits = true
-
-[node name="Marker2D" type="Marker2D" parent="Player" groups=["light"]]
-position = Vector2(-6.66667, -3.33333)
-
 [node name="Light" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Light"]
@@ -7154,3 +7139,21 @@ position = Vector2(51, 118)
 scale = Vector2(1.5, 1.5)
 dialogue_lines = "first_speech"
 dialogue_box = NodePath("../DialogueBox")
+
+[node name="Player" parent="." instance=ExtResource("7_5ppdb")]
+position = Vector2(112, 173)
+scale = Vector2(1.5, 1.5)
+collision_mask = 10
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(5.615, 5.615)
+limit_left = -60
+limit_top = -700
+limit_right = 2840
+limit_bottom = 400
+editor_draw_limits = true
+
+[node name="Marker2D" type="Marker2D" parent="Player" groups=["light"]]
+position = Vector2(-6.66667, -3.33333)
+
+[node name="Transition" parent="." instance=ExtResource("12_4bjn3")]

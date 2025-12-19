@@ -29,7 +29,7 @@ func _ready() -> void:
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
 
 func _process(_delta: float) -> void:
-	if is_active:
+	if is_active and state != PlayerState.WITH_NPC:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
@@ -64,8 +64,11 @@ func update_state() -> bool:
 	state = new_state
 	return true
 
-func change_state_forced(new_state: PlayerState) -> void:
+func change_state_and_direction_forced(new_state: PlayerState, new_direction: Vector2) -> void:
+	direction = new_direction
 	state = new_state
+	update_animation()
+	update_direction()
 
 func update_animation() -> void:
 	var animation_state : String = "idle"
@@ -74,6 +77,8 @@ func update_animation() -> void:
 			animation_state = "run"
 		PlayerState.ATTACK:
 			animation_state = "attack"
+		PlayerState.WITH_NPC:
+			animation_state = "idle"
 	animation.play(animation_state + "_" + animation_direction())
 
 func update_direction() -> bool:
