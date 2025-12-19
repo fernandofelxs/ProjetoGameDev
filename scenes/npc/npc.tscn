@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbey13cqfjhge"]
+
+[ext_resource type="Script" uid="uid://bxcdy3h6olv50" path="res://scripts/npc.gd" id="1_dpyoa"]
+[ext_resource type="Texture2D" uid="uid://dyss730hvj0qv" path="res://assets/sprites/npc/npc-1.png" id="1_sspvn"]
+[ext_resource type="Texture2D" uid="uid://cnfboe4d0p2wo" path="res://assets/sprites/npc/arrow.png" id="2_pcwmf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sspvn"]
+size = Vector2(10, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcwmf"]
+size = Vector2(14, 14)
+
+[node name="NPC" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_dpyoa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sspvn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_sspvn")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(0, -11)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_pcwmf")
+
+[node name="Down" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Down"]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_pcwmf")
+
+[node name="Right" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(14, 0)
+shape = SubResource("RectangleShape2D_pcwmf")
+
+[node name="Left" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(-14, 0)
+shape = SubResource("RectangleShape2D_pcwmf")
+
+[node name="Up" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Up"]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_pcwmf")
+
+[connection signal="body_entered" from="Down" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Down" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
+[connection signal="body_exited" from="Right" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
+[connection signal="body_exited" from="Left" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Up" to="." method="_on_up_body_entered"]
+[connection signal="body_exited" from="Up" to="." method="_on_area_2d_body_exited"]

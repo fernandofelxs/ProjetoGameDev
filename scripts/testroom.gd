@@ -1,7 +1,10 @@
 extends Node2D
 
-func _ready() -> void:
-	$GameUI.update_slots()
+@onready var game_ui: Control = $CanvasLayer/GameUI
 
-func _on_item_pickup_item_collected():
-	$GameUI.update_slots()
+func _ready():
+	Inventory.slots[1] = preload("res://inventory/items/CalculusBook.tres")
+	game_ui.update_slots()
+
+func _on_item_pickup_item_collected() -> void:
+	game_ui.update_slots()

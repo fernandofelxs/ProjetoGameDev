@@ -43,3 +43,6 @@ func _activate_player(index: int) -> void:
 
 	camera_speed = players[index].speed
 	camera.global_position = players[index].global_position
+
+func get_active_player_id() -> int:
+	return current_index

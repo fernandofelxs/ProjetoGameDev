@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6c4g0d63s16x"]
+
+[ext_resource type="Script" uid="uid://cnqb58xx7k1kf" path="res://scripts/main_menu.gd" id="1_w3vgd"]
+[ext_resource type="Texture2D" uid="uid://bc8a3emvv5lun" path="res://assets/ui/GameOver.png" id="2_375dy"]
+[ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="4_aab2y"]
+[ext_resource type="Script" uid="uid://cgyxg6vv4xxvw" path="res://scripts/end_game_timer.gd" id="4_w3vgd"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_w3vgd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -72.0
+offset_right = 328.0
+offset_bottom = 304.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.881559, 0.822056)
+texture = ExtResource("2_375dy")
+expand_mode = 1
+
+[node name="Transition" parent="." instance=ExtResource("4_aab2y")]
+
+[node name="Timer" type="Timer" parent="."]
+script = ExtResource("4_w3vgd")

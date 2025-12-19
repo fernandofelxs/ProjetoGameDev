@@ -6,7 +6,8 @@ var direction : Vector2 = Vector2.ZERO
 enum PlayerState {
 	IDLE,
 	RUN,
-	ATTACK
+	ATTACK,
+	WITH_NPC
 }
 var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
@@ -22,23 +23,45 @@ var knockback_timer: float = 0.0
 @export var knockback_duration: float = 0.2
 @export var is_active = true
 signal player_damaged(hp: int)
+enum PlayerMode {
+	ATTACK,
+	GUN
+}
+var player_mode: PlayerMode = PlayerMode.ATTACK
+@onready var gun: Gun = $Gun
+const GAME_OVER_SCENE := "res://levels/game_over.tscn"
+
 
 func _ready() -> void:
 	animation.play("idle_down")
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
-
+	player_mode = PlayerMode.ATTACK
+	gun.set_process(false)
+	gun.hide()
+	
 func _process(_delta: float) -> void:
-	if is_active:
+	if is_active and state != PlayerState.WITH_NPC:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
-		if Input.is_action_just_pressed("attack") and not attacking:
+		if Input.is_action_just_pressed("attack") and not attacking and player_mode == PlayerMode.ATTACK:
 			attacking = true
+		
+		if Input.is_action_just_pressed("switch_weapon"):
+			match player_mode:
+				PlayerMode.ATTACK:
+					player_mode = PlayerMode.GUN
+					gun.set_process(true)
+					gun.show()
+				PlayerMode.GUN:
+					player_mode = PlayerMode.ATTACK
+					gun.set_process(false)
+					gun.hide()
 	else:
 		direction = Vector2.ZERO
 
-	velocity = direction.normalized() * speed if (is_active and not attacking) else Vector2.ZERO
+	velocity = direction.normalized() * speed if (is_active and not attacking and state != PlayerState.WITH_NPC) else Vector2.ZERO
 
 	if update_direction() or update_state():
 		update_animation()
@@ -50,6 +73,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func update_state() -> bool:
+	if state == PlayerState.WITH_NPC:
+		return false
+	
 	var new_state : PlayerState = PlayerState.IDLE if direction == Vector2.ZERO else PlayerState.RUN
 	
 	if attacking:
@@ -61,6 +87,12 @@ func update_state() -> bool:
 	state = new_state
 	return true
 
+func change_state_and_direction_forced(new_state: PlayerState, new_direction: Vector2) -> void:
+	direction = new_direction
+	state = new_state
+	update_animation()
+	update_direction()
+
 func update_animation() -> void:
 	var animation_state : String = "idle"
 	match state:
@@ -68,6 +100,8 @@ func update_animation() -> void:
 			animation_state = "run"
 		PlayerState.ATTACK:
 			animation_state = "attack"
+		PlayerState.WITH_NPC:
+			animation_state = "idle"
 	animation.play(animation_state + "_" + animation_direction())
 
 func update_direction() -> bool:
@@ -103,7 +137,7 @@ func _on_animation_finished(_anim_name: String) -> void:
 		attacking = false
 
 func _on_attack_area_activated(body: Node2D) -> void:
-	if body is Enemy and attacking:
+	if (body is Enemy or body is BaseEnemy) and attacking:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(35, knockback_direction)
 
@@ -115,6 +149,9 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_duration
 	)
 	player_damaged.emit(hp)
+	if hp <= 0:
+		game_over()
+		return
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force
@@ -131,3 +168,6 @@ func move_and_knockback(delta: float) -> void:
 # Função utilizada para detectar se um jogador entrou em uma área de colisão
 func player():
 	pass
+	
+func game_over() -> void:
+	get_tree().change_scene_to_file(GAME_OVER_SCENE)

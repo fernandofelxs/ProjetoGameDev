@@ -5,6 +5,7 @@ extends Control
 var character_id : int = 0
 
 func _ready():
+	Inventory.inventory_changed.connect(_on_inventory_changed)
 	update_slots()
 	
 func update_slots():
@@ -20,5 +21,14 @@ func _apply_player_ui(player: Player) -> void:
 	update_slots()
 
 func _on_player_player_damaged(hp: int) -> void:
+	player_health_bar.update_health(hp)
+	update_slots()
+
+func _on_inventory_changed(player_id: int) -> void:
+	if player_id != character_id:
+		return
+	update_slots()
+
+func _on_player_2_player_damaged(hp: int) -> void:
 	player_health_bar.update_health(hp)
 	update_slots()
