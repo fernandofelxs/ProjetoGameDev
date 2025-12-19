@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpv83clx4u4mf"]
+
+[ext_resource type="PackedScene" uid="uid://cim0rqyrtolkx" path="res://scenes/ui/health_bar.tscn" id="1_n8g5b"]
+[ext_resource type="Texture2D" uid="uid://c5fhaqva3wo12" path="res://assets/sprites/ui/HP-Bar_Small.png" id="2_ktjlq"]
+
+[sub_resource type="GDScript" id="GDScript_n8g5b"]
+script/source = "extends Panel
+"
+
+[node name="PlayerHealth" type="Panel"]
+modulate = Color(0.82606, 0.82606, 0.82606, 1)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(384, 80)
+offset_right = 200.0
+offset_bottom = 50.0
+script = SubResource("GDScript_n8g5b")
+
+[node name="HealthBar" parent="." instance=ExtResource("1_n8g5b")]
+position = Vector2(48, 40)
+scale = Vector2(6.72289, 2.68724)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(59.7031, 12.4293)
+scale = Vector2(7.24528, 8)
+texture = ExtResource("2_ktjlq")
+offset = Vector2(18.2597, 3.44634)

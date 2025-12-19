@@ -126,7 +126,7 @@ func move_and_knockback(delta: float) -> void:
 func _on_area_activated(body: Node2D) -> void:
 	if body is Player:
 		var knockback_direction = (body.global_position - global_position).normalized()
-		body.apply_damage(1, knockback_direction)		
+		body.apply_damage(10, knockback_direction)		
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "death":

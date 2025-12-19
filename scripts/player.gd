@@ -22,6 +22,7 @@ var knockback_timer: float = 0.0
 @export var knockback_force : float = 150.0
 @export var knockback_duration: float = 0.2
 @export var is_active = true
+signal player_damaged(hp: int)
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -125,6 +126,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_force,
 		knockback_duration
 	)
+	player_damaged.emit(hp)
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force

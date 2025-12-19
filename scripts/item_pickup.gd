@@ -22,5 +22,5 @@ func _on_pickup_area_body_exited(body: Node2D) -> void:
 	if body.has_method("player"):
 		player_in_area = false
 		
-func _on_character_manager_active_player_changed(player_id: int) -> void:
+func _on_character_manager_active_player_changed(player_id: int, _player: Player) -> void:
 	character_id = player_id
