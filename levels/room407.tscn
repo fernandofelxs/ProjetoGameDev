@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=38 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_5ppdb"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="1_cstjq"]
@@ -19,6 +19,8 @@
 [ext_resource type="Resource" uid="uid://8oq5nu72qoqs" path="res://inventory/items/CalculusBook.tres" id="16_b0yrw"]
 [ext_resource type="Resource" uid="uid://dvcltnmdct0nu" path="res://inventory/items/Keys.tres" id="17_b0yrw"]
 [ext_resource type="Resource" uid="uid://5lse6624ely4" path="res://inventory/items/Medkit.tres" id="18_a1a4m"]
+[ext_resource type="Script" uid="uid://cws2034ti15ad" path="res://scripts/scene_transition_area.gd" id="20_p4qdi"]
+[ext_resource type="PackedScene" uid="uid://cs6x1r8iujp5a" path="res://scenes/lever/lever.tscn" id="21_r8xtp"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7114,12 +7116,15 @@ shader_parameter/lights = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 shader_parameter/number_of_lights = 1
 shader_parameter/modulate_color = Color(0, 0, 0, 0.74902)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8xtp"]
+size = Vector2(32, 192)
+
 [node name="Room407" type="Node2D"]
 
 [node name="GameUI" parent="." instance=ExtResource("1_cstjq")]
 
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_5ppdb")]
-players = [NodePath("../Player"), NodePath("../Player2")]
+players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
 position = Vector2(112, 173)
@@ -7149,14 +7154,67 @@ tile_map_data = PackedByteArray("AAD5/+T/AAAAACsAAAD5/+X/AAAAACwAAAD5/+b/AAAAAC0
 tile_set = SubResource("TileSet_jfyw0")
 
 [node name="Enemy2" parent="." instance=ExtResource("6_anu1b")]
-position = Vector2(497, 11)
+position = Vector2(772, 57)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy4" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(436, 36)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy5" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(1496, -65)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy11" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(1490, 153)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy12" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(1827, 127)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy13" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(2149, 111)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy14" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(2517, 71)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy15" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(2349, 89)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy16" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(2689, 99)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy6" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(913, -147)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy7" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(909, 199)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy8" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(1235, 269)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy9" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(1195, -166)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy10" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(1060, 43)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy3" parent="." instance=ExtResource("6_anu1b")]
-position = Vector2(555.355, 11)
+position = Vector2(620, 28)
 scale = Vector2(1.5, 1.5)
 
 [node name="Light" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Light"]
 modulate = Color(1, 1, 1, 0)
@@ -7170,7 +7228,13 @@ script = ExtResource("9_a1a4m")
 [node name="DialogueBox" parent="." instance=ExtResource("10_p4qdi")]
 
 [node name="NPC" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("11_r8xtp")]
-position = Vector2(51, 118)
+position = Vector2(89, -37)
+scale = Vector2(1.5, 1.5)
+dialogue_lines = "first_speech"
+dialogue_box = NodePath("../DialogueBox")
+
+[node name="NPC2" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("11_r8xtp")]
+position = Vector2(558, 294)
 scale = Vector2(1.5, 1.5)
 dialogue_lines = "first_speech"
 dialogue_box = NodePath("../DialogueBox")
@@ -7181,27 +7245,46 @@ scale = Vector2(1.5, 1.5)
 collision_mask = 10
 
 [node name="Player2" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(150, 173)
+position = Vector2(607, 330)
+scale = Vector2(1.5, 1.5)
+collision_mask = 10
+
+[node name="Player3" parent="." instance=ExtResource("7_5ppdb")]
+position = Vector2(2425, 413)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
 
 [node name="ItemPickup" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(154, 72)
+position = Vector2(183, -39)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("16_b0yrw")
 
 [node name="ItemPickup2" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(192, 72)
+position = Vector2(1083, 179)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("17_b0yrw")
 
 [node name="ItemPickup3" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(192, 99)
+position = Vector2(1375, 61)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("18_a1a4m")
 
 [node name="Transition" parent="." instance=ExtResource("12_4bjn3")]
 
+[node name="SceneTransitionArea" type="Area2D" parent="."]
+script = ExtResource("20_p4qdi")
+target_scene_name = "pong"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransitionArea"]
+position = Vector2(2856, 80)
+shape = SubResource("RectangleShape2D_r8xtp")
+
+[node name="Lever" parent="." instance=ExtResource("21_r8xtp")]
+position = Vector2(2423, -190)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
 [connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
 [connection signal="player_damaged" from="Player" to="GameUI" method="_on_player_player_damaged"]
 [connection signal="player_damaged" from="Player2" to="GameUI" method="_on_player_2_player_damaged"]
+[connection signal="player_damaged" from="Player3" to="GameUI" method="_on_player_2_player_damaged"]

@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd7w31uve04a1"]
+
+[ext_resource type="Script" uid="uid://cs5jlcmo3lf4t" path="res://scripts/scriptteladecréditos.gd" id="1_i2oue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hu300"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ScrollContainer" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hu300")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("1_i2oue")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size=28][b]CRÉDITOS[/b][/font_size][/center]
+
+[center][b]Universidade Paranormal[/b][/center]
+
+[center]
+Projeto desenvolvido como trabalho acadêmico na disciplina de
+[b]Desenvolvimento de Games[/b].
+[/center]
+
+[center][b]Equipe de Desenvolvimento[/b][/center]
+[center]
+Guilherme Samuel dos Santos  
+Gabriel Fraga de Souza Ribeiro  
+Fernando Felix da Silva  
+Nicolas Ramos da Silva  
+[/center]
+
+[center][b]Funções no Projeto[/b][/center]
+
+[center][b]Direção Geral e Game Design[/b][/center]
+[center]
+Guilherme Samuel dos Santos · Gabriel Fraga de Souza Ribeiro ·  
+Fernando Felix da Silva · Nicolas Ramos da Silva  
+[/center]
+
+[center][b]Programação[/b][/center]
+[center]
+Guilherme Samuel dos Santos  
+Fernando Felix da Silva  
+[/center]
+
+[center][b]Direção de Arte e Design Visual[/b][/center]
+[center]
+Gabriel Fraga de Souza Ribeiro  
+[/center]
+
+[center][b]Produção e Organização[/b][/center]
+[center]
+Fernando Felix da Silva  
+[/center]
+
+[center][b]Design Sonoro[/b][/center]
+[center]
+Nicolas Ramos da Silva  
+[/center]
+
+[center][b]Narrativa e Level Design[/b][/center]
+[center]
+Equipe Atividade Federal  
+[/center]
+
+[center][b]Ferramentas e Tecnologias[/b][/center]
+[center]
+Game engine e ferramentas de edição gráfica e sonora  
+utilizadas conforme as necessidades do projeto.  
+[/center]
+
+[center][b]Áudio e Recursos Externos[/b][/center]
+[center]
+Efeitos sonoros obtidos a partir de bibliotecas de uso livre  
+para fins educacionais, respeitando suas respectivas licenças,  
+incluindo plataformas como Freesound, Pixabay Sound Effects e Mixkit.  
+[/center]
+
+[center][b]Agradecimentos[/b][/center]
+[center]
+Aos professores e colegas da disciplina de Desenvolvimento de Games,  
+pelos feedbacks, orientações e contribuições ao longo do desenvolvimento do projeto.  
+[/center]
+
+[center][b]Observação Final[/b][/center]
+[center]
+Este jogo foi desenvolvido exclusivamente para fins educacionais,  
+sem qualquer finalidade comercial.  
+[/center]
+
+[center]
+[b]Fim[/b]
+[/center]
+"
+fit_content = true

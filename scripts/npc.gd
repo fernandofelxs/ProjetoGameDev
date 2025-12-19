@@ -35,6 +35,7 @@ func _process(_delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player:
 		enter_on_area(body, Vector2(0, -1))
+		state = NPCState.READY
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is Player:
@@ -45,7 +46,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _on_npc_dialogue_finished() -> void:
 	if state == NPCState.FINISHED:
 		await get_tree().create_timer(0.3).timeout
-		state = NPCState.READY
+		state = NPCState.NOT_READY
 		if player:
 			player.change_state_and_direction_forced(
 				player.PlayerState.IDLE,

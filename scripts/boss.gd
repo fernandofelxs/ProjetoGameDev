@@ -4,6 +4,7 @@ extends CharacterBody2D
 var direction: Vector2 = Vector2.ZERO
 @onready var sprite: Sprite2D = $Sprite2D
 
+@export var target_scene_name: String
 @export var hp: int = 100
 @export var speed: float = 50
 @export var player: Player
@@ -81,6 +82,11 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 
 	if hp <= 0:
 		queue_free()
+		var transition = $"../Transition"
+		if transition:
+			transition.change_scene(target_scene_name)
+		else:
+			push_error("Transition node not found!")
 
 func apply_knockback(knockback_direction: Vector2, force: float, duration: float) -> void:
 	knockback = knockback_direction * force
