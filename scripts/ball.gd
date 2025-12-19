@@ -1,31 +1,53 @@
 extends CharacterBody2D
 
-var win_size : Vector2
-const START_SPEED : int = 1200
-const ACCEL : int = 50
-var speed : int 
-var dir : Vector2
-const MAX_Y_VECTOR : float = 0.6
+var win_size: Vector2
+
+const START_SPEED := 1200
+const ACCEL := 50
+const MAX_Y_VECTOR := 0.6
+const SEPARATION := 2.0  
+
+var speed: int
+var dir: Vector2
+
+@onready var rect: ColorRect = $ColorRect
+var default_color: Color
 
 func _ready():
 	win_size = get_viewport_rect().size
-	
+	default_color = rect.color
+
 func new_ball():
 	position.x = win_size.x / 2
 	position.y = randi_range(200, win_size.y - 200)
 	speed = START_SPEED
 	dir = random_direction()
+	rect.color = default_color
 
 func _physics_process(delta: float):
-	var collision = move_and_collide(dir * speed * delta)
-	var collider 
+	var motion := dir * speed * delta
+	var collision := move_and_collide(motion)
+
 	if collision:
-		collider = collision.get_collider()
-		if collider == $"../LeftBar":
+		var normal := collision.get_normal()
+		var collider := collision.get_collider()
+
+		position += normal * SEPARATION
+
+		if collider == $"../Player":
+			rect.color = Color.RED
+			dir = dir.bounce(normal)
+
+		elif collider == $"../LeftBar":
 			speed += ACCEL
 			dir = new_direction(collider)
+			rect.color = Color.WHITE
 		else:
-			dir = dir.bounce(collision.get_normal())
+			rect.color = Color.WHITE
+			dir = dir.bounce(normal)
+
+		dir = dir.normalized()
+
 
 func random_direction():
 	var new_dir := Vector2()
