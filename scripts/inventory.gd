@@ -1,5 +1,9 @@
 extends Node
 
+signal inventory_changed(player_id: int)
+signal item_added(player_id: int, slot_index: int, item: InvItem)
+signal item_removed(player_id: int, slot_index: int)
+
 const MAX_PLAYERS := 4
 const SLOTS_PER_PLAYER := 2
 
@@ -35,9 +39,14 @@ func _add_item_player(player_id: int, item: InvItem) -> bool:
 	for i in range(SLOTS_PER_PLAYER):
 		if inventories[player_id][i] == null:
 			inventories[player_id][i] = item
+			
+			item_added.emit(player_id, i, item)
+			inventory_changed.emit(player_id)
+
 			return true
 
 	return false
+
 
 func remove_item(arg1, arg2 = null) -> bool:
 	if arg2 == null:
@@ -52,9 +61,14 @@ func _remove_item_player(player_id: int, item: InvItem) -> bool:
 	for i in range(SLOTS_PER_PLAYER):
 		if inventories[player_id][i] == item:
 			inventories[player_id][i] = null
+
+			item_removed.emit(player_id, i)
+			inventory_changed.emit(player_id)
+
 			return true
 
 	return false
+
 
 func has_item(arg1, arg2 = null) -> bool:
 	if arg2 == null:
