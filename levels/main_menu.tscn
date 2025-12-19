@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu0nqgqmc2e1v"]
+[gd_scene load_steps=8 format=3 uid="uid://bu0nqgqmc2e1v"]
 
 [ext_resource type="Script" uid="uid://cnqb58xx7k1kf" path="res://scripts/main_menu.gd" id="1_fn0jj"]
 [ext_resource type="Texture2D" uid="uid://b18bd1eu5s6gc" path="res://assets/ui/MainMenuImage.png" id="2_5clpt"]
 [ext_resource type="Theme" uid="uid://cci3vxgim82w8" path="res://menu_theme.tres" id="3_sonvr"]
+[ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="4_7rktv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsom3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -85,6 +86,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_ob46e")
 text = "SAIR"
+
+[node name="Transition" parent="." instance=ExtResource("4_7rktv")]
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
