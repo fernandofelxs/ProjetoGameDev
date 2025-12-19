@@ -21,6 +21,7 @@ var knockback: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 @export var knockback_force : float = 150.0
 @export var knockback_duration: float = 0.2
+@export var is_active = true
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -28,19 +29,20 @@ func _ready() -> void:
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
 
 func _process(_delta: float) -> void:
-	if not attacking and state != PlayerState.WITH_NPC:
+	if is_active:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-		direction.y = Input.get_action_raw_strength("ui_down") - Input.get_action_strength("ui_up")
-		
-		velocity = direction.normalized() * speed
+		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+
+		if Input.is_action_just_pressed("attack") and not attacking:
+			attacking = true
 	else:
-		velocity = Vector2.ZERO
-	
+		direction = Vector2.ZERO
+
+	velocity = direction.normalized() * speed if (is_active and not attacking and state != PlayerState.WITH_NPC) else Vector2.ZERO
+
 	if update_direction() or update_state():
 		update_animation()
-	
-	if Input.is_action_just_pressed("attack") and !attacking:
-		attacking = true
+
 
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
