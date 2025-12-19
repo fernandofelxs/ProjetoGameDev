@@ -1,21 +1,72 @@
 extends Node
 
-var slots := [null, null]  # dois slots por personagem
-var current_slot = 0
+const MAX_PLAYERS := 4
+const SLOTS_PER_PLAYER := 2
 
-func add_item(item: InvItem) -> bool:
-	for i in range(slots.size()):
-		if slots[i] == null:
-			slots[i] = item
-			return true
-	return false  # inventário cheio
+# inventories[player_id][slot_index]
+var inventories: Array = []
 
-func remove_item(item: InvItem) -> bool:
-	for i in range(slots.size()):
-		if slots[i] == item:
-			slots[i] = null
+const DEFAULT_PLAYER := 0
+
+func _ready() -> void:
+	_initialize()
+
+func _initialize() -> void:
+	inventories.clear()
+	inventories.resize(MAX_PLAYERS)
+
+	for i in MAX_PLAYERS:
+		inventories[i] = []
+		inventories[i].resize(SLOTS_PER_PLAYER)
+
+		for j in SLOTS_PER_PLAYER:
+			inventories[i][j] = null
+
+func add_item(arg1, arg2 = null) -> bool:
+	if arg2 == null:
+		return _add_item_player(DEFAULT_PLAYER, arg1)
+	else:
+		return _add_item_player(arg1, arg2)
+
+func _add_item_player(player_id: int, item: InvItem) -> bool:
+	if not _valid_player(player_id):
+		return false
+
+	for i in range(SLOTS_PER_PLAYER):
+		if inventories[player_id][i] == null:
+			inventories[player_id][i] = item
 			return true
+
 	return false
 
-func has_item(item: InvItem) -> bool:
-	return item in slots
+func remove_item(arg1, arg2 = null) -> bool:
+	if arg2 == null:
+		return _remove_item_player(DEFAULT_PLAYER, arg1)
+	else:
+		return _remove_item_player(arg1, arg2)
+
+func _remove_item_player(player_id: int, item: InvItem) -> bool:
+	if not _valid_player(player_id):
+		return false
+
+	for i in range(SLOTS_PER_PLAYER):
+		if inventories[player_id][i] == item:
+			inventories[player_id][i] = null
+			return true
+
+	return false
+
+func has_item(arg1, arg2 = null) -> bool:
+	if arg2 == null:
+		return _has_item_player(DEFAULT_PLAYER, arg1)
+	else:
+		return _has_item_player(arg1, arg2)
+
+func _has_item_player(player_id: int, item: InvItem) -> bool:
+	if not _valid_player(player_id):
+		return false
+
+	return item in inventories[player_id]
+
+func _valid_player(player_id: int) -> bool:
+	return player_id >= 0 and player_id < MAX_PLAYERS
