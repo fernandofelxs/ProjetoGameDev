@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=25 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_wfgbq"]
 [ext_resource type="PackedScene" uid="uid://g7rl5drr1tqh" path="res://scenes/enemy2/Enemy2.tscn" id="2_giiwm"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://clqunjpg32rfa" path="res://assets/sprites/tileset/Inside_E.png" id="5_0pieg"]
 [ext_resource type="Texture2D" uid="uid://2b8te0t42063" path="res://assets/sprites/tileset/A4.png" id="6_jfyw0"]
 [ext_resource type="Texture2D" uid="uid://c3wu6fef0kmnn" path="res://assets/sprites/tileset/A5.png" id="7_1agax"]
+[ext_resource type="Shader" uid="uid://l1is7m4732t7" path="res://shaders/lighting.gdshader" id="8_m8r0a"]
+[ext_resource type="Script" uid="uid://cr747c01qcggw" path="res://scripts/lighting.gd" id="9_0pieg"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7096,6 +7098,12 @@ sources/0 = SubResource("TileSetAtlasSource_bfga6")
 sources/1 = SubResource("TileSetAtlasSource_m8r0a")
 sources/2 = SubResource("TileSetAtlasSource_0pieg")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0pieg"]
+shader = ExtResource("8_m8r0a")
+shader_parameter/lights = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/number_of_lights = 1
+shader_parameter/modulate_color = Color(0, 0, 0, 0.74902)
+
 [node name="Room407" type="Node2D"]
 
 [node name="Base" type="TileMapLayer" parent="."]
@@ -7123,3 +7131,16 @@ limit_top = -700
 limit_right = 2840
 limit_bottom = 400
 editor_draw_limits = true
+
+[node name="Marker2D" type="Marker2D" parent="Player" groups=["light"]]
+position = Vector2(-6.66667, -3.33333)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_0pieg")
+offset_left = -4.0
+offset_top = -10.0
+offset_right = 1998.0
+offset_bottom = 1117.0
+script = ExtResource("9_0pieg")
