@@ -29,6 +29,8 @@ enum PlayerMode {
 }
 var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
+const GAME_OVER_SCENE := "res://levels/game_over.tscn"
+
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -147,6 +149,9 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_duration
 	)
 	player_damaged.emit(hp)
+	if hp <= 0:
+		game_over()
+		return
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force
@@ -163,3 +168,6 @@ func move_and_knockback(delta: float) -> void:
 # Função utilizada para detectar se um jogador entrou em uma área de colisão
 func player():
 	pass
+	
+func game_over() -> void:
+	get_tree().change_scene_to_file(GAME_OVER_SCENE)
