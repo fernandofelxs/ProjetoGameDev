@@ -121,3 +121,6 @@ func move_and_knockback(delta: float) -> void:
 		knockback = Vector2.ZERO
 		hit_animation.play("no_hit")
 	
+# Função utilizada para detectar se um jogador entrou em uma área de colisão
+func player():
+	pass

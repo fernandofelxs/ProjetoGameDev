@@ -9,7 +9,6 @@ func _on_left_body_entered(body: Node2D) -> void:
 	if body == $Ball:
 		$BallTimer.start()
 
-
 func _on_right_body_entered(body: Node2D) -> void:
 	if body == $Ball:
 		$BallTimer.start()
