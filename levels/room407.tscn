@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=29 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="Texture2D" uid="uid://bthc17nqyfha2" path="res://assets/sprites/tileset/Inside_C.png" id="1_nvryj"]
 [ext_resource type="Texture2D" uid="uid://d1y5kcd4vcvt4" path="res://assets/sprites/tileset/Inside_D.png" id="2_4bjn3"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="10_p4qdi"]
 [ext_resource type="PackedScene" uid="uid://cbey13cqfjhge" path="res://scenes/npc/npc.tscn" id="11_r8xtp"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="12_4bjn3"]
+[ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="12_cstjq"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7152,6 +7153,10 @@ limit_top = -700
 limit_right = 2840
 limit_bottom = 400
 editor_draw_limits = true
+
+[node name="Screenshake" type="Node" parent="Player/Camera2D" node_paths=PackedStringArray("camera")]
+script = ExtResource("12_cstjq")
+camera = NodePath("..")
 
 [node name="Marker2D" type="Marker2D" parent="Player" groups=["light"]]
 position = Vector2(-6.66667, -3.33333)
