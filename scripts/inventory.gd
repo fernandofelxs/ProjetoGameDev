@@ -1,6 +1,7 @@
 extends Node
 
 var slots := [null, null]  # dois slots por personagem
+var current_slot = 0
 
 func add_item(item: InvItem) -> bool:
 	for i in range(slots.size()):
