@@ -67,6 +67,9 @@ func _on_timeout() -> void:
 	make_path()
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
+	if knockback_timer > 0.0:
+		return
+	
 	hp -= damage
 	health_bar.update_health(hp)
 
@@ -83,7 +86,6 @@ func apply_knockback(knockback_direction: Vector2, force: float, duration: float
 	knockback = knockback_direction * force
 	knockback_timer = duration
 	knockbacking = true
-
 
 func move_and_knockback(delta: float) -> void:
 	velocity = knockback

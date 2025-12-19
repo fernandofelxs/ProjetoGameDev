@@ -10,6 +10,13 @@ const SEPARATION := 2.0
 var speed: int
 var dir: Vector2
 
+const LAYER_1 := 1 << 0
+const LAYER_6 := 1 << 5
+
+const NORMAL_MASK := LAYER_1
+const RED_MASK := LAYER_1 | LAYER_6
+
+
 @onready var rect: ColorRect = $ColorRect
 var default_color: Color
 
@@ -32,21 +39,30 @@ func _physics_process(delta: float):
 		var normal := collision.get_normal()
 		var collider := collision.get_collider()
 
-		position += normal * SEPARATION
+		position -= collision.get_remainder()
 
-		if collider == $"../Player":
-			rect.color = Color.RED
+		if collider is Boss:
+			var knockback_direction := dir.normalized()
+			collider.apply_damage(20, knockback_direction)
+
+			# bounce after hitting boss
 			dir = dir.bounce(normal)
 
-		elif collider == $"../LeftBar":
+		if collider == $"../Player":
+			set_red_state()
+			dir = dir.bounce(normal)
+
+		elif collider == $"../LeftBar" or collider == $"../RightBar":
 			speed += ACCEL
+			set_normal_state()
 			dir = new_direction(collider)
-			rect.color = Color.WHITE
+
 		else:
-			rect.color = Color.WHITE
+			set_normal_state()
 			dir = dir.bounce(normal)
 
 		dir = dir.normalized()
+
 
 
 func random_direction():
@@ -69,3 +85,13 @@ func new_direction(collider):
 	new_dir.y += randf_range(-0.6, 0.6)
 	
 	return new_dir.normalized()
+
+func set_red_state():
+	rect.color = Color.RED
+	collision_layer = RED_MASK
+	collision_mask = RED_MASK
+
+func set_normal_state():
+	rect.color = default_color
+	collision_layer = LAYER_1
+	collision_mask = LAYER_1
