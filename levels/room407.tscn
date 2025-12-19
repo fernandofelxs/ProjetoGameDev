@@ -7152,6 +7152,10 @@ tile_set = SubResource("TileSet_jfyw0")
 position = Vector2(497, 11)
 scale = Vector2(1.5, 1.5)
 
+[node name="Enemy3" parent="." instance=ExtResource("6_anu1b")]
+position = Vector2(555.355, 11)
+scale = Vector2(1.5, 1.5)
+
 [node name="Light" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Light"]

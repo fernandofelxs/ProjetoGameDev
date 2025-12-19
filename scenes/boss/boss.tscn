@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://duldf1jvdp4ai"]
+[gd_scene load_steps=6 format=3 uid="uid://duldf1jvdp4ai"]
 
 [ext_resource type="Script" uid="uid://dnx857i1xqf8g" path="res://scripts/boss.gd" id="1_w478w"]
 [ext_resource type="Texture2D" uid="uid://bobngqeacxbq0" path="res://assets/sprites/enemy/boss_placeholder.png" id="2_edle0"]
 [ext_resource type="PackedScene" uid="uid://cim0rqyrtolkx" path="res://scenes/ui/health_bar.tscn" id="4_lj2ep"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_330b7"]
-size = Vector2(136, 176)
+size = Vector2(161.5, 195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atjq5"]
+size = Vector2(180, 211)
 
 [node name="Boss" type="CharacterBody2D"]
+visible = false
+collision_layer = 2
 script = ExtResource("1_w478w")
 metadata/_custom_type_script = "uid://ck5djahgc7w4f"
 
@@ -17,7 +22,7 @@ texture = ExtResource("2_edle0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 3
 visibility_layer = 3
-position = Vector2(-4, 0)
+position = Vector2(8.75, 0)
 shape = SubResource("RectangleShape2D_330b7")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -33,11 +38,11 @@ light_mask = 2
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-light_mask = 3
-visibility_layer = 3
-position = Vector2(-4, 0)
-shape = SubResource("RectangleShape2D_330b7")
+position = Vector2(11, -0.5)
+shape = SubResource("RectangleShape2D_atjq5")
 
 [node name="HealthBar" parent="." instance=ExtResource("4_lj2ep")]
-position = Vector2(-72, 88)
-scale = Vector2(2.72141, 1.1217)
+position = Vector2(-61, 93)
+scale = Vector2(2.221, 2.656)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_activated"]
