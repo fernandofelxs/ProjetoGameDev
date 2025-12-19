@@ -6,5 +6,5 @@ func _ready():
 	update_slots()
 	
 func update_slots():
-	for i in range(min(Inventory.slots.size(), ui_slots.size())):
+	for i in range(0, ui_slots.size()):
 		ui_slots[i].update(Inventory.slots[i])

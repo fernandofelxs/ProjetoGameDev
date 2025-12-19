@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqslu82ee6ynk"]
+[gd_scene load_steps=11 format=3 uid="uid://dqslu82ee6ynk"]
 
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_dvo5g"]
 [ext_resource type="Script" uid="uid://cgtd7mnyrs1dm" path="res://scripts/testroom.gd" id="1_eivy4"]
+[ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="2_j5n7w"]
 [ext_resource type="PackedScene" uid="uid://b2foc0juo3axl" path="res://scenes/enemy1/enemy1.tscn" id="2_xndyt"]
 [ext_resource type="PackedScene" uid="uid://bqt17yadoo1ul" path="res://scenes/item_pickups/item_pickup.tscn" id="4_16dvi"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="4_jleao"]
@@ -17,11 +18,21 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-39, -28, 1.7569, 34.29
 [node name="TestRoom" type="Node2D"]
 script = ExtResource("1_eivy4")
 
+[node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("2_j5n7w")]
+players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
+
+[node name="Camera2D" type="Camera2D" parent="CharacterManager"]
+position = Vector2(347, 75)
+zoom = Vector2(5.975, 5.975)
+
 [node name="Player" parent="." instance=ExtResource("1_dvo5g")]
 position = Vector2(347, 75)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(5.975, 5.975)
+[node name="Player2" parent="." instance=ExtResource("1_dvo5g")]
+position = Vector2(440, 144)
+
+[node name="Player3" parent="." instance=ExtResource("1_dvo5g")]
+position = Vector2(408, 144)
 
 [node name="Enemy1" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_xndyt")]
 position = Vector2(103, -59)
@@ -31,13 +42,13 @@ player = NodePath("../Player")
 position = Vector2(73, -56)
 navigation_polygon = SubResource("NavigationPolygon_dvo5g")
 
+[node name="GameUI" parent="." instance=ExtResource("4_jleao")]
+
 [node name="ItemPickup" parent="." instance=ExtResource("4_16dvi")]
 z_index = -1
 position = Vector2(400, 56)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("5_16dvi")
-
-[node name="GameUI" parent="." instance=ExtResource("4_jleao")]
 
 [node name="ItemPickup2" parent="." instance=ExtResource("4_16dvi")]
 z_index = -1
