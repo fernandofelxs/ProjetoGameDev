@@ -62,6 +62,10 @@ position = Vector2(448, 104)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("8_aihjh")
 
+[connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
+[connection signal="active_player_changed" from="CharacterManager" to="ItemPickup" method="_on_character_manager_active_player_changed"]
+[connection signal="active_player_changed" from="CharacterManager" to="ItemPickup2" method="_on_character_manager_active_player_changed"]
+[connection signal="active_player_changed" from="CharacterManager" to="ItemPickup3" method="_on_character_manager_active_player_changed"]
 [connection signal="item_collected" from="ItemPickup" to="." method="_on_item_pickup_item_collected"]
 [connection signal="item_collected" from="ItemPickup2" to="." method="_on_item_pickup_item_collected"]
 [connection signal="item_collected" from="ItemPickup3" to="." method="_on_item_pickup_item_collected"]

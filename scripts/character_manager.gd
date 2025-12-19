@@ -5,6 +5,8 @@ extends Node2D
 
 @onready var camera: Camera2D = $Camera2D
 
+signal active_player_changed(player_id: int)
+
 var current_index := 0
 
 func _ready() -> void:
@@ -37,7 +39,7 @@ func switch_player_character() -> void:
 func _activate_player(index: int) -> void:
 	for i in players.size():
 		players[i].is_active = (i == index)
+	active_player_changed.emit(index)
 
 	camera_speed = players[index].speed
-
 	camera.global_position = players[index].global_position
