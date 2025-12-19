@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dss1ywedevgpg"]
+[gd_scene load_steps=14 format=3 uid="uid://dss1ywedevgpg"]
 
 [ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/ui/PongBgImage.jpg" id="1_0u5b8"]
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="2_0m1ty"]
 [ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://scripts/pong.gd" id="2_dnnam"]
+[ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://scripts/pong_bar.gd" id="4_1ym5j"]
 [ext_resource type="Script" uid="uid://drdi7ib282431" path="res://scripts/ball.gd" id="4_3ir3i"]
-[ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://scripts/left_bar.gd" id="4_citqa"]
+[ext_resource type="PackedScene" uid="uid://duldf1jvdp4ai" path="res://scenes/enemy1/boss.tscn" id="6_1ym5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0m1ty"]
 size = Vector2(41, 200)
@@ -24,6 +25,11 @@ size = Vector2(128, 1344)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_58hqk"]
 size = Vector2(128, 1344)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ym5j"]
+vertices = PackedVector2Array(791.078, 454.367, -634.477, 454.367, -634.477, -214.531, 791.078, -214.531)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-644.473, 464.37, 801.075, 464.37, 801.075, -224.53, -644.473, -224.53)])
+
 [node name="Sprite2D" type="Sprite2D"]
 texture_filter = 1
 texture = ExtResource("1_0u5b8")
@@ -33,15 +39,14 @@ script = ExtResource("2_dnnam")
 [node name="Player" parent="." instance=ExtResource("2_0m1ty")]
 position = Vector2(200, 200)
 scale = Vector2(5, 5)
-collision_layer = 2
-collision_mask = 5
+collision_layer = 3
+collision_mask = 15
 speed = 500.0
 
 [node name="LeftBar" type="StaticBody2D" parent="."]
 position = Vector2(80, 880)
-collision_layer = 3
 collision_mask = 3
-script = ExtResource("4_citqa")
+script = ExtResource("4_1ym5j")
 
 [node name="ColorRect" type="ColorRect" parent="LeftBar"]
 anchors_preset = 4
@@ -58,9 +63,7 @@ shape = SubResource("RectangleShape2D_0m1ty")
 
 [node name="RightBar" type="StaticBody2D" parent="."]
 position = Vector2(1800, 200)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("4_citqa")
+script = ExtResource("4_1ym5j")
 
 [node name="ColorRect" type="ColorRect" parent="RightBar"]
 anchors_preset = 4
@@ -107,35 +110,49 @@ position = Vector2(960, -64)
 shape = SubResource("RectangleShape2D_3ir3i")
 
 [node name="Left" type="Area2D" parent="Borders"]
+collision_layer = 9
 
 [node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/Left"]
 position = Vector2(-64, 544)
 shape = SubResource("RectangleShape2D_1ym5j")
 
 [node name="Right" type="Area2D" parent="Borders"]
+collision_layer = 9
 
 [node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/Right"]
 position = Vector2(1984, 544)
 shape = SubResource("RectangleShape2D_58hqk")
 
 [node name="LeftBarrier" type="StaticBody2D" parent="Borders"]
-collision_layer = 4
+collision_layer = 12
 
 [node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/LeftBarrier"]
 position = Vector2(-64, 544)
 shape = SubResource("RectangleShape2D_1ym5j")
 
 [node name="RightBarrier" type="StaticBody2D" parent="Borders"]
-collision_layer = 4
+collision_layer = 12
 
 [node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/RightBarrier"]
 position = Vector2(1984, 544)
 shape = SubResource("RectangleShape2D_58hqk")
 
 [node name="BallTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.05
 one_shot = true
 autostart = true
+
+[node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_1ym5j")]
+position = Vector2(1328, 544)
+collision_layer = 34
+collision_mask = 34
+speed = 200.0
+player = NodePath("../Player")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(856, 352)
+scale = Vector2(1.32822, 1.56772)
+navigation_polygon = SubResource("NavigationPolygon_1ym5j")
 
 [connection signal="body_entered" from="Borders/Left" to="." method="_on_left_body_entered"]
 [connection signal="body_entered" from="Borders/Right" to="." method="_on_right_body_entered"]
