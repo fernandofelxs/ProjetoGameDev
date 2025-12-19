@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bmirq3fnsg6hm" path="res://assets/sprites/ui/vingette.png" id="1_gwk6t"]
 
+[ext_resource type="PackedScene" uid="uid://bp8d2uejvdd5l" path="res://scenes/ui/inventory_slot.tscn" id="1_gwk6t"]
+[ext_resource type="Script" uid="uid://ka1cr1hst3qe" path="res://scripts/game_ui.gd" id="1_xjfbv"]
+
 [node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -9,21 +12,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xjfbv")
 
-[node name="InventoryUI" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 33.0
-offset_right = 37.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Slot1" type="TextureRect" parent="InventoryUI"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_right = 384.0
+offset_bottom = 192.0
+theme_override_constants/separation = 0
+
+[node name="InventorySlot" parent="CanvasLayer/HBoxContainer" instance=ExtResource("1_gwk6t")]
 layout_mode = 2
 
-[node name="Slot2" type="TextureRect" parent="InventoryUI"]
+[node name="InventorySlot2" parent="CanvasLayer/HBoxContainer" instance=ExtResource("1_gwk6t")]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
