@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkhie6vimhvci"
-path="res://.godot/imported/CalculusBook.jpg-0bf3952d51093ce52e842b1d72a31ef5.ctex"
+uid="uid://bj2v0tl1q7vp"
+path="res://.godot/imported/Medkit.png-61f34f2c19a55b72ebb2021b1b57207a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/item_textures/CalculusBook.jpg"
-dest_files=["res://.godot/imported/CalculusBook.jpg-0bf3952d51093ce52e842b1d72a31ef5.ctex"]
+source_file="res://assets/item_materials/Medkit.png"
+dest_files=["res://.godot/imported/Medkit.png-61f34f2c19a55b72ebb2021b1b57207a.ctex"]
 
 [params]
 

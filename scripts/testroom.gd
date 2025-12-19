@@ -1,5 +1,7 @@
 extends Node2D
 
 func _ready():
-	Inventory.slots[1] = preload("res://inventory/items/CalculusBook.tres")
+	$GameUI.update_slots()
+
+func _on_item_pickup_item_collected() -> void:
 	$GameUI.update_slots()
