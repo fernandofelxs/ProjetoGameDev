@@ -6,7 +6,8 @@ var direction : Vector2 = Vector2.ZERO
 enum PlayerState {
 	IDLE,
 	RUN,
-	ATTACK
+	ATTACK,
+	WITH_NPC
 }
 var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
@@ -27,10 +28,13 @@ func _ready() -> void:
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
 
 func _process(_delta: float) -> void:
-	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	direction.y = Input.get_action_raw_strength("ui_down") - Input.get_action_strength("ui_up")
-	
-	velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
+	if not attacking and state != PlayerState.WITH_NPC:
+		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		direction.y = Input.get_action_raw_strength("ui_down") - Input.get_action_strength("ui_up")
+		
+		velocity = direction.normalized() * speed
+	else:
+		velocity = Vector2.ZERO
 	
 	if update_direction() or update_state():
 		update_animation()
@@ -44,6 +48,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func update_state() -> bool:
+	if state == PlayerState.WITH_NPC:
+		return false
+	
 	var new_state : PlayerState = PlayerState.IDLE if direction == Vector2.ZERO else PlayerState.RUN
 	
 	if attacking:
@@ -54,6 +61,9 @@ func update_state() -> bool:
 	
 	state = new_state
 	return true
+
+func change_state_forced(new_state: PlayerState) -> void:
+	state = new_state
 
 func update_animation() -> void:
 	var animation_state : String = "idle"

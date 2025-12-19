@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=27 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_wfgbq"]
 [ext_resource type="PackedScene" uid="uid://g7rl5drr1tqh" path="res://scenes/enemy2/Enemy2.tscn" id="2_giiwm"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://c3wu6fef0kmnn" path="res://assets/sprites/tileset/A5.png" id="7_1agax"]
 [ext_resource type="Shader" uid="uid://l1is7m4732t7" path="res://shaders/lighting.gdshader" id="8_m8r0a"]
 [ext_resource type="Script" uid="uid://cr747c01qcggw" path="res://scripts/lighting.gd" id="9_0pieg"]
+[ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="10_1agax"]
+[ext_resource type="PackedScene" uid="uid://cbey13cqfjhge" path="res://scenes/npc/npc.tscn" id="10_jfyw0"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7116,7 +7118,7 @@ tile_map_data = PackedByteArray("AAD5/+T/AAAAACsAAAD5/+X/AAAAACwAAAD5/+b/AAAAAC0
 tile_set = SubResource("TileSet_jfyw0")
 
 [node name="Enemy2" parent="." instance=ExtResource("2_giiwm")]
-position = Vector2(186, 62)
+position = Vector2(497, 11)
 scale = Vector2(1.5, 1.5)
 
 [node name="Player" parent="." instance=ExtResource("1_wfgbq")]
@@ -7135,12 +7137,20 @@ editor_draw_limits = true
 [node name="Marker2D" type="Marker2D" parent="Player" groups=["light"]]
 position = Vector2(-6.66667, -3.33333)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Light" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Light"]
 material = SubResource("ShaderMaterial_0pieg")
 offset_left = -4.0
 offset_top = -10.0
 offset_right = 1998.0
 offset_bottom = 1117.0
 script = ExtResource("9_0pieg")
+
+[node name="DialogueBox" parent="." instance=ExtResource("10_1agax")]
+
+[node name="NPC" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("10_jfyw0")]
+position = Vector2(51, 118)
+scale = Vector2(1.5, 1.5)
+dialogue_lines = "first_speech"
+dialogue_box = NodePath("../DialogueBox")

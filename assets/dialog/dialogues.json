@@ -3,8 +3,8 @@
 		"Hello there!",
 		"Welcome to Godot JSON Tutorial."
 	],
-	"quest_giver": [
-		"I need help with a quest.",
-		"Will you accept the challenge?"
+	"first_speech": [
+		"Onde estou? O que aconteceu nesse lugar?",
+		"Precisamos sair daqui o quanto antes!"
 	],
 }

@@ -8,6 +8,8 @@ const CHAR_READ_RATE = 0.05
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @export var ref_dialogue: String = "start_dialogue"
 
+signal dialogue_finished
+
 enum TextBoxState {
 	OPENED,
 	READY,
@@ -18,6 +20,7 @@ enum TextBoxState {
 var current_state: TextBoxState = TextBoxState.OPENED
 var dialogues: Array = []
 @export var dialogue_file_path: String = "res://assets/dialog/dialogues.json"
+var canOpenDialogue: bool = false
 
 func load_dialogue_data():
 	var file = FileAccess.open(dialogue_file_path, FileAccess.READ)
@@ -33,28 +36,25 @@ func load_dialogue_data():
 	else:
 		print("Failed to open dialogue file.")
 
-func _ready() -> void:
-	hide_textbox()
-	load_dialogue_data()
-
 func _process(_delta) -> void:
-	match current_state:
-		TextBoxState.OPENED:
-			show_textbox()
-			change_state(TextBoxState.READY)
-		TextBoxState.READY:	
-			if !dialogues.is_empty():
-				display_text()
-		TextBoxState.READING:
-			if Input.is_action_just_pressed("ui_accept"):
-				label.visible_ratio = 1.0
-				tween.kill()
-				change_state(TextBoxState.FINISHED)
-		TextBoxState.FINISHED:
-			if Input.is_action_just_pressed("ui_accept"):
+	if canOpenDialogue:
+		match current_state:
+			TextBoxState.OPENED:
+				show_textbox()
 				change_state(TextBoxState.READY)
-				if dialogues.is_empty():
-					hide_textbox()
+			TextBoxState.READY:	
+				if !dialogues.is_empty():
+					display_text()
+			TextBoxState.READING:
+				if Input.is_action_just_pressed("interact"):
+					label.visible_ratio = 1.0
+					tween.kill()
+					change_state(TextBoxState.FINISHED)
+			TextBoxState.FINISHED:
+				if Input.is_action_just_pressed("interact"):
+					change_state(TextBoxState.READY)
+					if dialogues.is_empty():
+						hide_textbox()
 
 func queue_text(next_text: String) -> void:
 	dialogues.push_back(next_text)
@@ -62,10 +62,13 @@ func queue_text(next_text: String) -> void:
 func hide_textbox() -> void:
 	label.text = ""
 	animation.play("exit")
+	canOpenDialogue = false
+	dialogue_finished.emit()
 
 func show_textbox() -> void:
 	textbox.show()
 	animation.play("show")
+	canOpenDialogue = true
 
 func display_text() -> void:
 	var next_text = dialogues.pop_front()
@@ -89,3 +92,13 @@ func _on_tween_finished() -> void:
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "exit":
 		textbox.hide()
+
+func set_ref_dialogue(new_ref_dialogue: String) -> void:
+	ref_dialogue = new_ref_dialogue
+	load_dialogue_data()
+
+func empty_dialogues() -> bool:
+	return dialogues.is_empty()
+
+func is_finished() -> bool:
+	return current_state == TextBoxState.FINISHED
