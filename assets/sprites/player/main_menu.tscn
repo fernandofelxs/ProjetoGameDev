@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bu0nqgqmc2e1v"]
 
-[ext_resource type="Script" uid="uid://cnqb58xx7k1kf" path="res://scripts/main_menu.gd" id="1_0ebjn"]
-[ext_resource type="Texture2D" uid="uid://b18bd1eu5s6gc" path="res://assets/ui/MainMenuImage.png" id="1_fsom3"]
-[ext_resource type="Theme" uid="uid://cci3vxgim82w8" path="res://menu_theme.tres" id="3_1g8jr"]
+[ext_resource type="Script" uid="uid://cnqb58xx7k1kf" path="res://scripts/main_menu.gd" id="1_fn0jj"]
+[ext_resource type="Texture2D" uid="uid://b18bd1eu5s6gc" path="res://assets/ui/MainMenuImage.png" id="2_5clpt"]
+[ext_resource type="Theme" uid="uid://cci3vxgim82w8" path="res://menu_theme.tres" id="3_sonvr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsom3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
-script = ExtResource("1_0ebjn")
+script = ExtResource("1_fn0jj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -36,7 +36,7 @@ offset_bottom = 304.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.881559, 0.822056)
-texture = ExtResource("1_fsom3")
+texture = ExtResource("2_5clpt")
 expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
@@ -50,7 +50,7 @@ offset_top = -192.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(1.83271, 1.69897)
-theme = ExtResource("3_1g8jr")
+theme = ExtResource("3_sonvr")
 theme_override_constants/margin_right = 220
 theme_override_constants/margin_bottom = 150
 

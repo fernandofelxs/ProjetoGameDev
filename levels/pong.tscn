@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://dss1ywedevgpg"]
 
 [ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/ui/PongBgImage.jpg" id="1_0u5b8"]
-[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://assets/sprites/player/player.tscn" id="2_0m1ty"]
-[ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://levels/pong.gd" id="2_dnnam"]
-[ext_resource type="Script" uid="uid://drdi7ib282431" path="res://levels/ball.gd" id="4_3ir3i"]
-[ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://levels/left_bar.gd" id="4_citqa"]
+[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="2_0m1ty"]
+[ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://scripts/pong.gd" id="2_dnnam"]
+[ext_resource type="Script" uid="uid://drdi7ib282431" path="res://scripts/ball.gd" id="4_3ir3i"]
+[ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://scripts/left_bar.gd" id="4_citqa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0m1ty"]
 size = Vector2(41, 200)
