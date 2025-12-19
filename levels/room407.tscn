@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="10_p4qdi"]
 [ext_resource type="PackedScene" uid="uid://cbey13cqfjhge" path="res://scenes/npc/npc.tscn" id="11_r8xtp"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="12_4bjn3"]
-[ext_resource type="Script" path="res://scripts/screenshake.gd" id="12_cstjq"]
+[ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="12_cstjq"]
 [ext_resource type="PackedScene" uid="uid://bqt17yadoo1ul" path="res://scenes/item_pickups/item_pickup.tscn" id="15_5ppdb"]
 [ext_resource type="Resource" uid="uid://8oq5nu72qoqs" path="res://inventory/items/CalculusBook.tres" id="16_b0yrw"]
 [ext_resource type="Resource" uid="uid://dvcltnmdct0nu" path="res://inventory/items/Keys.tres" id="17_b0yrw"]

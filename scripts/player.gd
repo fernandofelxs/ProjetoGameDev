@@ -23,19 +23,39 @@ var knockback_timer: float = 0.0
 @export var knockback_duration: float = 0.2
 @export var is_active = true
 signal player_damaged(hp: int)
+enum PlayerMode {
+	ATTACK,
+	GUN
+}
+var player_mode: PlayerMode = PlayerMode.ATTACK
+@onready var gun: Gun = $Gun
 
 func _ready() -> void:
 	animation.play("idle_down")
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
-
+	player_mode = PlayerMode.ATTACK
+	gun.set_process(false)
+	gun.hide()
+	
 func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
-		if Input.is_action_just_pressed("attack") and not attacking:
+		if Input.is_action_just_pressed("attack") and not attacking and player_mode == PlayerMode.ATTACK:
 			attacking = true
+		
+		if Input.is_action_just_pressed("switch_weapon"):
+			match player_mode:
+				PlayerMode.ATTACK:
+					player_mode = PlayerMode.GUN
+					gun.set_process(true)
+					gun.show()
+				PlayerMode.GUN:
+					player_mode = PlayerMode.ATTACK
+					gun.set_process(false)
+					gun.hide()
 	else:
 		direction = Vector2.ZERO
 
