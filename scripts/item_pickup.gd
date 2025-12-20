@@ -15,7 +15,7 @@ func _unhandled_input(_event) -> void:
 		return
 
 	if Input.is_action_just_pressed("interact"):
-		var player_id = character_manager.get_active_player_id()
+		player_id = character_manager.get_active_player_id()
 
 		if Inventory.add_item(player_id, item):
 			item_collected.emit()

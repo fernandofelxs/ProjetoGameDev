@@ -86,10 +86,10 @@ func update_state() -> bool:
 	return true
 
 func change_state_and_direction_forced(new_state: PlayerState, new_direction: Vector2) -> void:
-	direction = new_direction
+	cardinal_direction = new_direction
+	update_direction()
 	state = new_state
 	update_animation()
-	update_direction()
 
 func update_animation() -> void:
 	var animation_state : String = "idle"

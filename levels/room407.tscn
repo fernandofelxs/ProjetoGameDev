@@ -7113,8 +7113,6 @@ size = Vector2(32, 192)
 
 [node name="Room407" type="Node2D"]
 
-[node name="GameUI" parent="." instance=ExtResource("1_cstjq")]
-
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_5ppdb")]
 players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
 
@@ -7278,6 +7276,9 @@ position = Vector2(2423, -190)
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 color = Color(1, 1, 1, 0.784314)
 blend_mode = 1
+
+[node name="GameUI" parent="." instance=ExtResource("1_cstjq")]
+layer = 1
 
 [connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
 [connection signal="player_damaged" from="Player" to="GameUI" method="_on_player_player_damaged"]
