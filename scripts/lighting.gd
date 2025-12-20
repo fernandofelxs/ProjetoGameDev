@@ -1,5 +1,4 @@
-extends ColorRect
-class_name lighting
+class_name Lighting extends ColorRect
 
 func _ready() -> void:
 	show()
@@ -13,5 +12,4 @@ func get_light_positions():
 	return get_tree().get_nodes_in_group("light").map(
 		func(light: Node2D):
 			return light.get_global_transform_with_canvas().origin
-			
 	)
