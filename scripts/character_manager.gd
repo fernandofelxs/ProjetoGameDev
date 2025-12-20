@@ -1,3 +1,6 @@
+# O character manager deve estar na mesma cena que um elemento GameUI
+
+class_name CharacterManager
 extends Node2D
 
 @export var players: Array[Player] = []
@@ -10,8 +13,18 @@ signal active_player_changed(player_id: int, player_char: Player)
 var current_index := 0
 
 func _ready() -> void:
+	add_to_group("character_manager")
+	
 	if players.is_empty():
 		return
+
+	# conectar sinais dos jogadores e dos itens
+	for i in players.size():
+		var player := players[i]
+		player.player_damaged.connect(
+			_on_player_damaged.bind(i)
+		)
+	_connect_item_pickups()
 
 	_activate_player(0)
 
@@ -49,3 +62,28 @@ func _activate_player(index: int) -> void:
 	
 func get_active_player_id() -> int:
 	return current_index
+
+func _on_player_damaged(hp: int, player_id: int) -> void:
+	if player_id != current_index:
+		return
+
+	# Re-emit active player info (for HUD, UI, etc.)
+	active_player_changed.emit(
+		current_index,
+		players[current_index]
+	)
+
+func _connect_item_pickups() -> void:
+	var pickups := get_tree().get_nodes_in_group("item_pickups")
+
+	for pickup in pickups:
+		if pickup is ItemPickup:
+			pickup.item_collected.connect(
+				_on_item_collected.bind(pickup)
+			)
+
+func _on_item_collected():
+	active_player_changed.emit(
+		current_index,
+		players[current_index]
+	)

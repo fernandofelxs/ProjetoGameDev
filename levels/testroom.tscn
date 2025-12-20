@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dqslu82ee6ynk"]
+[gd_scene load_steps=10 format=3 uid="uid://dqslu82ee6ynk"]
 
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_dvo5g"]
-[ext_resource type="Script" uid="uid://cgtd7mnyrs1dm" path="res://scripts/testroom.gd" id="1_eivy4"]
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="2_j5n7w"]
 [ext_resource type="PackedScene" uid="uid://b2foc0juo3axl" path="res://scenes/enemy1/enemy1.tscn" id="2_xndyt"]
 [ext_resource type="PackedScene" uid="uid://bqt17yadoo1ul" path="res://scenes/item_pickups/item_pickup.tscn" id="4_16dvi"]
@@ -16,7 +15,6 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32
 outlines = Array[PackedVector2Array]([PackedVector2Array(-39, -28, 1.7569, 34.2998, 31, 79, 89, 36, 129, -6, 183, 59, 284, 74, 311, 36, 327, -14, 307, -53, 220, -81, 165, -94, 104, -101, 42, -65)])
 
 [node name="TestRoom" type="Node2D"]
-script = ExtResource("1_eivy4")
 
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("2_j5n7w")]
 players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
@@ -61,12 +59,3 @@ z_index = -1
 position = Vector2(448, 104)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("8_aihjh")
-
-[connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
-[connection signal="active_player_changed" from="CharacterManager" to="ItemPickup" method="_on_character_manager_active_player_changed"]
-[connection signal="active_player_changed" from="CharacterManager" to="ItemPickup2" method="_on_character_manager_active_player_changed"]
-[connection signal="active_player_changed" from="CharacterManager" to="ItemPickup3" method="_on_character_manager_active_player_changed"]
-[connection signal="player_damaged" from="Player" to="GameUI" method="_on_player_player_damaged"]
-[connection signal="item_collected" from="ItemPickup" to="." method="_on_item_pickup_item_collected"]
-[connection signal="item_collected" from="ItemPickup2" to="." method="_on_item_pickup_item_collected"]
-[connection signal="item_collected" from="ItemPickup3" to="." method="_on_item_pickup_item_collected"]
