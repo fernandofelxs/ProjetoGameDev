@@ -1,7 +1,7 @@
-extends Control
+class_name GameUI extends CanvasLayer
 
-@onready var ui_slots: Array =  $CanvasLayer/VBoxContainer/HBoxContainer.get_children() 
-@onready var player_health_bar: HealthBar = $CanvasLayer/VBoxContainer/PlayerHealth/HealthBar
+@onready var ui_slots: Array =  $VBoxContainer/HBoxContainer.get_children() 
+@onready var player_health_bar: HealthBar = $VBoxContainer/PlayerHealth/HealthBar
 var character_id : int = 0
 
 func _ready():

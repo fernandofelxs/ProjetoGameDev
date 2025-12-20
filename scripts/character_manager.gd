@@ -42,7 +42,10 @@ func _activate_player(index: int) -> void:
 	active_player_changed.emit(index, players[index])
 
 	camera_speed = players[index].speed
-	camera.global_position = players[index].global_position
-
+	var tween = create_tween()
+	tween.tween_property(camera, "global_position", players[index].global_position, 1)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	
 func get_active_player_id() -> int:
 	return current_index
