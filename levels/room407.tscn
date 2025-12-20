@@ -7114,7 +7114,7 @@ size = Vector2(32, 192)
 [node name="Room407" type="Node2D"]
 
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_5ppdb")]
-players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
+players = [NodePath("../Player")]
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
 position = Vector2(112, 173)
@@ -7146,7 +7146,7 @@ position = Vector2(772, 57)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("6_anu1b")]
-position = Vector2(436, 36)
+position = Vector2(95, 54)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource("6_anu1b")]
@@ -7232,16 +7232,6 @@ position = Vector2(112, 173)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
 
-[node name="Player2" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(607, 330)
-scale = Vector2(1.5, 1.5)
-collision_mask = 10
-
-[node name="Player3" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(2425, 413)
-scale = Vector2(1.5, 1.5)
-collision_mask = 10
-
 [node name="ItemPickup" parent="." instance=ExtResource("15_5ppdb")]
 position = Vector2(183, -39)
 scale = Vector2(0.15, 0.15)
@@ -7282,5 +7272,3 @@ layer = 1
 
 [connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
 [connection signal="player_damaged" from="Player" to="GameUI" method="_on_player_player_damaged"]
-[connection signal="player_damaged" from="Player2" to="GameUI" method="_on_player_2_player_damaged"]
-[connection signal="player_damaged" from="Player3" to="GameUI" method="_on_player_2_player_damaged"]

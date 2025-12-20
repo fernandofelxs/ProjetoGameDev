@@ -13,7 +13,8 @@ enum NPCState {
 }
 
 var state: NPCState = NPCState.NOT_READY
-var player_direction: Vector2 = Vector2.ZERO
+var new_player_direction: Vector2 = Vector2.ZERO
+var old_player_direction: Vector2 = Vector2.ZERO
 @onready var focus_area: Area2D = $Down
 
 func _ready() -> void:
@@ -24,7 +25,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and state == NPCState.READY:
 		player.change_state_and_direction_forced(
 			player.PlayerState.WITH_NPC,
-			player_direction
+			new_player_direction
 		)
 		dialogue_box.set_ref_dialogue(dialogue_lines)
 		dialogue_box.show_textbox()
@@ -39,11 +40,10 @@ func _process(_delta: float) -> void:
 func _on_npc_dialogue_finished() -> void:
 	if state == NPCState.FINISHED:
 		await get_tree().create_timer(0.3).timeout
-		state = NPCState.NOT_READY
 		if player:
 			player.change_state_and_direction_forced(
 				player.PlayerState.IDLE,
-				player_direction
+				old_player_direction
 			)
 
 func _on_any_body_exited(body: Node2D) -> void:
@@ -54,23 +54,24 @@ func _on_any_body_exited(body: Node2D) -> void:
 
 func _on_down_body_entered(body: Node2D) -> void:
 	if body is Player:
-		enter_on_area(body, Vector2.UP, $Down)
+		enter_on_area(body, Vector2.UP, body.direction, $Down)
 
 func _on_right_body_entered(body: Node2D) -> void:
 	if body is Player:
-		enter_on_area(body, Vector2.RIGHT, $Right)
+		enter_on_area(body, Vector2.LEFT, body.direction, $Right)
 
 func _on_left_body_entered(body: Node2D) -> void:
 	if body is Player:
-		enter_on_area(body, Vector2.LEFT, $Left)
+		enter_on_area(body, Vector2.RIGHT, body.direction, $Left)
 
 func _on_up_body_entered(body: Node2D) -> void:
 	if body is Player:
-		enter_on_area(body, Vector2.DOWN, $Up)
+		enter_on_area(body, Vector2.DOWN, body.direction, $Up)
 
-func enter_on_area(body: Node2D, dir: Vector2, focus: Area2D) -> void:
+func enter_on_area(body: Node2D, new: Vector2, old: Vector2, focus: Area2D) -> void:
 	arrow.show()
 	state = NPCState.READY
 	player = body
-	player_direction = dir
+	new_player_direction = new
+	old_player_direction = old
 	focus_area = focus

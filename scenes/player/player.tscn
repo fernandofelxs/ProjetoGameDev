@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://r5737pf6ogiv"]
+[gd_scene load_steps=38 format=3 uid="uid://r5737pf6ogiv"]
 
 [ext_resource type="Script" uid="uid://detar30gnwjq6" path="res://scripts/player.gd" id="1_mm0hj"]
 [ext_resource type="Texture2D" uid="uid://b5qnpjunfbt0u" path="res://assets/sprites/player/player_idle_up.png" id="2_dovo2"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://x5frwfvicgc0" path="res://assets/sprites/player/player_run_up.png" id="7_5gtgg"]
 [ext_resource type="Texture2D" uid="uid://ct340l10kqxgj" path="res://assets/sprites/player/attack-side-4.png" id="7_myrg7"]
 [ext_resource type="PackedScene" uid="uid://bm4gswu3kx3wt" path="res://scenes/gun/gun.tscn" id="15_fcs02"]
+[ext_resource type="Texture2D" uid="uid://cg6tn50q4xr5c" path="res://assets/sprites/player/player_death_side2.png" id="16_myrg7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcs02"]
 shader = ExtResource("2_ugbui")
@@ -981,12 +982,77 @@ tracks/7/keys = {
 "values": [-1]
 }
 
+[sub_resource type="Animation" id="Animation_kvlxm"]
+resource_name = "death_side"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../Sprite2D:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Sprite2D:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_myrg7")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xrmnp"]
 _data = {
 &"RESET": SubResource("Animation_xrmnp"),
 &"attack_down": SubResource("Animation_7i5mu"),
 &"attack_side": SubResource("Animation_v2vc7"),
 &"attack_up": SubResource("Animation_15avh"),
+&"death_side": SubResource("Animation_kvlxm"),
 &"idle_down": SubResource("Animation_mm0hj"),
 &"idle_side": SubResource("Animation_716bt"),
 &"idle_up": SubResource("Animation_6rvgw"),
@@ -1064,7 +1130,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_mm0hj")
-hp = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_fcs02")
@@ -1089,6 +1154,7 @@ libraries = {
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2(2, -2)
 collision_mask = 2
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(0.5625, 10)
@@ -1104,3 +1170,4 @@ z_index = 1
 z_as_relative = false
 color = Color(0.92549, 0.917647, 0, 1)
 texture = SubResource("GradientTexture2D_myrg7")
+metadata/_edit_lock_ = true
