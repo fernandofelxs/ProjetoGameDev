@@ -7114,7 +7114,7 @@ size = Vector2(32, 192)
 [node name="Room407" type="Node2D"]
 
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_5ppdb")]
-players = [NodePath("../Player")]
+players = [NodePath("../Player"), NodePath("../Player2")]
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
 position = Vector2(112, 173)
@@ -7146,7 +7146,7 @@ position = Vector2(772, 57)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("6_anu1b")]
-position = Vector2(95, 54)
+position = Vector2(301, 47)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource("6_anu1b")]
@@ -7228,7 +7228,12 @@ dialogue_lines = "saida"
 dialogue_box = NodePath("../DialogueBox")
 
 [node name="Player" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(112, 173)
+position = Vector2(127, 130)
+scale = Vector2(1.5, 1.5)
+collision_mask = 10
+
+[node name="Player2" parent="." instance=ExtResource("7_5ppdb")]
+position = Vector2(641, 297)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
 
@@ -7269,6 +7274,8 @@ blend_mode = 1
 
 [node name="GameUI" parent="." instance=ExtResource("1_cstjq")]
 layer = 1
+visible = false
 
 [connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
 [connection signal="player_damaged" from="Player" to="GameUI" method="_on_player_player_damaged"]
+[connection signal="player_damaged" from="Player2" to="GameUI" method="_on_player_player_damaged"]

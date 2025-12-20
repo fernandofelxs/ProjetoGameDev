@@ -5,6 +5,7 @@ class_name GameUI extends CanvasLayer
 var character_id : int = 0
 
 func _ready():
+	show()
 	Inventory.inventory_changed.connect(_on_inventory_changed)
 	update_slots()
 	

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bp8d2uejvdd5l"]
 
-[ext_resource type="Texture2D" uid="uid://clrrcya47fx2h" path="res://assets/sprites/ui/InventorySlot.png" id="1_kscix"]
-[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_ru537"]
+[ext_resource type="Script" uid="uid://wossaak7mq4t" path="res://scripts/inventory_slot.gd" id="1_ru537"]
+[ext_resource type="Texture2D" uid="uid://dihlbnl8ndd7n" path="res://assets/sprites/ui/Inventory-Cell.png" id="2_ru537"]
 
 [node name="InventorySlot" type="Panel"]
 custom_minimum_size = Vector2(192, 192)
@@ -17,8 +17,8 @@ script = ExtResource("1_ru537")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(0, -1.77636e-15)
-scale = Vector2(0.125107, 0.187849)
-texture = ExtResource("1_kscix")
+scale = Vector2(10.0604, 9.53103)
+texture = ExtResource("2_ru537")
 centered = false
 
 [node name="ItemDisplay" type="Sprite2D" parent="."]

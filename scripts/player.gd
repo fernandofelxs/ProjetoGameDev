@@ -160,7 +160,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 
 func death() -> void:
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
-	
+	remove_from_group("player")
 	change_state_and_direction_forced(
 		PlayerState.DEATH,
 		direction_death
