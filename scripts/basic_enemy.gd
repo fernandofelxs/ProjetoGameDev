@@ -21,6 +21,9 @@ var knockback_timer: float = 0.0
 @export var knockback_force : float = 150.0
 @export var knockback_duration: float = 0.2
 
+func _ready() -> void:
+	add_to_group("enemies")
+
 func _physics_process(delta: float) -> void:
 	if target:
 		direction = (target.position - position).normalized()

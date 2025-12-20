@@ -24,7 +24,13 @@ var knockback_timer: float = 0.0
 var knockbacking: bool = false
 @onready var health_bar: HealthBar = $HealthBar
 
+# Fear aplicado pelo livro de cálculo
+@export var fear_speed_multiplier := 1.5
+var is_feared := false
+var fear_timer := 0.0
+
 func _ready() -> void:
+	add_to_group("enemies")
 	timer.connect("timeout", _on_timeout)
 	sprite.play("idle_down")
 	area.connect("body_entered", Callable(self, "_on_area_activated"))
@@ -34,33 +40,61 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
-	
-	if hp > 0:
+		return
+
+	if is_feared:
+		_process_fear(delta)
+	elif hp > 0:
 		move_and_slide()
+
+func _process_fear(delta: float) -> void:
+	fear_timer -= delta
+	if fear_timer <= 0.0:
+		is_feared = false
+		make_path()
+		return
+
+	if not player:
+		return
+
+	# Fugir do jogador
+	var away_dir := (global_position - player.global_position).normalized()
+	velocity = away_dir * speed * fear_speed_multiplier
+	move_and_slide()
 	
 func _process(_delta: float) -> void:
+	if is_feared:
+		direction = velocity
+		if update_direction() or update_state():
+			update_animation()
+		return
+
 	if not navigation.is_target_reached():
 		direction = to_local(navigation.get_next_path_position())
 		velocity = direction.normalized() * speed
-	
+
 	if update_direction() or update_state():
 		update_animation()
 
+
 func make_path() -> void:
-	if navigation.target_position != player.global_position:
 		navigation.target_position = player.global_position
 
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN
-	
+
 	if knockbacking:
 		new_state = EnemyState.DAMAGE
-	
+
+	if is_feared:
+		new_state = EnemyState.RUN
+
 	if new_state == state:
 		return false
-	
+
 	state = new_state
 	return true
+
 
 func _on_timeout() -> void:
 	make_path()
@@ -131,3 +165,7 @@ func _on_area_activated(body: Node2D) -> void:
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "death":
 		queue_free()
+
+func apply_fear(duration: float) -> void:
+	is_feared = true
+	fear_timer = duration
