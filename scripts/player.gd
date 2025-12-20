@@ -40,6 +40,7 @@ func _ready() -> void:
 	gun.hide()
 	
 func _process(_delta: float) -> void:
+
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -120,8 +121,12 @@ func update_direction() -> bool:
 	elif direction.x == 0:
 		new_direction = Vector2.UP if direction.y < 0 else Vector2.DOWN
 	
+	if direction.y != 0 and direction.x != 0:
+		new_direction = Vector2.UP if direction.y < 0 else Vector2.DOWN
+	
 	if new_direction == cardinal_direction:
 		return false
+	
 	cardinal_direction = new_direction
 	flip_container.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	attack_area.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
