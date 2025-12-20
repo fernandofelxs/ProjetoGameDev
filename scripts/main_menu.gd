@@ -1,4 +1,4 @@
-extends Control
+class_name MainMenu extends Control
 
 @onready var transition: Transition = $Transition
 
