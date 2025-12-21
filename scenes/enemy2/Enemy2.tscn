@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://g7rl5drr1tqh"]
+[gd_scene load_steps=28 format=3 uid="uid://g7rl5drr1tqh"]
 
 [ext_resource type="Texture2D" uid="uid://dxidddcm7bjy7" path="res://assets/sprites/enemy/Zombie_Axe_Up_Idle-Sheet6.png" id="1_0gwn0"]
 [ext_resource type="Texture2D" uid="uid://cwirwgka8kywf" path="res://assets/sprites/enemy/Zombie_Axe_Down_Idle-Sheet6.png" id="1_2hysx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dul2wq8wr25cp" path="res://assets/sprites/enemy/Zombie_Axe_Up_Walk-Sheet8.png" id="5_2n1u2"]
 [ext_resource type="Texture2D" uid="uid://cuworgrufij0r" path="res://assets/sprites/enemy/Zombie_Axe_Side_First-Death-Sheet6.png" id="8_21yoj"]
 [ext_resource type="PackedScene" uid="uid://cim0rqyrtolkx" path="res://scenes/ui/health_bar.tscn" id="8_gvnfh"]
+[ext_resource type="PackedScene" uid="uid://boh3e248q1tb0" path="res://scenes/ui/status_icons.tscn" id="9_qm5gh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gvnfh"]
 shader = ExtResource("2_aa6hk")
@@ -555,6 +556,10 @@ shape = SubResource("CircleShape2D_n7pyb")
 libraries = {
 &"": SubResource("AnimationLibrary_kvlxm")
 }
+
+[node name="StatusIcons" parent="." instance=ExtResource("9_qm5gh")]
+position = Vector2(-4, -18)
+scale = Vector2(0.13, 0.13)
 
 [node name="HealthBar" parent="." instance=ExtResource("8_gvnfh")]
 position = Vector2(-7, 12)
