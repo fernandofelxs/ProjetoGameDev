@@ -24,7 +24,7 @@ var knockbacking := false
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timeout)
-	area.body_entered.connect(_on_area_activated)
+	#area.body_entered.connect(_on_area_activated)
 	make_path()
 
 func _physics_process(delta: float) -> void:
@@ -105,3 +105,4 @@ func _on_area_activated(body: Node2D) -> void:
 	if body is Player:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(1, knockback_direction)
+		#print(body)

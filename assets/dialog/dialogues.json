@@ -4,7 +4,26 @@
 		"Welcome to Godot JSON Tutorial."
 	],
 	"first_speech": [
-		"Onde estou? O que aconteceu nesse lugar?",
-		"Precisamos sair daqui o quanto antes!"
+		"Aperte E para pegar o item",
+		"Depressa! Precisamos sair daqui o quanto antes!"
+	],
+	"second_speech": [
+		"A porta está logo ali, companheiro.",
+		"Boa sorte."
+	],
+	"arma": [
+		"Aperte S para pegar uma arma.",
+	],
+	"desesperado": [
+		"Me salva por favor",
+	],
+	"hahaha": [
+		"Cruzes! Você começou a se mexer do nada!",
+	],
+	"saida": [
+		"Você sabe como sair daqui?",
+	],
+	"rabugento": [
+		"Eca! Mais um morto-vivo...",
 	],
 }

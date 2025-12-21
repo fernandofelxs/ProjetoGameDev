@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://r5737pf6ogiv"]
+[gd_scene load_steps=36 format=3 uid="uid://r5737pf6ogiv"]
 
 [ext_resource type="Script" uid="uid://detar30gnwjq6" path="res://scripts/player.gd" id="1_mm0hj"]
 [ext_resource type="Texture2D" uid="uid://b5qnpjunfbt0u" path="res://assets/sprites/player/player_idle_up.png" id="2_dovo2"]
@@ -1053,6 +1053,15 @@ _data = {
 &"no_hit": SubResource("Animation_myrg7")
 }
 
+[sub_resource type="Gradient" id="Gradient_fcs02"]
+offsets = PackedFloat32Array(0, 0.582707)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_myrg7"]
+gradient = SubResource("Gradient_fcs02")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_mm0hj")
 hp = 100
@@ -1089,3 +1098,9 @@ shape = SubResource("RectangleShape2D_716bt")
 libraries = {
 &"": SubResource("AnimationLibrary_kvlxm")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 1
+z_as_relative = false
+color = Color(0.92549, 0.917647, 0, 1)
+texture = SubResource("GradientTexture2D_myrg7")

@@ -8,6 +8,7 @@ var direction: Vector2 = Vector2.ZERO
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
 @onready var health_bar: HealthBar = $HealthBar
+@onready var hit_area: Area2D = $HitArea
 enum EnemyState {
 	IDLE,
 	RUN,
@@ -19,6 +20,9 @@ var knockback: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 @export var knockback_force : float = 150.0
 @export var knockback_duration: float = 0.2
+
+func _ready() -> void:
+	add_to_group("enemies")
 
 func _physics_process(delta: float) -> void:
 	if target:
@@ -98,6 +102,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 	health_bar.update_health(hp)
 	if hp <= 0:
 		animation.play("death")
+		hit_area.set_deferred("monitoring", false)
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force

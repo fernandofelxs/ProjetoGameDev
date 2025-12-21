@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbey13cqfjhge"]
+[gd_scene load_steps=9 format=3 uid="uid://cbey13cqfjhge"]
 
 [ext_resource type="Script" uid="uid://bxcdy3h6olv50" path="res://scripts/npc.gd" id="1_dpyoa"]
 [ext_resource type="Texture2D" uid="uid://dyss730hvj0qv" path="res://assets/sprites/npc/npc-1.png" id="1_sspvn"]
@@ -8,7 +8,16 @@
 size = Vector2(10, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcwmf"]
-size = Vector2(14, 14)
+size = Vector2(4, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpyoa"]
+size = Vector2(19, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4bp4"]
+size = Vector2(16, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_woxlu"]
+size = Vector2(4, 13)
 
 [node name="NPC" type="StaticBody2D"]
 collision_layer = 2
@@ -38,28 +47,28 @@ shape = SubResource("RectangleShape2D_pcwmf")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2(14, 0)
-shape = SubResource("RectangleShape2D_pcwmf")
+position = Vector2(16.5, -1)
+shape = SubResource("RectangleShape2D_dpyoa")
 
 [node name="Left" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2(-14, 0)
-shape = SubResource("RectangleShape2D_pcwmf")
+position = Vector2(-15, -1)
+shape = SubResource("RectangleShape2D_r4bp4")
 
 [node name="Up" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Up"]
-position = Vector2(0, -15)
-shape = SubResource("RectangleShape2D_pcwmf")
+position = Vector2(0, -17.5)
+shape = SubResource("RectangleShape2D_woxlu")
 
-[connection signal="body_entered" from="Down" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Down" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Down" to="." method="_on_down_body_entered"]
+[connection signal="body_exited" from="Down" to="." method="_on_any_body_exited"]
 [connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
-[connection signal="body_exited" from="Right" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Right" to="." method="_on_any_body_exited"]
 [connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
-[connection signal="body_exited" from="Left" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Left" to="." method="_on_any_body_exited"]
 [connection signal="body_entered" from="Up" to="." method="_on_up_body_entered"]
-[connection signal="body_exited" from="Up" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Up" to="." method="_on_any_body_exited"]
