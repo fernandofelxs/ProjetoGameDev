@@ -1,14 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://6emjmt1xgwkt"]
+[gd_scene load_steps=3 format=3 uid="uid://6emjmt1xgwkt"]
 
 [ext_resource type="Texture2D" uid="uid://b2x5fdbd51bht" path="res://assets/sprites/objects/flashlight.png" id="1_0bl3l"]
-
-[sub_resource type="Gradient" id="Gradient_0bl3l"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kjtkj"]
-gradient = SubResource("Gradient_0bl3l")
-fill = 1
-fill_from = Vector2(-0.05, 0.435)
-fill_to = Vector2(0.555, 1.675)
+[ext_resource type="Texture2D" uid="uid://d4mho02grmg05" path="res://assets/sprites/objects/flashlight_point.png" id="2_kjtkj"]
 
 [node name="Flashlight" type="Node2D"]
 
@@ -16,6 +9,9 @@ fill_to = Vector2(0.555, 1.675)
 texture = ExtResource("1_0bl3l")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(324, 5)
-scale = Vector2(3.26562, 2.45313)
-texture = SubResource("GradientTexture2D_kjtkj")
+texture_filter = 1
+position = Vector2(2490, -6)
+rotation = -1.5708
+scale = Vector2(26.0977, 165.064)
+color = Color(0.622847, 0.622847, 7.70092e-07, 1)
+texture = ExtResource("2_kjtkj")
