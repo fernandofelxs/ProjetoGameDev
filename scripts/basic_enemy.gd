@@ -33,6 +33,7 @@ func _physics_process(delta: float) -> void:
 	if is_feared:
 		fear_timer -= delta
 		if fear_timer <= 0.0:
+			$StatusIcons.remove_status("fear")
 			is_feared = false
 		elif target:
 			var away_dir := (global_position - target.global_position).normalized()
@@ -146,5 +147,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		queue_free()
 
 func apply_fear(duration: float) -> void:
+	$StatusIcons.add_status("fear")
 	is_feared = true
 	fear_timer = duration
