@@ -31,6 +31,7 @@ enum PlayerMode {
 var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
 var is_active: bool = true # Is he the current player?
+@onready var flashlight: Flashlight = $Flashlight
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -45,7 +46,7 @@ func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-
+		flashlight.set_process(true)
 		if Input.is_action_just_pressed("attack") and not attacking and player_mode == PlayerMode.ATTACK:
 			attacking = true
 		
@@ -66,6 +67,7 @@ func _process(_delta: float) -> void:
 	else:
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO
+		flashlight.set_process(false)
 
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:

@@ -605,6 +605,8 @@ fill_from = Vector2(0.5, 0.5)
 collision_mask = 8
 script = ExtResource("1_mm0hj")
 
+[node name="Flashlight" parent="." instance=ExtResource("5_p47bc")]
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_fcs02")
@@ -614,6 +616,7 @@ hframes = 6
 vframes = 10
 
 [node name="Gun" parent="." instance=ExtResource("15_fcs02")]
+visible = false
 position = Vector2(-3.55271e-15, 6)
 metadata/_edit_lock_ = true
 
@@ -648,7 +651,3 @@ z_as_relative = false
 color = Color(0.92549, 0.917647, 0, 1)
 texture = SubResource("GradientTexture2D_myrg7")
 metadata/_edit_lock_ = true
-
-[node name="Flashlight" parent="." instance=ExtResource("5_p47bc")]
-position = Vector2(10, 1)
-scale = Vector2(0.02, 0.02)

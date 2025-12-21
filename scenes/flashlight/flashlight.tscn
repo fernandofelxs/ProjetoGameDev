@@ -1,17 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://6emjmt1xgwkt"]
+[gd_scene load_steps=4 format=3 uid="uid://6emjmt1xgwkt"]
 
 [ext_resource type="Texture2D" uid="uid://b2x5fdbd51bht" path="res://assets/sprites/objects/flashlight.png" id="1_0bl3l"]
+[ext_resource type="Script" uid="uid://3wtserjvymdr" path="res://scripts/flashlight.gd" id="1_ehivv"]
 [ext_resource type="Texture2D" uid="uid://d4mho02grmg05" path="res://assets/sprites/objects/flashlight_point.png" id="2_kjtkj"]
 
 [node name="Flashlight" type="Node2D"]
+scale = Vector2(0.02, 0.02)
+script = ExtResource("1_ehivv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_0bl3l")
+offset = Vector2(277, 2)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture_filter = 1
-position = Vector2(2490, -6)
+position = Vector2(2482.67, -6)
 rotation = -1.5708
-scale = Vector2(26.0977, 165.064)
+scale = Vector2(22.66, 30.659)
 color = Color(0.622847, 0.622847, 7.70092e-07, 1)
 texture = ExtResource("2_kjtkj")
+offset = Vector2(0, -6.215)
+metadata/_edit_lock_ = true
