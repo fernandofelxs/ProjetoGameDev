@@ -51,10 +51,13 @@ size = Vector2(24, 37.5)
 size = Vector2(40, 48)
 
 [node name="Door" type="Area2D"]
-collision_layer = 16
+collision_layer = 129
+collision_mask = 129
 script = ExtResource("1_odsy8")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
 position = Vector2(-12, 27.3542)
@@ -67,6 +70,8 @@ position = Vector2(-12, 27.25)
 shape = SubResource("RectangleShape2D_odsy8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 129
+visibility_layer = 129
 position = Vector2(-13, 27)
 shape = SubResource("RectangleShape2D_c7gua")
 
