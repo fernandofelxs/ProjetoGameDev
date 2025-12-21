@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cxoyusir2j2p8"]
+[gd_scene load_steps=34 format=4 uid="uid://cxoyusir2j2p8"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_qns3t"]
 [ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="2_222pg"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://g7rl5drr1tqh" path="res://scenes/enemy2/Enemy2.tscn" id="15_ye4hj"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="16_4spnr"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="16_pfeey"]
+[ext_resource type="Script" uid="uid://blkse4gsh1x0u" path="res://levels/enemy_spawn_area.gd" id="17_2253x"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7482,6 +7483,9 @@ sources/1 = SubResource("TileSetAtlasSource_m8r0a")
 sources/2 = SubResource("TileSetAtlasSource_0pieg")
 sources/3 = SubResource("TileSetAtlasSource_wjrd0")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ye4hj"]
+size = Vector2(35, 32)
+
 [node name="Room307" type="Node2D"]
 position = Vector2(1198, 0)
 
@@ -7563,7 +7567,7 @@ position = Vector2(-443, -235)
 scale = Vector2(1.5, 1.5)
 
 [node name="ItemPickup" parent="." instance=ExtResource("12_kqkf1")]
-position = Vector2(-282, -157)
+position = Vector2(-179, -341)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("14_2253x")
 
@@ -7578,3 +7582,48 @@ layer = 1
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 color = Color(1, 1, 1, 0.784314)
 blend_mode = 1
+
+[node name="EnemySpawnarea" type="Area2D" parent="."]
+position = Vector2(-193, -420)
+script = ExtResource("17_2253x")
+enemy_scene = ExtResource("15_ye4hj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawnarea"]
+position = Vector2(53.5, 78)
+shape = SubResource("RectangleShape2D_ye4hj")
+
+[node name="SpawnPoints" type="Node2D" parent="EnemySpawnarea"]
+position = Vector2(193, 420)
+
+[node name="Point1" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-258, -457)
+
+[node name="Point2" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-220, -461)
+
+[node name="Point3" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-180, -469)
+
+[node name="Point4" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-360, -405)
+
+[node name="Point5" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-152, -449)
+
+[node name="Point6" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-292, -446)
+
+[node name="Point8" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-324, -414)
+
+[node name="Point9" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-350, -375)
+
+[node name="Point10" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-323, -374)
+
+[node name="Point11" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-337, -343)
+
+[node name="Point12" type="Marker2D" parent="EnemySpawnarea/SpawnPoints"]
+position = Vector2(-309, -348)

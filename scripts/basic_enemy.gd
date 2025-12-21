@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 			return
 
 	if target:
-		direction = (target.position - position).normalized()
+		direction = (target.global_position - global_position).normalized()
 		velocity = direction * speed
 	
 	if knockback_timer > 0.0:
