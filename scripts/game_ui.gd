@@ -8,6 +8,7 @@ var character_id : int = 0
 var character_manager: CharacterManager
 
 func _ready():
+	show()
 	Inventory.inventory_changed.connect(_on_inventory_changed)
 	character_manager = get_tree().get_first_node_in_group("character_manager")
 	if not character_manager:

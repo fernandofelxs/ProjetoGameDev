@@ -1,18 +1,57 @@
-[gd_scene load_steps=8 format=3 uid="uid://bu0nqgqmc2e1v"]
+[gd_scene load_steps=13 format=3 uid="uid://bu0nqgqmc2e1v"]
 
 [ext_resource type="Script" uid="uid://cnqb58xx7k1kf" path="res://scripts/main_menu.gd" id="1_fn0jj"]
 [ext_resource type="Texture2D" uid="uid://b18bd1eu5s6gc" path="res://assets/background/MainMenuImage.png" id="2_5clpt"]
 [ext_resource type="Theme" uid="uid://cci3vxgim82w8" path="res://menu_theme.tres" id="3_sonvr"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="4_7rktv"]
+[ext_resource type="FontFile" uid="uid://dtrcwlapb5ygm" path="res://assets/fonts/Gloomy Things.ttf" id="4_pppj1"]
+[ext_resource type="Texture2D" uid="uid://bdpqa1ccs8oy6" path="res://assets/sprites/ui/Blank_Pressed.png" id="5_6flho"]
+[ext_resource type="Texture2D" uid="uid://hu41petkaxmh" path="res://assets/sprites/ui/Blank_Not-Pressed.png" id="6_ofye2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsom3"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ty7c"]
+content_margin_bottom = 15.0
+texture = ExtResource("5_6flho")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ebjn"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lppu5"]
+content_margin_bottom = 15.0
+texture = ExtResource("6_ofye2")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob46e"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="Animation" id="Animation_6flho"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2024, 746)]
+}
+
+[sub_resource type="Animation" id="Animation_pppj1"]
+resource_name = "opening"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2024, 746), Vector2(1569, 746)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofye2"]
+_data = {
+&"RESET": SubResource("Animation_6flho"),
+&"opening": SubResource("Animation_pppj1")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -46,8 +85,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -156.0
-offset_top = -192.0
+offset_left = 104.0
+offset_top = -334.0
+offset_right = 484.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(1.83271, 1.69897)
@@ -62,32 +102,58 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Play" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_fsom3")
+theme_override_fonts/font = ExtResource("4_pppj1")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ty7c")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lppu5")
 action_mode = 0
 text = "NOVO JOGO"
 
-[node name="Load" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Credits" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_0ebjn")
-text = "CONTINUAR"
+theme_override_fonts/font = ExtResource("4_pppj1")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ty7c")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lppu5")
+action_mode = 0
+text = "Creditos"
 
 [node name="Options" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_0ebjn")
-text = "OPCOES"
+theme_override_fonts/font = ExtResource("4_pppj1")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ty7c")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lppu5")
+action_mode = 0
+text = "Opcoes"
 
 [node name="Quit" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_ob46e")
+theme_override_fonts/font = ExtResource("4_pppj1")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ty7c")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lppu5")
+action_mode = 0
 text = "SAIR"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_ofye2")
+}
+
 [node name="Transition" parent="." instance=ExtResource("4_7rktv")]
+visible = false
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

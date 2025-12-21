@@ -1,9 +1,10 @@
 class_name DialogueBox extends CanvasLayer
 
-const CHAR_READ_RATE = 0.05
+const CHAR_READ_RATE = 0.5
 
 @onready var textbox: TextureRect = $TextureRect
-@onready var label: Label = $TextureRect/Label
+@onready var text_label: Label = $TextureRect/Text
+@onready var name_label: Label = $TextureRect/Name
 @onready var tween: Tween = null
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @export var ref_dialogue: String = "start_dialogue"
@@ -22,6 +23,9 @@ var dialogues: Array = []
 @export var dialogue_file_path: String = "res://assets/dialog/dialogues.json"
 var canOpenDialogue: bool = false
 
+func _ready() -> void:
+	text_label.visible_ratio = 0.0
+
 func load_dialogue_data():
 	var file = FileAccess.open(dialogue_file_path, FileAccess.READ)
 	if file.is_open():
@@ -32,9 +36,9 @@ func load_dialogue_data():
 		if error == OK:
 			dialogues = json.data[ref_dialogue]
 		else:
-			print("JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
+			push_error("JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
 	else:
-		print("Failed to open dialogue file.")
+		push_error("Failed to open dialogue file.")
 
 func _process(_delta) -> void:
 	if canOpenDialogue:
@@ -47,7 +51,7 @@ func _process(_delta) -> void:
 					display_text()
 			TextBoxState.READING:
 				if Input.is_action_just_pressed("interact"):
-					label.visible_ratio = 1.0
+					text_label.visible_ratio = 1.0
 					tween.kill()
 					change_state(TextBoxState.FINISHED)
 			TextBoxState.FINISHED:
@@ -60,7 +64,7 @@ func queue_text(next_text: String) -> void:
 	dialogues.push_back(next_text)
 
 func hide_textbox() -> void:
-	label.text = ""
+	text_label.text = ""
 	animation.play("exit")
 	canOpenDialogue = false
 	dialogue_finished.emit()
@@ -72,12 +76,13 @@ func show_textbox() -> void:
 
 func display_text() -> void:
 	var next_text = dialogues.pop_front()
-	label.text = next_text
-	label.visible_ratio = 0.0
+	name_label.text = next_text["name"].to_upper()
+	text_label.text = next_text["text"]
+	text_label.visible_ratio = 0.0
 	change_state(TextBoxState.READING)
 	
 	tween = create_tween()
-	tween.tween_property(label, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE)
+	tween.tween_property(text_label, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE)
 	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.connect("finished", _on_tween_finished)

@@ -25,10 +25,13 @@ func _ready() -> void:
 	add_to_group("enemies")
 
 func _physics_process(delta: float) -> void:
-	if target:
+	if target and target.is_in_group("player"):
 		direction = (target.position - position).normalized()
 		velocity = direction * speed
-		
+	else:
+		velocity = Vector2.ZERO
+		direction = Vector2.ZERO
+	
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
 	
@@ -64,11 +67,11 @@ func animation_direction() -> String:
 		return "side"
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body.is_in_group("player"):
 		target = body
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body is Player:
+	if body.is_in_group("player"):
 		target = null
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO
@@ -118,7 +121,7 @@ func move_and_knockback(delta: float) -> void:
 		hit_animation.play("no_hit")
 
 func _on_hit_area_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body.is_in_group("player"):
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(20, knockback_direction)	
 

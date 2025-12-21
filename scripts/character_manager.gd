@@ -70,7 +70,7 @@ func _activate_player(index: int) -> void:
 func get_active_player_id() -> int:
 	return current_index
 
-func _on_player_damaged(hp: int, player_id: int) -> void:
+func _on_player_damaged(_hp: int, player_id: int) -> void:
 	if player_id != current_index:
 		return
 

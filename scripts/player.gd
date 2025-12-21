@@ -7,28 +7,30 @@ enum PlayerState {
 	IDLE,
 	RUN,
 	ATTACK,
-	WITH_NPC
+	WITH_NPC,
+	DEATH
 }
 var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
 var attacking: bool = false
-@onready var flip_container: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var attack_area : Area2D = $AttackArea
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@export var hp : int = 5
+@export var hp : int = 100
 var knockback: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 @export var knockback_force : float = 150.0
 @export var knockback_duration: float = 0.2
-@export var is_active = true
 signal player_damaged(hp: int)
 enum PlayerMode {
 	ATTACK,
 	GUN
 }
+@export var id: int = 0
 var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
+var is_active: bool = true # Is he the current player?
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -37,9 +39,10 @@ func _ready() -> void:
 	player_mode = PlayerMode.ATTACK
 	gun.set_process(false)
 	gun.hide()
+	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + "_sprite_sheet.png")
 	
 func _process(_delta: float) -> void:
-	if is_active and state != PlayerState.WITH_NPC:
+	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
@@ -56,22 +59,26 @@ func _process(_delta: float) -> void:
 					player_mode = PlayerMode.ATTACK
 					gun.set_process(false)
 					gun.hide()
+		velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
+		
+		if update_direction() or update_state():
+			update_animation()
 	else:
 		direction = Vector2.ZERO
-
-	velocity = direction.normalized() * speed if (is_active and not attacking and state != PlayerState.WITH_NPC) else Vector2.ZERO
-
-	if update_direction() or update_state():
-		update_animation()
-
+		velocity = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
-	move_and_slide()
+	
+	if state != PlayerState.DEATH and state != PlayerState.WITH_NPC:
+		move_and_slide()
 
 func update_state() -> bool:
 	if state == PlayerState.WITH_NPC:
+		return false
+
+	if state == PlayerState.DEATH:
 		return false
 	
 	var new_state : PlayerState = PlayerState.IDLE if direction == Vector2.ZERO else PlayerState.RUN
@@ -87,7 +94,7 @@ func update_state() -> bool:
 
 func change_state_and_direction_forced(new_state: PlayerState, new_direction: Vector2) -> void:
 	cardinal_direction = new_direction
-	update_direction()
+	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	state = new_state
 	update_animation()
 
@@ -100,6 +107,8 @@ func update_animation() -> void:
 			animation_state = "attack"
 		PlayerState.WITH_NPC:
 			animation_state = "idle"
+		PlayerState.DEATH:
+			animation_state = "death"
 	animation.play(animation_state + "_" + animation_direction())
 
 func update_direction() -> bool:
@@ -113,13 +122,17 @@ func update_direction() -> bool:
 	elif direction.x == 0:
 		new_direction = Vector2.UP if direction.y < 0 else Vector2.DOWN
 	
+	if direction.y != 0 and direction.x != 0:
+		new_direction = Vector2.UP if direction.y < 0 else Vector2.DOWN
+	
 	if new_direction == cardinal_direction:
 		return false
+	
 	cardinal_direction = new_direction
-	flip_container.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	attack_area.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	
-	collision_shape.position.x *= flip_container.scale.x
+	collision_shape.position.x *= sprite.scale.x
 	return true
 
 func animation_direction() -> String:
@@ -147,9 +160,17 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_duration
 	)
 	player_damaged.emit(hp)
-	
+
 	if hp <= 0:
-		pass
+		death()
+
+func death() -> void:
+	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
+	remove_from_group("player")
+	change_state_and_direction_forced(
+		PlayerState.DEATH,
+		direction_death
+	)
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force

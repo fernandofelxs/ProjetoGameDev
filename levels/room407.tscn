@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=36 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_5ppdb"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="1_cstjq"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://5lse6624ely4" path="res://inventory/items/Medkit.tres" id="18_a1a4m"]
 [ext_resource type="Script" uid="uid://cws2034ti15ad" path="res://scripts/scene_transition_area.gd" id="20_p4qdi"]
 [ext_resource type="PackedScene" uid="uid://cs6x1r8iujp5a" path="res://scenes/lever/lever.tscn" id="21_r8xtp"]
+[ext_resource type="PackedScene" uid="uid://bhtbmtumnc8xp" path="res://scenes/others/game_controller.tscn" id="21_xay7s"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7114,7 +7115,7 @@ size = Vector2(32, 192)
 [node name="Room407" type="Node2D"]
 
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_5ppdb")]
-players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
+players = [NodePath("../Player"), NodePath("../Player2")]
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
 position = Vector2(112, 173)
@@ -7146,7 +7147,7 @@ position = Vector2(772, 57)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("6_anu1b")]
-position = Vector2(436, 36)
+position = Vector2(301, 47)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource("6_anu1b")]
@@ -7228,19 +7229,16 @@ dialogue_lines = "saida"
 dialogue_box = NodePath("../DialogueBox")
 
 [node name="Player" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(112, 173)
+position = Vector2(127, 130)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
+id = 1
 
 [node name="Player2" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(607, 330)
+position = Vector2(641, 297)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
-
-[node name="Player3" parent="." instance=ExtResource("7_5ppdb")]
-position = Vector2(2425, 413)
-scale = Vector2(1.5, 1.5)
-collision_mask = 10
+id = 2
 
 [node name="ItemPickup" parent="." instance=ExtResource("15_5ppdb")]
 position = Vector2(183, -39)
@@ -7279,8 +7277,9 @@ blend_mode = 1
 
 [node name="GameUI" parent="." instance=ExtResource("1_cstjq")]
 layer = 1
+visible = false
 
-[connection signal="active_player_changed" from="CharacterManager" to="GameUI" method="_on_character_manager_active_player_changed"]
+[node name="GameController" parent="." instance=ExtResource("21_xay7s")]
+
 [connection signal="player_damaged" from="Player" to="GameUI" method="_on_player_player_damaged"]
-[connection signal="player_damaged" from="Player2" to="GameUI" method="_on_player_2_player_damaged"]
-[connection signal="player_damaged" from="Player3" to="GameUI" method="_on_player_2_player_damaged"]
+[connection signal="player_damaged" from="Player2" to="GameUI" method="_on_player_player_damaged"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dss1ywedevgpg"]
+[gd_scene load_steps=14 format=3 uid="uid://dss1ywedevgpg"]
 
 [ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/background/PongBgImage.jpg" id="1_0u5b8"]
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="2_0m1ty"]
@@ -21,32 +21,30 @@ size = Vector2(1920, 136)
 size = Vector2(1920, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ym5j"]
-size = Vector2(128, 1344)
+size = Vector2(85, 1344)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_58hqk"]
-size = Vector2(128, 1344)
+size = Vector2(95, 1344)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ym5j"]
 vertices = PackedVector2Array(791.078, 454.367, -634.477, 454.367, -634.477, -214.531, 791.078, -214.531)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-644.473, 464.37, 801.075, 464.37, 801.075, -224.53, -644.473, -224.53)])
 
-[node name="Sprite2D" type="Sprite2D"]
+[node name="Pong" type="Node2D"]
 texture_filter = 1
-texture = ExtResource("1_0u5b8")
-centered = false
 script = ExtResource("2_dnnam")
 
 [node name="Player" parent="." instance=ExtResource("2_0m1ty")]
 position = Vector2(200, 200)
 scale = Vector2(5, 5)
-collision_layer = 3
-collision_mask = 15
+collision_mask = 12
 speed = 500.0
+knockback_force = 700.0
 
 [node name="LeftBar" type="StaticBody2D" parent="."]
 position = Vector2(80, 880)
-collision_mask = 3
+collision_mask = 32
 script = ExtResource("4_1ym5j")
 
 [node name="ColorRect" type="ColorRect" parent="LeftBar"]
@@ -64,6 +62,7 @@ shape = SubResource("RectangleShape2D_0m1ty")
 
 [node name="RightBar" type="StaticBody2D" parent="."]
 position = Vector2(1800, 200)
+collision_mask = 32
 script = ExtResource("4_1ym5j")
 
 [node name="ColorRect" type="ColorRect" parent="RightBar"]
@@ -81,7 +80,8 @@ shape = SubResource("RectangleShape2D_0m1ty")
 
 [node name="Ball" type="CharacterBody2D" parent="."]
 position = Vector2(960, 1400)
-collision_mask = 2
+collision_layer = 32
+collision_mask = 77
 script = ExtResource("4_3ir3i")
 
 [node name="ColorRect" type="ColorRect" parent="Ball"]
@@ -102,6 +102,8 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_dnnam")
 
 [node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 32
 
 [node name="BottomCollisionBox" type="CollisionShape2D" parent="Borders"]
 position = Vector2(960, 1148)
@@ -112,14 +114,16 @@ position = Vector2(960, -64)
 shape = SubResource("RectangleShape2D_3ir3i")
 
 [node name="Left" type="Area2D" parent="Borders"]
-collision_layer = 9
+collision_layer = 8
+collision_mask = 32
 
 [node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/Left"]
 position = Vector2(-64, 544)
 shape = SubResource("RectangleShape2D_1ym5j")
 
 [node name="Right" type="Area2D" parent="Borders"]
-collision_layer = 9
+collision_layer = 8
+collision_mask = 32
 
 [node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/Right"]
 position = Vector2(1984, 544)
@@ -127,16 +131,18 @@ shape = SubResource("RectangleShape2D_58hqk")
 
 [node name="LeftBarrier" type="StaticBody2D" parent="Borders"]
 collision_layer = 12
+collision_mask = 32
 
 [node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/LeftBarrier"]
-position = Vector2(-64, 544)
+position = Vector2(-85.5, 544)
 shape = SubResource("RectangleShape2D_1ym5j")
 
 [node name="RightBarrier" type="StaticBody2D" parent="Borders"]
 collision_layer = 12
+collision_mask = 32
 
 [node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/RightBarrier"]
-position = Vector2(1984, 544)
+position = Vector2(2000.5, 544)
 shape = SubResource("RectangleShape2D_58hqk")
 
 [node name="BallTimer" type="Timer" parent="."]
@@ -145,13 +151,13 @@ one_shot = true
 autostart = true
 
 [node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_1ym5j")]
-visible = true
 position = Vector2(1328, 544)
-collision_layer = 34
-collision_mask = 34
+collision_mask = 0
 target_scene_name = "credits"
 speed = 200.0
 player = NodePath("../Player")
+knockback_force = 500.0
+knockback_duration = 0.5
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(856, 352)
@@ -159,6 +165,7 @@ scale = Vector2(1.32822, 1.56772)
 navigation_polygon = SubResource("NavigationPolygon_1ym5j")
 
 [node name="Transition" parent="." instance=ExtResource("7_58hqk")]
+visible = false
 
 [connection signal="body_entered" from="Borders/Left" to="." method="_on_left_body_entered"]
 [connection signal="body_entered" from="Borders/Right" to="." method="_on_right_body_entered"]
