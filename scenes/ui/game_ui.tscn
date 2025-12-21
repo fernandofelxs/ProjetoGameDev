@@ -25,4 +25,3 @@ layout_mode = 2
 
 [node name="PlayerHealth" parent="VBoxContainer" instance=ExtResource("3_bma8u")]
 layout_mode = 2
-script = null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dmcdd2i6c1x4k"]
+[gd_scene load_steps=29 format=3 uid="uid://dmcdd2i6c1x4k"]
 
 [ext_resource type="Script" uid="uid://chlr2ld7honc3" path="res://scripts/options.gd" id="1_f5hdg"]
 [ext_resource type="Texture2D" uid="uid://cn6wskcypxsjr" path="res://assets/ui/Options.png" id="1_hmd5y"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://n5p7tijbvxoe" path="res://assets/sprites/ui/speaker.png" id="9_e4duc"]
 [ext_resource type="Texture2D" uid="uid://dsi62es1bu8h1" path="res://assets/sprites/ui/grabber-disabled.png" id="10_7cjvr"]
 [ext_resource type="Texture2D" uid="uid://qjp8wtqmhfax" path="res://assets/sprites/ui/grabber-highlighted.png" id="10_16156"]
+[ext_resource type="FontFile" uid="uid://dtrcwlapb5ygm" path="res://assets/fonts/Gloomy Things.ttf" id="13_q2qbd"]
+[ext_resource type="Texture2D" uid="uid://bdpqa1ccs8oy6" path="res://assets/sprites/ui/Blank_Pressed.png" id="14_7m7c4"]
+[ext_resource type="Texture2D" uid="uid://hu41petkaxmh" path="res://assets/sprites/ui/Blank_Not-Pressed.png" id="15_jnemo"]
+[ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="16_7m7c4"]
 
 [sub_resource type="Theme" id="Theme_f5hdg"]
 CheckBox/icons/checked = null
@@ -41,6 +45,14 @@ texture = ExtResource("8_2all1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2all1"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p81ri"]
+content_margin_bottom = 15.0
+texture = ExtResource("14_7m7c4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyacv"]
+content_margin_bottom = 15.0
+texture = ExtResource("15_jnemo")
+
 [node name="Options" type="CanvasLayer"]
 script = ExtResource("1_f5hdg")
 
@@ -59,6 +71,15 @@ offset_bottom = 247.0
 theme_override_fonts/font = ExtResource("2_y31lu")
 theme_override_font_sizes/font_size = 116
 text = "Opções"
+
+[node name="PercentageLabel" type="Label" parent="."]
+offset_left = 933.0
+offset_top = 502.0
+offset_right = 1214.0
+offset_bottom = 585.0
+theme_override_fonts/font = ExtResource("2_y31lu")
+theme_override_font_sizes/font_size = 66
+text = "100%"
 
 [node name="FullscreenLabel" type="Label" parent="."]
 offset_left = 639.0
@@ -86,7 +107,7 @@ alignment = 1
 icon_alignment = 1
 vertical_icon_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="VolumeSlider" type="HSlider" parent="."]
 anchors_preset = -1
 anchor_top = 0.343
 anchor_right = 1.0
@@ -100,7 +121,6 @@ theme_override_icons/grabber_highlight = ExtResource("10_16156")
 theme_override_icons/grabber_disabled = ExtResource("10_7cjvr")
 theme_override_styles/slider = SubResource("StyleBoxTexture_7cjvr")
 theme_override_styles/grabber_area = SubResource("StyleBoxTexture_2all1")
-value = 51.0
 
 [node name="Volume" type="TextureRect" parent="."]
 anchors_preset = -1
@@ -113,4 +133,23 @@ offset_bottom = 356.16
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("9_e4duc")
 
+[node name="Back" type="Button" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
+offset_left = 75.0
+offset_top = 41.0
+offset_right = 403.0
+offset_bottom = 129.0
+theme_override_fonts/font = ExtResource("13_q2qbd")
+theme_override_font_sizes/font_size = 77
+theme_override_styles/hover = SubResource("StyleBoxTexture_p81ri")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fyacv")
+action_mode = 0
+text = "Voltar"
+
+[node name="Transition" parent="." instance=ExtResource("16_7m7c4")]
+visible = false
+
 [connection signal="toggled" from="FullscreenCheckBox" to="." method="_on_fullscreen_check_box_toggled"]
+[connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
