@@ -1,5 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dss1ywedevgpg"]
 
+[ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/background/PongBgImage.jpg" id="1_0u5b8"]
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="2_0m1ty"]
 [ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://scripts/pong.gd" id="2_dnnam"]
 [ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://scripts/pong_bar.gd" id="4_1ym5j"]
