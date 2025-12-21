@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://cxoyusir2j2p8"]
+[gd_scene load_steps=32 format=4 uid="uid://cxoyusir2j2p8"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_qns3t"]
 [ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="2_222pg"]
@@ -10,6 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="9_4e43l"]
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="11_0wt1s"]
 [ext_resource type="PackedScene" uid="uid://bsnhgepw3o6it" path="res://scenes/door/door.tscn" id="11_wjrd0"]
+[ext_resource type="PackedScene" uid="uid://bqt17yadoo1ul" path="res://scenes/item_pickups/item_pickup.tscn" id="12_kqkf1"]
+[ext_resource type="Resource" uid="uid://dvcltnmdct0nu" path="res://inventory/items/Keys.tres" id="13_4spnr"]
+[ext_resource type="Resource" uid="uid://8oq5nu72qoqs" path="res://inventory/items/CalculusBook.tres" id="14_2253x"]
+[ext_resource type="PackedScene" uid="uid://g7rl5drr1tqh" path="res://scenes/enemy2/Enemy2.tscn" id="15_ye4hj"]
+[ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="16_4spnr"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="16_pfeey"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
@@ -7517,22 +7522,22 @@ tile_set = SubResource("TileSet_jfyw0")
 [node name="Player" parent="." instance=ExtResource("11_0wt1s")]
 position = Vector2(202, -228)
 scale = Vector2(1.5, 1.5)
-collision_mask = 10
+collision_mask = 138
 
 [node name="Player2" parent="." instance=ExtResource("11_0wt1s")]
-position = Vector2(222, -156)
+position = Vector2(-305, -324)
 scale = Vector2(1.5, 1.5)
-collision_mask = 10
+collision_mask = 138
 
 [node name="Player3" parent="." instance=ExtResource("11_0wt1s")]
 position = Vector2(144, -171)
 scale = Vector2(1.5, 1.5)
-collision_mask = 10
+collision_mask = 138
 
 [node name="Player4" parent="." instance=ExtResource("11_0wt1s")]
 position = Vector2(80, -217)
 scale = Vector2(1.5, 1.5)
-collision_mask = 10
+collision_mask = 138
 
 [node name="Transition" parent="." instance=ExtResource("16_pfeey")]
 visible = false
@@ -7540,3 +7545,36 @@ visible = false
 [node name="Door" parent="." instance=ExtResource("11_wjrd0")]
 position = Vector2(224, -332)
 scale = Vector2(1.35, 1.30022)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("15_ye4hj")]
+position = Vector2(-346, -171)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("15_ye4hj")]
+position = Vector2(-399, -173)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("15_ye4hj")]
+position = Vector2(-443, -235)
+scale = Vector2(1.5, 1.5)
+
+[node name="ItemPickup" parent="." instance=ExtResource("12_kqkf1")]
+position = Vector2(-282, -157)
+scale = Vector2(0.15, 0.15)
+item = ExtResource("14_2253x")
+
+[node name="ItemPickup2" parent="." instance=ExtResource("12_kqkf1")]
+position = Vector2(-140, -342)
+scale = Vector2(0.15, 0.15)
+item = ExtResource("13_4spnr")
+
+[node name="GameUI" parent="." instance=ExtResource("16_4spnr")]
+layer = 1
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(1, 1, 1, 0.784314)
+blend_mode = 1
