@@ -116,7 +116,8 @@ func use_item_at_slot(slot_index: int) -> void:
 				player.hp = 100
 				Inventory.remove_item(player_id, item)
 		"Keys":
-			pass
+			if _try_open_nearby_door(player):
+				Inventory.remove_item(player_id, item)
 
 	active_player_changed.emit(player_id, player)
 
@@ -135,3 +136,10 @@ func _apply_fear_aoe(player: Player, radius: float, duration: float) -> void:
 
 		if enemy.global_position.distance_to(origin) <= radius:
 			enemy.apply_fear(duration)
+
+func _try_open_nearby_door(player: Player) -> bool:
+	for door in get_tree().get_nodes_in_group("doors"):
+		if door is Door:
+			if door.try_open_with_key():
+				return true
+	return false

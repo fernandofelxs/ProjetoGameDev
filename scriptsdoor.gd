@@ -9,6 +9,9 @@ signal door_activated
 var is_open := false
 var player_inside := false
 
+func _ready() -> void:
+	add_to_group("doors")
+
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player_inside = true
@@ -17,13 +20,12 @@ func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_inside = false
 
-func _unhandled_input(event: InputEvent) -> void:
-	if player_inside and not is_open and event.is_action_pressed("interact"):
-		toggle_door()
+func try_open_with_key() -> bool:
+	if is_open or not player_inside:
+		return false
 
-func toggle_door() -> void:
 	is_open = true
-
 	sprite.play("activated")
 	door_collision.set_deferred("disabled", true)
 	door_activated.emit()
+	return true
