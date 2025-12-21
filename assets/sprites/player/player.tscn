@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://r5737pf6ogiv"]
+[gd_scene load_steps=41 format=3 uid="uid://drk84v5v85d8e"]
 
 [ext_resource type="Script" uid="uid://detar30gnwjq6" path="res://scripts/player.gd" id="1_mm0hj"]
 [ext_resource type="Texture2D" uid="uid://cmqgux6ljv5al" path="res://assets/sprites/player/player.png" id="1_oul6g"]
@@ -297,7 +297,7 @@ script = ExtResource("1_mm0hj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_uy5b6")
-animation = &"run_side"
+animation = &"idle_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -2.5)

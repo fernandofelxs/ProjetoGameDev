@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxh60k4s646kv"
-path="res://.godot/imported/PongBgImage.jpg-5bc43a80c07d5ad0028cd5d34603c908.ctex"
+uid="uid://bc8a3emvv5lun"
+path="res://.godot/imported/GameOver.png-915d37a3fb28926cf926ee99a7b5f350.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/PongBgImage.jpg"
-dest_files=["res://.godot/imported/PongBgImage.jpg-5bc43a80c07d5ad0028cd5d34603c908.ctex"]
+source_file="res://assets/background/GameOver.png"
+dest_files=["res://.godot/imported/GameOver.png-915d37a3fb28926cf926ee99a7b5f350.ctex"]
 
 [params]
 
