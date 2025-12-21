@@ -7269,8 +7269,6 @@ shape = SubResource("RectangleShape2D_r8xtp")
 [node name="Lever" parent="." instance=ExtResource("21_r8xtp")]
 position = Vector2(2423, -190)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 color = Color(1, 1, 1, 0.784314)
 blend_mode = 1

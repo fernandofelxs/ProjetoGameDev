@@ -128,7 +128,7 @@ func _apply_fear_aoe(player: Player, radius: float, duration: float) -> void:
 	fear_circle.set_script(load("res://scripts/fear_circle.gd"))
 	fear_circle.global_position = origin
 	fear_circle.max_radius = radius
-	get_tree().current_scene.add_child(fear_circle)
+	player.get_parent().get_parent().add_child(fear_circle)
 
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if not enemy.has_method("apply_fear"):

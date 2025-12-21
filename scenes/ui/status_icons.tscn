@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://boh3e248q1tb0"]
+
+[ext_resource type="Script" uid="uid://bv78dpjexgtv4" path="res://scripts/status_icons.gd" id="1_yf6ot"]
+[ext_resource type="Texture2D" uid="uid://btt8nikarsd88" path="res://assets/sprites/ui/icons.png" id="2_oqudt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4gp1"]
+atlas = ExtResource("2_oqudt")
+region = Rect2(960, 4864, 64, 64)
+
+[node name="StatusIcons" type="Node2D"]
+script = ExtResource("1_yf6ot")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="fear" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_v4gp1")

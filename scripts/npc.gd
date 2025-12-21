@@ -27,6 +27,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and state == NPCState.READY:
+		arrow.hide()
 		update_animation()
 		player.change_state_and_direction_forced(
 			player.PlayerState.WITH_NPC,

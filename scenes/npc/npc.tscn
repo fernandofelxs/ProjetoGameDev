@@ -180,8 +180,8 @@ shape = SubResource("RectangleShape2D_sspvn")
 
 [node name="Arrow" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(0, -11)
-scale = Vector2(0.25, 0.25)
+position = Vector2(0, -15.5833)
+scale = Vector2(0.708333, 0.708333)
 texture = ExtResource("2_pcwmf")
 
 [node name="Down" type="Area2D" parent="."]
