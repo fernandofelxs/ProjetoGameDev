@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 			return
 
 	if target and target.is_in_group("player"):
-		direction = (target.position - position).normalized()
+		direction = (target.global_position - global_position).normalized()
 		velocity = direction * speed
 	else:
 		velocity = Vector2.ZERO
@@ -141,7 +141,7 @@ func move_and_knockback(delta: float) -> void:
 		hit_animation.play("no_hit")
 
 func _on_hit_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not is_feared:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(20, knockback_direction)	
 

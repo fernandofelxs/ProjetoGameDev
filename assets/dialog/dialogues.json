@@ -9,4 +9,14 @@
 			"text": "Depressa! Precisamos sair daqui o quanto antes!"			
 		}
 	],
+	"arma": [
+		{
+			"name": "Estudante",
+			"text": "placeholder"	
+		},
+		{
+			"name": "Estudante",
+			"text": "placeholder"	
+		},
+	]
 }
