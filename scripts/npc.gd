@@ -22,6 +22,7 @@ var factor_flip: int = 1
 
 func _ready() -> void:
 	arrow.hide()
+	update_animation()
 	dialogue_box.dialogue_finished.connect(_on_npc_dialogue_finished)
 
 func _process(_delta: float) -> void:
