@@ -62,4 +62,4 @@ scale = Vector2(0.15, 0.15)
 item = ExtResource("8_aihjh")
 
 [node name="Door" parent="." instance=ExtResource("9_j5n7w")]
-position = Vector2(416, 82)
+position = Vector2(416, 96)
