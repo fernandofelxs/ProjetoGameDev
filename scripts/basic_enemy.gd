@@ -21,14 +21,30 @@ var knockback_timer: float = 0.0
 @export var knockback_force : float = 150.0
 @export var knockback_duration: float = 0.2
 
+# Fear aplicado pelo livro de cálculo
+@export var fear_speed_multiplier := 1.5
+var is_feared := false
+var fear_timer := 0.0
+
 func _ready() -> void:
 	add_to_group("enemies")
 
 func _physics_process(delta: float) -> void:
+	if is_feared:
+		fear_timer -= delta
+		if fear_timer <= 0.0:
+			is_feared = false
+		elif target:
+			var away_dir := (global_position - target.global_position).normalized()
+			direction = away_dir
+			velocity = away_dir * speed * fear_speed_multiplier
+			move_and_slide()
+			return
+
 	if target:
 		direction = (target.position - position).normalized()
 		velocity = direction * speed
-		
+	
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
 	
@@ -42,6 +58,9 @@ func _process(_delta: float) -> void:
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN
 	
+	if is_feared:
+		new_state = EnemyState.RUN
+
 	if new_state == state:
 		return false
 	
@@ -125,3 +144,7 @@ func _on_hit_area_body_entered(body: Node2D) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
 		queue_free()
+
+func apply_fear(duration: float) -> void:
+	is_feared = true
+	fear_timer = duration

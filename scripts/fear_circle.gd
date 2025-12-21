@@ -14,6 +14,8 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func _draw() -> void:
+	z_index = 100
+	
 	var t: float = clamp(_elapsed / lifetime, 0.0, 1.0)
 
 	# Shockwave expansion
