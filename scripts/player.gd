@@ -14,7 +14,7 @@ var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
 var attacking: bool = false
-@onready var flip_container: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var attack_area : Area2D = $AttackArea
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @export var hp : int = 100
@@ -27,9 +27,10 @@ enum PlayerMode {
 	ATTACK,
 	GUN
 }
+@export var id: int = 0
 var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
-var is_active: bool = true # Is the current player?
+var is_active: bool = true # Is he the current player?
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -38,9 +39,9 @@ func _ready() -> void:
 	player_mode = PlayerMode.ATTACK
 	gun.set_process(false)
 	gun.hide()
+	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + "_sprite_sheet.png")
 	
 func _process(_delta: float) -> void:
-
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -93,7 +94,7 @@ func update_state() -> bool:
 
 func change_state_and_direction_forced(new_state: PlayerState, new_direction: Vector2) -> void:
 	cardinal_direction = new_direction
-	flip_container.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	state = new_state
 	update_animation()
 
@@ -128,10 +129,10 @@ func update_direction() -> bool:
 		return false
 	
 	cardinal_direction = new_direction
-	flip_container.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	attack_area.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	
-	collision_shape.position.x *= flip_container.scale.x
+	collision_shape.position.x *= sprite.scale.x
 	return true
 
 func animation_direction() -> String:

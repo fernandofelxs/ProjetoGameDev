@@ -36,9 +36,9 @@ func load_dialogue_data():
 		if error == OK:
 			dialogues = json.data[ref_dialogue]
 		else:
-			print("JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
+			push_error("JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
 	else:
-		print("Failed to open dialogue file.")
+		push_error("Failed to open dialogue file.")
 
 func _process(_delta) -> void:
 	if canOpenDialogue:
@@ -79,7 +79,6 @@ func display_text() -> void:
 	name_label.text = next_text["name"].to_upper()
 	text_label.text = next_text["text"]
 	text_label.visible_ratio = 0.0
-	print(text_label.visible_ratio)
 	change_state(TextBoxState.READING)
 	
 	tween = create_tween()
