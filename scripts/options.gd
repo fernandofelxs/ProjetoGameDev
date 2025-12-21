@@ -6,6 +6,10 @@ class_name Options extends CanvasLayer
 @onready var audio_bus_id = AudioServer.get_bus_index("Master")
 @onready var percentage_label: Label = $PercentageLabel
 
+var is_paused_mode: bool = false
+
+signal options_exited
+
 func _ready() -> void:
 	var volume_bus: float = AudioServer.get_bus_volume_db(audio_bus_id)
 	volume_slider.value = volume_bus
@@ -22,7 +26,13 @@ func _on_fullscreen_check_box_toggled(toggled_on: bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 func _on_back_pressed() -> void:
-	transition.change_scene("main_menu")
+	if is_paused_mode:
+		transition.play_fade_in()
+		await transition.animation.animation_finished
+		options_exited.emit()
+		queue_free()
+	else:
+		transition.change_scene("main_menu")
 
 func _on_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(audio_bus_id, value)

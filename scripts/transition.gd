@@ -11,3 +11,9 @@ func change_scene(target: String) -> void:
 	await animation.animation_finished
 	get_tree().change_scene_to_file("res://levels/" + target + ".tscn")
 	animation.play_backwards("fade_in")
+
+func play_fade_in() -> void:
+	animation.play("fade_in")
+
+func play_fade_out() -> void:
+	animation.play_backwards("fade_in")

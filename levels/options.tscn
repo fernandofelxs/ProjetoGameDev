@@ -54,6 +54,8 @@ content_margin_bottom = 15.0
 texture = ExtResource("15_jnemo")
 
 [node name="Options" type="CanvasLayer"]
+process_mode = 3
+layer = 2
 script = ExtResource("1_f5hdg")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -136,10 +138,10 @@ texture = ExtResource("9_e4duc")
 [node name="Back" type="Button" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(160, 0)
-offset_left = 75.0
-offset_top = 41.0
-offset_right = 403.0
-offset_bottom = 129.0
+offset_left = 108.0
+offset_top = 168.0
+offset_right = 436.0
+offset_bottom = 262.0
 theme_override_fonts/font = ExtResource("13_q2qbd")
 theme_override_font_sizes/font_size = 77
 theme_override_styles/hover = SubResource("StyleBoxTexture_p81ri")
