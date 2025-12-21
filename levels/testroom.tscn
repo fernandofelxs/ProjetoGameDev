@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://dqslu82ee6ynk"]
+
+[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="1_dvo5g"]
+[ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="2_j5n7w"]
+[ext_resource type="PackedScene" uid="uid://b2foc0juo3axl" path="res://scenes/enemy1/enemy1.tscn" id="2_xndyt"]
+[ext_resource type="PackedScene" uid="uid://bqt17yadoo1ul" path="res://scenes/item_pickups/item_pickup.tscn" id="4_16dvi"]
+[ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="4_jleao"]
+[ext_resource type="Resource" uid="uid://8oq5nu72qoqs" path="res://inventory/items/CalculusBook.tres" id="5_16dvi"]
+[ext_resource type="Resource" uid="uid://dvcltnmdct0nu" path="res://inventory/items/Keys.tres" id="7_ygi3w"]
+[ext_resource type="Resource" uid="uid://5lse6624ely4" path="res://inventory/items/Medkit.tres" id="8_aihjh"]
+[ext_resource type="PackedScene" uid="uid://bsnhgepw3o6it" path="res://scenes/door/door.tscn" id="9_j5n7w"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dvo5g"]
+vertices = PackedVector2Array(82.3438, 28.4766, 33.5625, 64.6484, -24.2578, -23.7266, 46.6016, -56.1094, 129.508, -21.0391, 106.156, -90.6875, 163.25, -84.1406, 217.289, -71.3594, 301.953, 31.4688, 279.398, 63.2031, 188.242, 49.6719, 299.992, -44.75, 316.211, -13.1016)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 3, 5, 6, 7), PackedInt32Array(8, 9, 10, 4, 7, 11, 12)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-39, -28, 1.7569, 34.2998, 31, 79, 89, 36, 129, -6, 183, 59, 284, 74, 311, 36, 327, -14, 307, -53, 220, -81, 165, -94, 104, -101, 42, -65)])
+
+[node name="TestRoom" type="Node2D"]
+
+[node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("2_j5n7w")]
+players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3")]
+
+[node name="Camera2D" type="Camera2D" parent="CharacterManager"]
+position = Vector2(347, 75)
+zoom = Vector2(5.975, 5.975)
+
+[node name="Player" parent="." instance=ExtResource("1_dvo5g")]
+position = Vector2(347, 75)
+
+[node name="Player2" parent="." instance=ExtResource("1_dvo5g")]
+position = Vector2(488, 114)
+
+[node name="Player3" parent="." instance=ExtResource("1_dvo5g")]
+position = Vector2(488, 144)
+
+[node name="Enemy1" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_xndyt")]
+position = Vector2(103, -59)
+player = NodePath("../Player")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(73, -56)
+navigation_polygon = SubResource("NavigationPolygon_dvo5g")
+
+[node name="GameUI" parent="." instance=ExtResource("4_jleao")]
+
+[node name="ItemPickup" parent="." instance=ExtResource("4_16dvi")]
+z_index = -1
+position = Vector2(400, 56)
+scale = Vector2(0.15, 0.15)
+item = ExtResource("5_16dvi")
+
+[node name="ItemPickup2" parent="." instance=ExtResource("4_16dvi")]
+z_index = -1
+position = Vector2(448, 56)
+scale = Vector2(0.2, 0.2)
+item = ExtResource("7_ygi3w")
+
+[node name="ItemPickup3" parent="." instance=ExtResource("4_16dvi")]
+z_index = -1
+position = Vector2(448, 104)
+scale = Vector2(0.15, 0.15)
+item = ExtResource("8_aihjh")
+
+[node name="Door" parent="." instance=ExtResource("9_j5n7w")]
+position = Vector2(416, 82)
