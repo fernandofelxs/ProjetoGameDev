@@ -7232,7 +7232,6 @@ dialogue_box = NodePath("../DialogueBox")
 position = Vector2(127, 130)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
-id = 1
 
 [node name="Player2" parent="." instance=ExtResource("7_5ppdb")]
 position = Vector2(641, 297)

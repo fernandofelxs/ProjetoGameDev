@@ -27,7 +27,7 @@ enum PlayerMode {
 	ATTACK,
 	GUN
 }
-@export var id: int = 0
+@export var id: int = 1
 var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
 var is_active: bool = true # Is he the current player?

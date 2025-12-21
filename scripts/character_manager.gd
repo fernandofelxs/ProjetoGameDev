@@ -137,7 +137,7 @@ func _apply_fear_aoe(player: Player, radius: float, duration: float) -> void:
 		if enemy.global_position.distance_to(origin) <= radius:
 			enemy.apply_fear(duration)
 
-func _try_open_nearby_door(player: Player) -> bool:
+func _try_open_nearby_door(_player: Player) -> bool:
 	for door in get_tree().get_nodes_in_group("doors"):
 		if door is Door:
 			if door.try_open_with_key():
