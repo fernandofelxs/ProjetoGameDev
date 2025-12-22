@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bsnhgepw3o6it"]
 
-[ext_resource type="Script" uid="uid://6kaml27jli80" path="res://scripts/scriptsdoor.gd" id="1_odsy8"]
+[ext_resource type="Script" path="res://scripts/scriptsdoor.gd" id="1_odsy8"]
 [ext_resource type="Texture2D" uid="uid://tuc6qsvucj06" path="res://assets/sprites/objects/door.png" id="2_odsy8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_odsy8"]

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://2b8te0t42063" path="res://assets/sprites/tileset/A4.png" id="6_7q05t"]
 [ext_resource type="Texture2D" uid="uid://c3wu6fef0kmnn" path="res://assets/sprites/tileset/A5.png" id="7_y602g"]
 [ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="9_4e43l"]
-[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="11_0wt1s"]
+[ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://assets/sprites/player/player.tscn" id="11_0wt1s"]
 [ext_resource type="PackedScene" uid="uid://bsnhgepw3o6it" path="res://scenes/door/door.tscn" id="11_wjrd0"]
 [ext_resource type="PackedScene" uid="uid://bqt17yadoo1ul" path="res://scenes/item_pickups/item_pickup.tscn" id="12_kqkf1"]
 [ext_resource type="Resource" uid="uid://dvcltnmdct0nu" path="res://inventory/items/Keys.tres" id="13_4spnr"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://g7rl5drr1tqh" path="res://scenes/enemy2/Enemy2.tscn" id="15_ye4hj"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="16_4spnr"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="16_pfeey"]
-[ext_resource type="Script" uid="uid://blkse4gsh1x0u" path="res://levels/enemy_spawn_area.gd" id="17_2253x"]
+[ext_resource type="Script" path="res://scripts/enemy_spawn_area.gd" id="17_2253x"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
