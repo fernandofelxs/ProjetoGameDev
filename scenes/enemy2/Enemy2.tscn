@@ -523,7 +523,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvnfh"]
-size = Vector2(14, 22)
+size = Vector2(14, 24)
 
 [node name="Enemy2" type="CharacterBody2D"]
 collision_layer = 2
