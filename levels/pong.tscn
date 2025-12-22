@@ -1,12 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dss1ywedevgpg"]
+[gd_scene load_steps=15 format=3 uid="uid://dss1ywedevgpg"]
 
-[ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/background/PongBgImage.jpg" id="1_0u5b8"]
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="2_0m1ty"]
 [ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://scripts/pong.gd" id="2_dnnam"]
 [ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://scripts/pong_bar.gd" id="4_1ym5j"]
 [ext_resource type="Script" uid="uid://drdi7ib282431" path="res://scripts/ball.gd" id="4_3ir3i"]
 [ext_resource type="PackedScene" uid="uid://duldf1jvdp4ai" path="res://scenes/boss/boss.tscn" id="6_1ym5j"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="7_58hqk"]
+[ext_resource type="Texture2D" uid="uid://dxh60k4s646kv" path="res://assets/sprites/background/PongBgImage.jpg" id="7_ip8pf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0m1ty"]
 size = Vector2(41, 200)
@@ -166,6 +166,13 @@ navigation_polygon = SubResource("NavigationPolygon_1ym5j")
 
 [node name="Transition" parent="." instance=ExtResource("7_58hqk")]
 visible = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -100
+offset_left = -24.0
+offset_right = 1936.0
+offset_bottom = 1080.0
+texture = ExtResource("7_ip8pf")
 
 [connection signal="body_entered" from="Borders/Left" to="." method="_on_left_body_entered"]
 [connection signal="body_entered" from="Borders/Right" to="." method="_on_right_body_entered"]
