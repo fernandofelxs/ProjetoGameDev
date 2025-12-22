@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=41 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_5ppdb"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="1_cstjq"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cs6x1r8iujp5a" path="res://scenes/lever/lever.tscn" id="21_r8xtp"]
 [ext_resource type="PackedScene" uid="uid://bhtbmtumnc8xp" path="res://scenes/others/game_controller.tscn" id="21_xay7s"]
 [ext_resource type="PackedScene" uid="uid://dgkrf4xgu1iyn" path="res://scenes/item_pickups/bullet_pickup.tscn" id="23_envwi"]
+[ext_resource type="PackedScene" uid="uid://br2nsy0y5n4uh" path="res://scenes/chest/chest.tscn" id="24_grlq2"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7235,6 +7236,10 @@ dialogue_box = NodePath("../DialogueBox")
 position = Vector2(236.5, 46)
 scale = Vector2(1.5, 1.5)
 navigation_polygon = SubResource("NavigationPolygon_r8xtp")
+
+[node name="Chest" parent="." node_paths=PackedStringArray("scene") instance=ExtResource("24_grlq2")]
+position = Vector2(46, 34)
+scene = NodePath("../ItemPickup")
 
 [node name="Player" parent="." instance=ExtResource("7_5ppdb")]
 position = Vector2(127, 130)
