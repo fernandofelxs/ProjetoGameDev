@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=3 uid="uid://dmcdd2i6c1x4k"]
 
 [ext_resource type="Script" uid="uid://chlr2ld7honc3" path="res://scripts/options.gd" id="1_f5hdg"]
-[ext_resource type="Texture2D" uid="uid://cn6wskcypxsjr" path="res://assets/ui/Options.png" id="1_hmd5y"]
+[ext_resource type="Texture2D" uid="uid://cn6wskcypxsjr" path="res://assets/sprites/background/Options.png" id="1_hmd5y"]
 [ext_resource type="FontFile" uid="uid://c3oi1so6vvcb2" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_y31lu"]
 [ext_resource type="Texture2D" uid="uid://ixugylxvjvm7" path="res://assets/sprites/ui/checkbox-pressed-hover.png" id="4_f5hdg"]
 [ext_resource type="Texture2D" uid="uid://xeqn0wlsfqn3" path="res://assets/sprites/ui/checkbox-hover.png" id="5_y24kg"]

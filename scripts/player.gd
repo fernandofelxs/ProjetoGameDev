@@ -13,7 +13,6 @@ enum PlayerState {
 var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
-var attacking: bool = false
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var attack_area : Area2D = $AttackArea
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -31,41 +30,70 @@ enum PlayerMode {
 var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
 var is_active: bool = true # Is he the current player?
+@onready var flashlight: Flashlight = $Flashlight
+@export var can_switch: bool = false
+var aim = load("res://assets/sprites/ui/aim-1.png")
+var cursor = load("res://assets/sprites/ui/Cursor.png")
+
+signal switch_mode
+signal player_dead
 
 func _ready() -> void:
 	animation.play("idle_down")
+	
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
+	
 	player_mode = PlayerMode.ATTACK
 	gun.set_process(false)
 	gun.hide()
-	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + "_sprite_sheet.png")
+	update_texture("")
+	
+func update_texture(condition: String) -> void:
+	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + condition + "_sprite_sheet.png")
 	
 func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-
-		if Input.is_action_just_pressed("attack") and not attacking and player_mode == PlayerMode.ATTACK:
-			attacking = true
+		flashlight.set_process(true)
+		if Input.is_action_just_pressed("fire") and player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK:
+			state = PlayerState.ATTACK
 		
-		if Input.is_action_just_pressed("switch_weapon"):
-			match player_mode:
-				PlayerMode.ATTACK:
-					player_mode = PlayerMode.GUN
-					gun.set_process(true)
-					gun.show()
-				PlayerMode.GUN:
-					player_mode = PlayerMode.ATTACK
-					gun.set_process(false)
-					gun.hide()
-		velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
+		if Input.is_action_just_pressed("switch_weapon") and can_switch:
+			switch_player_mode()
+			
+		velocity = direction.normalized() * speed if not state == PlayerState.ATTACK else Vector2.ZERO
 		
 		if update_direction() or update_state():
 			update_animation()
+		
+		if Input.is_action_just_pressed("switch_player_character"):
+			player_mode = PlayerMode.GUN
+			switch_player_mode()
 	else:
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO
+		flashlight.set_process(false)
+		gun.set_process(false)
+
+func switch_player_mode() -> void:
+	match player_mode:
+		PlayerMode.ATTACK:
+			player_mode = PlayerMode.GUN
+			gun.set_process(true)
+			gun.show()
+			update_texture("without_hands")
+			flashlight.hide()
+			Input.set_custom_mouse_cursor(aim)
+		PlayerMode.GUN:
+			player_mode = PlayerMode.ATTACK
+			gun.set_process(false)
+			gun.hide()
+			update_texture("")
+			flashlight.show()
+			Input.set_custom_mouse_cursor(cursor)
+	switch_mode.emit()
 
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
@@ -75,16 +103,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func update_state() -> bool:
-	if state == PlayerState.WITH_NPC:
-		return false
-
-	if state == PlayerState.DEATH:
-		return false
+	if state == PlayerState.WITH_NPC or state == PlayerState.DEATH or state == PlayerState.ATTACK:
+		return true
 	
 	var new_state : PlayerState = PlayerState.IDLE if direction == Vector2.ZERO else PlayerState.RUN
-	
-	if attacking:
-		new_state = PlayerState.ATTACK
 	
 	if new_state == state:
 		return false
@@ -145,10 +167,11 @@ func animation_direction() -> String:
 
 func _on_animation_finished(_anim_name: String) -> void:
 	if state == PlayerState.ATTACK:
-		attacking = false
+		state = PlayerState.IDLE
+		update_animation()
 
 func _on_attack_area_activated(body: Node2D) -> void:
-	if (body is Enemy or body is BaseEnemy) and attacking:
+	if (body is Enemy or body is BaseEnemy) and state == PlayerState.ATTACK:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(35, knockback_direction)
 
@@ -165,12 +188,17 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		death()
 
 func death() -> void:
+	player_dead.emit()
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
+	gun.hide()
+	flashlight.hide()
 	remove_from_group("player")
 	change_state_and_direction_forced(
 		PlayerState.DEATH,
 		direction_death
 	)
+	set_process(false)
+	set_physics_process(false)
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force
@@ -183,3 +211,12 @@ func move_and_knockback(delta: float) -> void:
 	if knockback_timer <= 0.0:
 		knockback = Vector2.ZERO
 		hit_animation.play("no_hit")
+
+func get_gun_bullets() -> int:
+	return gun.bullets
+
+func add_bullets(quantity: int) -> void:
+	gun.bullets += quantity
+
+func is_gun_mode() -> bool:
+	return player_mode == PlayerMode.GUN

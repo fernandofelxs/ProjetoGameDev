@@ -21,15 +21,15 @@ float distance_to_light(vec2 coords) {
 
 vec4 modulate(vec4 color, float distance_t_light) {
 	vec4 modulated = color * modulate_color;
-	
+
 	if (distance_t_light > light_radius) {
 		return modulated;
 	}
-	
+
 	if (distance_t_light >= band_radius) {
 		return mix(modulated, color, band_strength);
 	}
-	
+
 	return color;
 }
 
