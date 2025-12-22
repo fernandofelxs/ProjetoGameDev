@@ -7231,18 +7231,6 @@ scale = Vector2(1.5, 1.5)
 dialogue_lines = "arma"
 dialogue_box = NodePath("../DialogueBox")
 
-[node name="NPC3" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("11_r8xtp")]
-position = Vector2(2421, 341)
-scale = Vector2(1.5, 1.5)
-dialogue_lines = "second_speech"
-dialogue_box = NodePath("../DialogueBox")
-
-[node name="NPC4" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("11_r8xtp")]
-position = Vector2(2419, -265)
-scale = Vector2(1.5, 1.5)
-dialogue_lines = "saida"
-dialogue_box = NodePath("../DialogueBox")
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(236.5, 46)
 scale = Vector2(1.5, 1.5)

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://5lse6624ely4"]
 
 [ext_resource type="Script" uid="uid://cddq8ak57bvui" path="res://scripts/inv_item.gd" id="1_arxes"]
-[ext_resource type="Texture2D" uid="uid://bj2v0tl1q7vp" path="res://assets/item_materials/Medkit.png" id="2_q44xn"]
+[ext_resource type="Texture2D" uid="uid://bj2v0tl1q7vp" path="res://assets/sprites/item_materials/Medkit.png" id="2_q44xn"]
 
 [resource]
 script = ExtResource("1_arxes")

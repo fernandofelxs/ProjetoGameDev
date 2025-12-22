@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc8a3emvv5lun"
-path="res://.godot/imported/GameOver.png-915d37a3fb28926cf926ee99a7b5f350.ctex"
+uid="uid://dkhie6vimhvci"
+path="res://.godot/imported/CalculusBook.jpg-77925901da230a8755cd37ee36e2c7bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background/GameOver.png"
-dest_files=["res://.godot/imported/GameOver.png-915d37a3fb28926cf926ee99a7b5f350.ctex"]
+source_file="res://assets/sprites/item_materials/CalculusBook.jpg"
+dest_files=["res://.godot/imported/CalculusBook.jpg-77925901da230a8755cd37ee36e2c7bd.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj2v0tl1q7vp"
-path="res://.godot/imported/Medkit.png-61f34f2c19a55b72ebb2021b1b57207a.ctex"
+uid="uid://bc8a3emvv5lun"
+path="res://.godot/imported/GameOver.png-3829a2bfa3afe5ce24bfa2045d6ccc5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/item_materials/Medkit.png"
-dest_files=["res://.godot/imported/Medkit.png-61f34f2c19a55b72ebb2021b1b57207a.ctex"]
+source_file="res://assets/sprites/background/GameOver.png"
+dest_files=["res://.godot/imported/GameOver.png-3829a2bfa3afe5ce24bfa2045d6ccc5c.ctex"]
 
 [params]
 

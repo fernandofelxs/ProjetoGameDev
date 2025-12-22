@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6c4g0d63s16x"]
 
 [ext_resource type="Script" uid="uid://car5svx02c6sk" path="res://scripts/game_over.gd" id="1_w3vgd"]
-[ext_resource type="Texture2D" uid="uid://bc8a3emvv5lun" path="res://assets/background/GameOver.png" id="2_375dy"]
+[ext_resource type="Texture2D" uid="uid://bc8a3emvv5lun" path="res://assets/sprites/background/GameOver.png" id="2_375dy"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="4_aab2y"]
 
 [node name="GameOver" type="CanvasLayer"]

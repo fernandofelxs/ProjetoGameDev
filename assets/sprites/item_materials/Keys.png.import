@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djd75q6pbk7d0"
-path="res://.godot/imported/Keys.png-86fa6be0276e2131c6b2ffd3d61005ed.ctex"
+path="res://.godot/imported/Keys.png-0dd6f5ce8a6d05316e4ab78a60536ffc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/item_materials/Keys.png"
-dest_files=["res://.godot/imported/Keys.png-86fa6be0276e2131c6b2ffd3d61005ed.ctex"]
+source_file="res://assets/sprites/item_materials/Keys.png"
+dest_files=["res://.godot/imported/Keys.png-0dd6f5ce8a6d05316e4ab78a60536ffc.ctex"]
 
 [params]
 

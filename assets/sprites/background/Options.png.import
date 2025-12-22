@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxh60k4s646kv"
-path="res://.godot/imported/PongBgImage.jpg-365133cd8a1f20aa250e9fe172997b70.ctex"
+uid="uid://cn6wskcypxsjr"
+path="res://.godot/imported/Options.png-60f9dde9fb2e01a940122a19e3e6e585.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background/PongBgImage.jpg"
-dest_files=["res://.godot/imported/PongBgImage.jpg-365133cd8a1f20aa250e9fe172997b70.ctex"]
+source_file="res://assets/sprites/background/Options.png"
+dest_files=["res://.godot/imported/Options.png-60f9dde9fb2e01a940122a19e3e6e585.ctex"]
 
 [params]
 
