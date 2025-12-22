@@ -39,6 +39,7 @@ signal switch_mode
 signal player_dead
 
 func _ready() -> void:
+	sprite.material = sprite.material.duplicate()
 	animation.play("idle_down")
 	
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
@@ -54,10 +55,13 @@ func update_texture(condition: String) -> void:
 	
 func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
-		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		if state != PlayerState.ATTACK:
+			direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+			direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		
 		flashlight.set_process(true)
-		if Input.is_action_just_pressed("fire") and player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK:
+		
+		if Input.is_action_just_pressed("fire") and can_attack():
 			state = PlayerState.ATTACK
 		
 		if Input.is_action_just_pressed("switch_weapon") and can_switch:
@@ -76,6 +80,9 @@ func _process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		flashlight.set_process(false)
 		gun.set_process(false)
+
+func can_attack() -> bool:
+	return player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK
 
 func switch_player_mode() -> void:
 	match player_mode:
@@ -192,6 +199,7 @@ func death() -> void:
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
 	gun.hide()
 	flashlight.hide()
+	hit_animation.play("no_hit")
 	remove_from_group("player")
 	change_state_and_direction_forced(
 		PlayerState.DEATH,

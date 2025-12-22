@@ -28,6 +28,7 @@ var fear_timer := 0.0
 
 func _ready() -> void:
 	add_to_group("enemies")
+	sprite.material = sprite.material.duplicate()
 
 func _physics_process(delta: float) -> void:
 	if is_feared:

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dul2wq8wr25cp" path="res://assets/sprites/enemy/Zombie_Axe_Up_Walk-Sheet8.png" id="5_2n1u2"]
 [ext_resource type="Texture2D" uid="uid://cuworgrufij0r" path="res://assets/sprites/enemy/Zombie_Axe_Side_First-Death-Sheet6.png" id="8_21yoj"]
 [ext_resource type="PackedScene" uid="uid://cim0rqyrtolkx" path="res://scenes/ui/health_bar.tscn" id="8_gvnfh"]
-[ext_resource type="PackedScene" uid="uid://boh3e248q1tb0" path="res://scenes/ui/status_icons.tscn" id="9_qm5gh"]
+[ext_resource type="PackedScene" path="res://scenes/ui/status_icons.tscn" id="9_qm5gh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gvnfh"]
 shader = ExtResource("2_aa6hk")
