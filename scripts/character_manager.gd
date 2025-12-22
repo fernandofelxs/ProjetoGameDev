@@ -1,8 +1,8 @@
 # O character manager deve estar na mesma cena que um elemento GameUI
 
-class_name CharacterManager
-extends Node2D
+class_name CharacterManager extends Node2D
 
+@export var transition: Transition = null
 @export var players: Array[Player] = []
 @export var camera_speed := 100.0
 
@@ -10,7 +10,9 @@ extends Node2D
 
 signal active_player_changed(player_id: int, player_char: Player)
 
-var current_index := 0
+var current_index: int = 0
+var player_deads: int = 0
+var game_over_mode: bool = false
 
 func _ready() -> void:
 	add_to_group("character_manager")
@@ -23,6 +25,9 @@ func _ready() -> void:
 		var player := players[i]
 		player.player_damaged.connect(
 			_on_player_damaged.bind(i)
+		)
+		player.player_dead.connect(
+			Callable(self, "_on_some_player_dead")
 		)
 	_connect_item_pickups()
 
@@ -50,13 +55,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("special_2"):
 		use_item_at_slot(1)
 
-
 func switch_player_character() -> void:
-	players[current_index].is_active = false
-	current_index = (current_index + 1) % players.size()
-	while not players[current_index].is_in_group("player"):
+	if not game_over_mode:
+		players[current_index].is_active = false
 		current_index = (current_index + 1) % players.size()
-	_activate_player(current_index)
+		while not players[current_index].is_in_group("player"):
+			current_index = (current_index + 1) % players.size()
+		_activate_player(current_index)
 
 func _activate_player(index: int) -> void:
 	for i in players.size():
@@ -145,3 +150,12 @@ func _try_open_nearby_door(_player: Player) -> bool:
 			if door.try_open_with_key():
 				return true
 	return false
+
+func _on_some_player_dead() -> void:
+	player_deads += 1
+	if player_deads >= players.size():
+		game_over_mode = true
+	
+	if game_over_mode and transition:
+		await get_tree().create_timer(5.0).timeout
+		transition.change_scene("game_over")

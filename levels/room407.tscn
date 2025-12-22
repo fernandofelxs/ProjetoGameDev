@@ -7122,7 +7122,8 @@ size = Vector2(32, 192)
 
 [node name="Room407" type="Node2D"]
 
-[node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_5ppdb")]
+[node name="CharacterManager" parent="." node_paths=PackedStringArray("transition", "players") instance=ExtResource("1_5ppdb")]
+transition = NodePath("../Transition")
 players = [NodePath("../Player"), NodePath("../Player2")]
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]

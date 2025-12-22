@@ -36,6 +36,7 @@ var aim = load("res://assets/sprites/ui/aim-1.png")
 var cursor = load("res://assets/sprites/ui/Cursor.png")
 
 signal switch_mode
+signal player_dead
 
 func _ready() -> void:
 	animation.play("idle_down")
@@ -165,8 +166,9 @@ func animation_direction() -> String:
 		return "side"
 
 func _on_animation_finished(_anim_name: String) -> void:
-	state = PlayerState.IDLE
-	update_animation()
+	if state == PlayerState.ATTACK:
+		state = PlayerState.IDLE
+		update_animation()
 
 func _on_attack_area_activated(body: Node2D) -> void:
 	if (body is Enemy or body is BaseEnemy) and state == PlayerState.ATTACK:
@@ -186,6 +188,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		death()
 
 func death() -> void:
+	player_dead.emit()
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
 	gun.hide()
 	flashlight.hide()
@@ -194,6 +197,8 @@ func death() -> void:
 		PlayerState.DEATH,
 		direction_death
 	)
+	set_process(false)
+	set_physics_process(false)
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force
