@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://bx8omw2b8dn3g"]
+[gd_scene load_steps=39 format=4 uid="uid://bx8omw2b8dn3g"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_5ppdb"]
 [ext_resource type="PackedScene" uid="uid://qmbh7eaq4ldl" path="res://scenes/ui/game_ui.tscn" id="1_cstjq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c3wu6fef0kmnn" path="res://assets/sprites/tileset/A5.png" id="5_sa4fs"]
 [ext_resource type="PackedScene" uid="uid://g7rl5drr1tqh" path="res://scenes/enemy2/Enemy2.tscn" id="6_anu1b"]
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="7_5ppdb"]
+[ext_resource type="PackedScene" uid="uid://b2foc0juo3axl" path="res://scenes/enemy1/enemy1.tscn" id="9_xay7s"]
 [ext_resource type="PackedScene" uid="uid://byv3kyduk0bn3" path="res://scenes/ui/dialogue_box.tscn" id="10_p4qdi"]
 [ext_resource type="PackedScene" uid="uid://cbey13cqfjhge" path="res://scenes/npc/npc.tscn" id="11_r8xtp"]
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="12_4bjn3"]
@@ -7110,6 +7111,11 @@ sources/0 = SubResource("TileSetAtlasSource_bfga6")
 sources/1 = SubResource("TileSetAtlasSource_m8r0a")
 sources/2 = SubResource("TileSetAtlasSource_0pieg")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_r8xtp"]
+vertices = PackedVector2Array(630.617, -163.18, 641.352, 210.469, 432.273, 206.828, 430.93, 5.96875, 435.469, -14.3984, 22.4609, 7.29688, 22.8672, -25.0703, 438.156, -160.148)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 5, 6, 4), PackedInt32Array(0, 4, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(13, -35.3333, 12.3333, 17.3333, 421, 16, 422.333, 216.667, 651.667, 220.667, 640.333, -173.333, 428.333, -170, 425.667, -24.6667)])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8xtp"]
 size = Vector2(32, 192)
 
@@ -7204,6 +7210,9 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(620, 28)
 scale = Vector2(1.5, 1.5)
 
+[node name="Enemy1" parent="Enemies" instance=ExtResource("9_xay7s")]
+position = Vector2(392, 40)
+
 [node name="DialogueBox" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_p4qdi")]
 camera = NodePath("../CharacterManager/Camera2D")
 
@@ -7230,6 +7239,11 @@ position = Vector2(2419, -265)
 scale = Vector2(1.5, 1.5)
 dialogue_lines = "saida"
 dialogue_box = NodePath("../DialogueBox")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(236.5, 46)
+scale = Vector2(1.5, 1.5)
+navigation_polygon = SubResource("NavigationPolygon_r8xtp")
 
 [node name="Player" parent="." instance=ExtResource("7_5ppdb")]
 position = Vector2(127, 130)

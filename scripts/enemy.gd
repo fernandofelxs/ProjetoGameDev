@@ -6,7 +6,7 @@ var direction : Vector2 = Vector2.ZERO
 @export var hp : int = 100
 var cardinal_direction : Vector2 = Vector2.DOWN
 @export var speed : float = 50
-@export var player: Player
+@onready var player: Player = null
 @onready var navigation: NavigationAgent2D = $NavigationAgent2D
 enum EnemyState {
 	IDLE,
@@ -69,17 +69,19 @@ func _process(_delta: float) -> void:
 			update_animation()
 		return
 
-	if not navigation.is_target_reached():
+	if not navigation.is_target_reached() and player and player.is_in_group("player"):
 		direction = to_local(navigation.get_next_path_position())
 		velocity = direction.normalized() * speed
-
+	else:
+		velocity = Vector2.ZERO
+	
 	if update_direction() or update_state():
 		update_animation()
 
-
 func make_path() -> void:
-	navigation.target_position = player.global_position
-
+	if player and player.is_in_group("player"):
+		navigation.target_position = player.global_position
+	
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN
 
@@ -158,7 +160,7 @@ func move_and_knockback(delta: float) -> void:
 		animation.play("death")
 
 func _on_area_activated(body: Node2D) -> void:
-	if body is Player:
+	if body is Player and body.is_in_group("player"):
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(10, knockback_direction)		
 
@@ -169,3 +171,11 @@ func _on_animation_finished(anim_name: String) -> void:
 func apply_fear(duration: float) -> void:
 	is_feared = true
 	fear_timer = duration
+
+func _on_detect_area_body_entered(body: Node2D) -> void:
+	if body is Player and body.is_in_group("player"):
+		player = body
+		
+func _on_detect_area_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player = null
