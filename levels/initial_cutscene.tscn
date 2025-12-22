@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://k8tk2ikgw0yx"]
+
+[ext_resource type="VideoStream" uid="uid://byy4uwriw44k1" path="res://assets/videos/initialscene.ogv" id="1_3ovqa"]
+[ext_resource type="Script" uid="uid://dmour7ckp8x5m" path="res://scripts/initial_cutscene.gd" id="1_j30cv"]
+
+[node name="InitialCutscene" type="Node2D"]
+script = ExtResource("1_j30cv")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+stream = ExtResource("1_3ovqa")
+autoplay = true
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
