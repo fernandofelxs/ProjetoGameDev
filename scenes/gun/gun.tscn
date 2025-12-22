@@ -105,8 +105,13 @@ scale = Vector2(0.4, 0.4)
 script = ExtResource("1_fjnj2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 3.5)
 sprite_frames = SubResource("SpriteFrames_eo2c1")
 offset = Vector2(26, -10)
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(25, -14)
+position = Vector2(41, -10.5)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

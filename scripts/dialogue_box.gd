@@ -6,6 +6,7 @@ const CHAR_READ_RATE = 0.5
 @onready var text_label: Label = $TextureRect/Text
 @onready var name_label: Label = $TextureRect/Name
 @onready var tween: Tween = null
+@onready var camera_tween: Tween = null
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @export var ref_dialogue: String = "start_dialogue"
 @export var camera: Camera2D = null
@@ -67,16 +68,16 @@ func _process(_delta) -> void:
 						hide_textbox()
 
 func camera_zoom(duration: float) -> void:
-	var tween = create_tween()
-	tween.tween_property(camera, "zoom", Vector2(7, 7), duration)
-	tween.parallel().tween_property(camera, "offset", Vector2(0, 17), duration)
-	tween.play()
+	camera_tween = create_tween()
+	camera_tween.tween_property(camera, "zoom", Vector2(7, 7), duration)
+	camera_tween.parallel().tween_property(camera, "offset", Vector2(0, 17), duration)
+	camera_tween.play()
 
 func camera_return_zoom(duration: float) -> void:
-	var tween = create_tween()
-	tween.tween_property(camera, "zoom", camera_original_zoom, duration)
-	tween.parallel().tween_property(camera, "offset", camera_original_offset, duration)
-	tween.play()	
+	camera_tween = create_tween()
+	camera_tween.tween_property(camera, "zoom", camera_original_zoom, duration)
+	camera_tween.parallel().tween_property(camera, "offset", camera_original_offset, duration)
+	camera_tween.play()	
 
 func queue_text(next_text: String) -> void:
 	dialogues.push_back(next_text)

@@ -32,34 +32,48 @@ var player_mode: PlayerMode = PlayerMode.ATTACK
 @onready var gun: Gun = $Gun
 var is_active: bool = true # Is he the current player?
 @onready var flashlight: Flashlight = $Flashlight
+@export var can_switch: bool = false
+var aim = load("res://assets/sprites/ui/aim-1.png")
+var cursor = load("res://assets/sprites/ui/Cursor.png")
 
 func _ready() -> void:
 	animation.play("idle_down")
+	
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_activated"))
+	
 	player_mode = PlayerMode.ATTACK
 	gun.set_process(false)
 	gun.hide()
-	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + "_sprite_sheet.png")
+	update_texture("")
+	
+func update_texture(condition: String) -> void:
+	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + condition + "_sprite_sheet.png")
 	
 func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 		flashlight.set_process(true)
-		if Input.is_action_just_pressed("attack") and not attacking and player_mode == PlayerMode.ATTACK:
+		if Input.is_action_just_pressed("fire") and not attacking and player_mode == PlayerMode.ATTACK:
 			attacking = true
 		
-		if Input.is_action_just_pressed("switch_weapon"):
+		if Input.is_action_just_pressed("switch_weapon") and can_switch:
 			match player_mode:
 				PlayerMode.ATTACK:
 					player_mode = PlayerMode.GUN
 					gun.set_process(true)
 					gun.show()
+					update_texture("without_hands")
+					flashlight.hide()
+					Input.set_custom_mouse_cursor(aim)
 				PlayerMode.GUN:
 					player_mode = PlayerMode.ATTACK
 					gun.set_process(false)
 					gun.hide()
+					update_texture("")
+					flashlight.show()
+					Input.set_custom_mouse_cursor(cursor)
 		velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
 		
 		if update_direction() or update_state():
@@ -68,6 +82,7 @@ func _process(_delta: float) -> void:
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO
 		flashlight.set_process(false)
+		gun.set_process(false)
 
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:

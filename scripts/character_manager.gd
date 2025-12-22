@@ -53,7 +53,8 @@ func _input(event: InputEvent) -> void:
 
 func switch_player_character() -> void:
 	players[current_index].is_active = false
-	current_index = (current_index + 1) % players.size()
+	while not players[current_index].is_in_group("player"):
+		current_index = (current_index + 1) % players.size()
 	_activate_player(current_index)
 
 func _activate_player(index: int) -> void:
