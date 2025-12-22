@@ -36,6 +36,8 @@ var is_active: bool = true # Is he the current player?
 var aim = load("res://assets/sprites/ui/aim-1.png")
 var cursor = load("res://assets/sprites/ui/Cursor.png")
 
+signal switch_mode
+
 func _ready() -> void:
 	animation.play("idle_down")
 	
@@ -59,30 +61,39 @@ func _process(_delta: float) -> void:
 			attacking = true
 		
 		if Input.is_action_just_pressed("switch_weapon") and can_switch:
-			match player_mode:
-				PlayerMode.ATTACK:
-					player_mode = PlayerMode.GUN
-					gun.set_process(true)
-					gun.show()
-					update_texture("without_hands")
-					flashlight.hide()
-					Input.set_custom_mouse_cursor(aim)
-				PlayerMode.GUN:
-					player_mode = PlayerMode.ATTACK
-					gun.set_process(false)
-					gun.hide()
-					update_texture("")
-					flashlight.show()
-					Input.set_custom_mouse_cursor(cursor)
+			switch_player_mode()
+			
 		velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
 		
 		if update_direction() or update_state():
 			update_animation()
+		
+		if Input.is_action_just_pressed("switch_player_character"):
+			player_mode = PlayerMode.GUN
+			switch_player_mode()
 	else:
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO
 		flashlight.set_process(false)
 		gun.set_process(false)
+
+func switch_player_mode() -> void:
+	match player_mode:
+		PlayerMode.ATTACK:
+			player_mode = PlayerMode.GUN
+			gun.set_process(true)
+			gun.show()
+			update_texture("without_hands")
+			flashlight.hide()
+			Input.set_custom_mouse_cursor(aim)
+		PlayerMode.GUN:
+			player_mode = PlayerMode.ATTACK
+			gun.set_process(false)
+			gun.hide()
+			update_texture("")
+			flashlight.show()
+			Input.set_custom_mouse_cursor(cursor)
+	switch_mode.emit()
 
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
@@ -183,6 +194,8 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 
 func death() -> void:
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
+	gun.hide()
+	flashlight.hide()
 	remove_from_group("player")
 	change_state_and_direction_forced(
 		PlayerState.DEATH,
@@ -200,3 +213,9 @@ func move_and_knockback(delta: float) -> void:
 	if knockback_timer <= 0.0:
 		knockback = Vector2.ZERO
 		hit_animation.play("no_hit")
+
+func get_gun_bullets() -> int:
+	return gun.bullets
+
+func is_gun_mode() -> bool:
+	return player_mode == PlayerMode.GUN

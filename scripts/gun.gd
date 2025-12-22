@@ -9,6 +9,8 @@ const bullet = preload("res://scenes/gun/bullet.tscn")
 var shooting: bool = false
 @export var bullets: int = 3
 
+signal gun_shoot
+
 func _ready() -> void:
 	sprite.connect("animation_finished", Callable(self, "_on_animation_finished"))
 
@@ -26,6 +28,8 @@ func _process(_delta: float) -> void:
 		shooting = true
 		timer.start(0.0)
 		bullets -= 1
+		gun_shoot.emit()
+		
 		var bullet_instance = bullet.instantiate()
 		get_tree().root.add_child(bullet_instance)
 		bullet_instance.global_position = muzzle.global_position
