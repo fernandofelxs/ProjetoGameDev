@@ -1,35 +1,42 @@
-[gd_scene load_steps=9 format=3 uid="uid://cs6x1r8iujp5a"]
+[gd_scene load_steps=10 format=3 uid="uid://cs6x1r8iujp5a"]
 
-[ext_resource type="Texture2D" uid="uid://c48jr5nhtgg30" path="res://assets/sprites/objects/level.png" id="1_c7gua"]
 [ext_resource type="Script" uid="uid://do64xrpqif7vw" path="res://scripts/lever.gd" id="1_uu53q"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uu53q"]
-atlas = ExtResource("1_c7gua")
-region = Rect2(32, 0, 32, 32)
+[ext_resource type="Texture2D" uid="uid://b4njphvrdjwkc" path="res://assets/sprites/objects/lever.png" id="2_uu53q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fyrhm"]
-atlas = ExtResource("1_c7gua")
-region = Rect2(64, 0, 32, 32)
+atlas = ExtResource("2_uu53q")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qyrfu"]
-atlas = ExtResource("1_c7gua")
-region = Rect2(96, 0, 32, 32)
+atlas = ExtResource("2_uu53q")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ne4n7"]
-atlas = ExtResource("1_c7gua")
+atlas = ExtResource("2_uu53q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17rky"]
+atlas = ExtResource("2_uu53q")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eawto"]
+atlas = ExtResource("2_uu53q")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_17rky"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uu53q")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_fyrhm")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qyrfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne4n7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17rky")
 }],
 "loop": false,
 "name": &"activated",
@@ -37,7 +44,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ne4n7")
+"texture": SubResource("AtlasTexture_eawto")
 }],
 "loop": true,
 "name": &"idle",
@@ -52,9 +59,7 @@ script = ExtResource("1_uu53q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_17rky")
-animation = &"activated"
-frame = 2
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 8)
