@@ -523,7 +523,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvnfh"]
-size = Vector2(14, 27)
+size = Vector2(14, 22)
 
 [node name="Enemy2" type="CharacterBody2D"]
 collision_layer = 2
@@ -569,7 +569,7 @@ scale = Vector2(0.33, 0.33)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
-position = Vector2(1, -1.5)
+position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_gvnfh")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

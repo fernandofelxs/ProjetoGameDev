@@ -1,6 +1,6 @@
-[gd_scene load_steps=41 format=3 uid="uid://fvrxq7agcjyq"]
+[gd_scene load_steps=42 format=3 uid="uid://fvrxq7agcjyq"]
 
-[ext_resource type="Script" uid="uid://d12ku13tveb1x" path="res://scripts/basic_enemy.gd" id="1_y8s0h"]
+[ext_resource type="Script" uid="uid://dkwhdqg5yfgyc" path="res://scripts/strong_enemy.gd" id="1_6gthi"]
 [ext_resource type="Shader" uid="uid://yiduyptlkibx" path="res://shaders/hit.gdshader" id="2_1kh0a"]
 [ext_resource type="Texture2D" uid="uid://cwirwgka8kywf" path="res://assets/sprites/enemy/Zombie_Axe_Down_Idle-Sheet6.png" id="3_462tq"]
 [ext_resource type="Texture2D" uid="uid://b8mtcjbomx0bv" path="res://assets/sprites/enemy/Zombie_Big_Side_Second-Death-Sheet8.png" id="4_462tq"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://drnh1ll4y5jh" path="res://assets/sprites/enemy/Zombie_Big_Up_Second-Attack-Sheet15.png" id="14_6gthi"]
 [ext_resource type="Texture2D" uid="uid://bh7f8gmwtqkee" path="res://assets/sprites/enemy/Zombie_Big_Down_Second-Attack-Sheet15.png" id="15_6gthi"]
 [ext_resource type="Texture2D" uid="uid://sqdcdfx2mrek" path="res://assets/sprites/enemy/Zombie_Big_Side_Second-Attack-Sheet15.png" id="16_6qeh7"]
+[ext_resource type="PackedScene" uid="uid://boh3e248q1tb0" path="res://scenes/ui/status_icons.tscn" id="18_6qeh7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gvnfh"]
 shader = ExtResource("2_1kh0a")
@@ -864,7 +865,7 @@ size = Vector2(14, 27)
 [node name="Enemy3" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 12
-script = ExtResource("1_y8s0h")
+script = ExtResource("1_6gthi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_gvnfh")
@@ -903,6 +904,10 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
 position = Vector2(1, -1.5)
 shape = SubResource("RectangleShape2D_gvnfh")
+
+[node name="StatusIcons" parent="." instance=ExtResource("18_6qeh7")]
+position = Vector2(-4, -20)
+scale = Vector2(0.13, 0.13)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
