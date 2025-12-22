@@ -125,6 +125,10 @@ func use_item_at_slot(slot_index: int) -> void:
 		"Keys":
 			if _try_open_nearby_door(player):
 				Inventory.remove_item(player_id, item)
+		"Plank":
+			if _try_fill_nearby_hole(player):
+				Inventory.remove_item(player_id, item)
+
 
 	active_player_changed.emit(player_id, player)
 
@@ -148,6 +152,13 @@ func _try_open_nearby_door(_player: Player) -> bool:
 	for door in get_tree().get_nodes_in_group("doors"):
 		if door is Door:
 			if door.try_open_with_key():
+				return true
+	return false
+
+func _try_fill_nearby_hole(_player: Player) -> bool:
+	for hole in get_tree().get_nodes_in_group("holes"):
+		if hole is Hole:
+			if hole.try_fill_with_plank():
 				return true
 	return false
 
