@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn6wskcypxsjr"
-path="res://.godot/imported/Options.png-e7b0bf27767dbc003d37f1ba124904d9.ctex"
+uid="uid://djd75q6pbk7d0"
+path="res://.godot/imported/Keys.png-0dd6f5ce8a6d05316e4ab78a60536ffc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Options.png"
-dest_files=["res://.godot/imported/Options.png-e7b0bf27767dbc003d37f1ba124904d9.ctex"]
+source_file="res://assets/sprites/item_materials/Keys.png"
+dest_files=["res://.godot/imported/Keys.png-0dd6f5ce8a6d05316e4ab78a60536ffc.ctex"]
 
 [params]
 

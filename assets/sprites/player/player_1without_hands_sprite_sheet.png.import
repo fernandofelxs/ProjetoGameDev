@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc8a3emvv5lun"
-path="res://.godot/imported/GameOver.png-915d37a3fb28926cf926ee99a7b5f350.ctex"
+uid="uid://wpy227mrwbdv"
+path="res://.godot/imported/player_1without_hands_sprite_sheet.png-55f1c4dcbdcd56b66469673bcd6dc366.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background/GameOver.png"
-dest_files=["res://.godot/imported/GameOver.png-915d37a3fb28926cf926ee99a7b5f350.ctex"]
+source_file="res://assets/sprites/player/player_1without_hands_sprite_sheet.png"
+dest_files=["res://.godot/imported/player_1without_hands_sprite_sheet.png-55f1c4dcbdcd56b66469673bcd6dc366.ctex"]
 
 [params]
 

@@ -5,6 +5,11 @@ const bullet = preload("res://scenes/gun/bullet.tscn")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @onready var prop_scale_y: float = scale.y
+@onready var timer: Timer = $Timer
+var shooting: bool = false
+@export var bullets: int = 3
+
+signal gun_shoot
 
 func _ready() -> void:
 	sprite.connect("animation_finished", Callable(self, "_on_animation_finished"))
@@ -18,8 +23,13 @@ func _process(_delta: float) -> void:
 	else:
 		scale.y = prop_scale_y
  
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_just_pressed("fire") and not shooting and bullets > 0:
 		sprite.play("shoot")
+		shooting = true
+		timer.start(0.0)
+		bullets -= 1
+		gun_shoot.emit()
+		
 		var bullet_instance = bullet.instantiate()
 		get_tree().root.add_child(bullet_instance)
 		bullet_instance.global_position = muzzle.global_position
@@ -27,3 +37,6 @@ func _process(_delta: float) -> void:
  
 func _on_animation_finished() -> void:
 	sprite.play("default")
+
+func _on_timer_timeout() -> void:
+	shooting = false
