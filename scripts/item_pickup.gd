@@ -7,8 +7,12 @@ signal item_collected
 var player_id : int
 
 @onready var character_manager := get_node("../CharacterManager")
+@onready var arrow: Sprite2D = $Arrow
+@onready var animation: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+	arrow.hide()
+	animation.play("default")
 	$PickupSprite.texture = item.texture
 
 func _unhandled_input(_event) -> void:
@@ -25,7 +29,9 @@ func _unhandled_input(_event) -> void:
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player_in_area = true
+		arrow.show()
 
 func _on_pickup_area_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_in_area = false
+		arrow.hide()
