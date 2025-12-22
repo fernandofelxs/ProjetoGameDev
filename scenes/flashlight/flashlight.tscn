@@ -13,6 +13,7 @@ texture = ExtResource("1_0bl3l")
 offset = Vector2(277, 2)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 2
 texture_filter = 1
 position = Vector2(2482.67, -6)
 rotation = -1.5708
@@ -20,4 +21,3 @@ scale = Vector2(22.66, 30.659)
 color = Color(0.622847, 0.622847, 7.70092e-07, 1)
 texture = ExtResource("2_kjtkj")
 offset = Vector2(0, -6.215)
-metadata/_edit_lock_ = true

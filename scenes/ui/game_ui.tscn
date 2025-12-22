@@ -29,10 +29,10 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="CharacterContainer" type="HBoxContainer" parent="."]
-offset_left = 1394.0
-offset_top = 825.0
-offset_right = 1842.0
-offset_bottom = 1005.0
+offset_left = 759.0
+offset_top = 27.0
+offset_right = 1207.0
+offset_bottom = 207.0
 
 [node name="BulletSystem" type="Control" parent="."]
 layout_mode = 3
@@ -41,6 +41,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="BulletLabel" type="Label" parent="BulletSystem"]
+layout_mode = 0
 offset_left = 1658.0
 offset_top = 62.0
 offset_right = 1782.0
@@ -50,6 +51,7 @@ theme_override_font_sizes/font_size = 106
 text = "00"
 
 [node name="BulletIcon" type="TextureRect" parent="BulletSystem"]
+layout_mode = 0
 offset_left = 1819.0
 offset_top = 186.0
 offset_right = 1979.0

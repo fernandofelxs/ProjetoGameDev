@@ -30,7 +30,7 @@ func _ready():
 	for i in range(size):
 		var label = Label.new()
 		label.text = str(i + 1)
-		label.add_theme_font_size_override("font_size", 60)
+		label.add_theme_font_size_override("font_size", 80)
 		label.add_theme_font_override("font", font_data)
 		character_container.add_child(label)
 	

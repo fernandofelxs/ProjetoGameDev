@@ -7212,6 +7212,7 @@ scale = Vector2(1.5, 1.5)
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource("9_xay7s")]
 position = Vector2(392, 40)
+knockback_force = 500.0
 
 [node name="DialogueBox" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_p4qdi")]
 camera = NodePath("../CharacterManager/Camera2D")
@@ -7255,6 +7256,7 @@ can_switch = true
 position = Vector2(641, 297)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
+id = 2
 
 [node name="ItemPickup" parent="." instance=ExtResource("15_5ppdb")]
 position = Vector2(183, -39)

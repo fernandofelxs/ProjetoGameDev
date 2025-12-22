@@ -13,7 +13,6 @@ enum PlayerState {
 var state: PlayerState = PlayerState.IDLE
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var hit_animation: AnimationPlayer = $HitAnimation
-var attacking: bool = false
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var attack_area : Area2D = $AttackArea
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -57,13 +56,13 @@ func _process(_delta: float) -> void:
 		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 		flashlight.set_process(true)
-		if Input.is_action_just_pressed("fire") and not attacking and player_mode == PlayerMode.ATTACK:
-			attacking = true
+		if Input.is_action_just_pressed("fire") and player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK:
+			state = PlayerState.ATTACK
 		
 		if Input.is_action_just_pressed("switch_weapon") and can_switch:
 			switch_player_mode()
 			
-		velocity = direction.normalized() * speed if not attacking else Vector2.ZERO
+		velocity = direction.normalized() * speed if not state == PlayerState.ATTACK else Vector2.ZERO
 		
 		if update_direction() or update_state():
 			update_animation()
@@ -103,16 +102,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func update_state() -> bool:
-	if state == PlayerState.WITH_NPC:
-		return false
-
-	if state == PlayerState.DEATH:
-		return false
+	if state == PlayerState.WITH_NPC or state == PlayerState.DEATH or state == PlayerState.ATTACK:
+		return true
 	
 	var new_state : PlayerState = PlayerState.IDLE if direction == Vector2.ZERO else PlayerState.RUN
-	
-	if attacking:
-		new_state = PlayerState.ATTACK
 	
 	if new_state == state:
 		return false
@@ -172,11 +165,11 @@ func animation_direction() -> String:
 		return "side"
 
 func _on_animation_finished(_anim_name: String) -> void:
-	if state == PlayerState.ATTACK:
-		attacking = false
+	state = PlayerState.IDLE
+	update_animation()
 
 func _on_attack_area_activated(body: Node2D) -> void:
-	if (body is Enemy or body is BaseEnemy) and attacking:
+	if (body is Enemy or body is BaseEnemy) and state == PlayerState.ATTACK:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(35, knockback_direction)
 
