@@ -210,5 +210,8 @@ func move_and_knockback(delta: float) -> void:
 func get_gun_bullets() -> int:
 	return gun.bullets
 
+func add_bullets(quantity: int) -> void:
+	gun.bullets += quantity
+
 func is_gun_mode() -> bool:
 	return player_mode == PlayerMode.GUN

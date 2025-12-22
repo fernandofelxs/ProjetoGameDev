@@ -47,6 +47,10 @@ func _ready():
 		player_can_shoot.connect("switch_mode", Callable(self, "_on_switch_mode"))
 		player_can_shoot.gun.connect("gun_shoot", Callable(self, "_on_gun_shoot"))
 
+func _process(_delta: float) -> void:
+	if player_can_shoot:
+		update_bullets()
+
 func update_bullets() -> void:
 	bullet_label.text = str(player_can_shoot.get_gun_bullets())
 
@@ -55,7 +59,6 @@ func _on_gun_shoot() -> void:
 
 func _on_switch_mode() -> void:
 	if player_can_shoot.is_gun_mode():
-		update_bullets()
 		bullet_system.show()
 	else:
 		bullet_system.hide()
