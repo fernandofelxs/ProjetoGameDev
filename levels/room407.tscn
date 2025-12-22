@@ -7118,9 +7118,9 @@ sources/1 = SubResource("TileSetAtlasSource_m8r0a")
 sources/2 = SubResource("TileSetAtlasSource_0pieg")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r8xtp"]
-vertices = PackedVector2Array(630.617, -163.18, 641.352, 210.469, 432.273, 206.828, 430.93, 5.96875, 435.469, -14.3984, 22.4609, 7.29688, 22.8672, -25.0703, 438.156, -160.148)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 5, 6, 4), PackedInt32Array(0, 4, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(13, -35.3333, 12.3333, 17.3333, 421, 16, 422.333, 216.667, 651.667, 220.667, 640.333, -173.333, 428.333, -170, 425.667, -24.6667)])
+vertices = PackedVector2Array(430.93, 6.04688, -93.9375, 3.39063, -89.1563, -26.4609, 435.469, -14.4297, 630.617, -163.18, 641.352, 210.469, 432.273, 206.828, 438.156, -160.148)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 0, 3), PackedInt32Array(4, 3, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-97.6667, -36.6667, -105.667, 13.3333, 421, 16, 422.333, 216.667, 651.667, 220.667, 640.333, -173.333, 428.333, -170, 425.667, -24.6667)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8xtp"]
 size = Vector2(32, 192)
@@ -7166,7 +7166,7 @@ position = Vector2(540, 8)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy17" parent="Enemies" instance=ExtResource("6_anu1b")]
-position = Vector2(288, 29)
+position = Vector2(489, 33)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource("6_anu1b")]
@@ -7222,8 +7222,7 @@ position = Vector2(620, 28)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource("9_xay7s")]
-position = Vector2(392, 40)
-knockback_force = 500.0
+position = Vector2(163, 33)
 
 [node name="DialogueBox" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_p4qdi")]
 camera = NodePath("../CharacterManager/Camera2D")
