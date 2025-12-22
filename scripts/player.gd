@@ -34,6 +34,10 @@ var is_active: bool = true # Is he the current player?
 @export var can_switch: bool = false
 var aim = load("res://assets/sprites/ui/aim-1.png")
 var cursor = load("res://assets/sprites/ui/Cursor.png")
+@onready var dust_position: Marker2D = $DustPosition
+@export var boss_mode: bool = false
+
+const DUST_SCENE: PackedScene = preload("res://scenes/others/dust.tscn")
 
 signal switch_mode
 signal player_dead
@@ -52,7 +56,12 @@ func _ready() -> void:
 	
 func update_texture(condition: String) -> void:
 	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + condition + "_sprite_sheet.png")
-	
+
+func spawn_dust() -> void:
+	var dust: Node = DUST_SCENE.instantiate()
+	dust.position = dust_position.global_position
+	get_parent().add_child(dust)
+
 func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
 		if state != PlayerState.ATTACK:

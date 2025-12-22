@@ -352,6 +352,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.566667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_dust"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_s4thr"]
 resource_name = "run_side"
@@ -393,6 +407,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_dust"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_uy5b6"]
 resource_name = "run_up"
@@ -433,6 +461,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [-1]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_dust"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xrmnp"]
@@ -566,3 +608,6 @@ z_as_relative = false
 color = Color(0.92549, 0.917647, 0, 1)
 texture = SubResource("GradientTexture2D_myrg7")
 metadata/_edit_lock_ = true
+
+[node name="DustPosition" type="Marker2D" parent="."]
+position = Vector2(0, 6.58)

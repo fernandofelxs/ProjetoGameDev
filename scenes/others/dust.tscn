@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://my8t5heapj6k"]
+
+[ext_resource type="Texture2D" uid="uid://d0dhrs7tekvtf" path="res://assets/sprites/effects/Dust.png" id="1_rt71y"]
+[ext_resource type="Script" uid="uid://cbggajw1djrxd" path="res://scripts/dust.gd" id="2_1h5m1"]
+
+[sub_resource type="Animation" id="Animation_rt71y"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1h5m1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ncxbm"]
+_data = {
+&"RESET": SubResource("Animation_1h5m1"),
+&"default": SubResource("Animation_rt71y")
+}
+
+[node name="Dust" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_rt71y")
+script = ExtResource("2_1h5m1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ncxbm")
+}

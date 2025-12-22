@@ -7162,11 +7162,11 @@ position = Vector2(772, 57)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("6_anu1b")]
-position = Vector2(25, 94)
+position = Vector2(540, 8)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy17" parent="Enemies" instance=ExtResource("6_anu1b")]
-position = Vector2(221, 22)
+position = Vector2(288, 29)
 scale = Vector2(1.5, 1.5)
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource("6_anu1b")]
@@ -7292,6 +7292,7 @@ shape = SubResource("RectangleShape2D_r8xtp")
 position = Vector2(2423, -190)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(1, 1, 1, 0.784314)
 blend_mode = 1
 
@@ -7299,7 +7300,8 @@ blend_mode = 1
 layer = 1
 visible = false
 
-[node name="GameController" parent="." instance=ExtResource("21_xay7s")]
+[node name="GameController" parent="." node_paths=PackedStringArray("direction_light") instance=ExtResource("21_xay7s")]
+direction_light = NodePath("../DirectionalLight2D")
 
 [node name="BulletPickup" parent="." instance=ExtResource("23_envwi")]
 position = Vector2(172, 96)
