@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_arxes")
-name = ""
+name = "Medkit"
 texture = ExtResource("2_q44xn")
 metadata/_custom_type_script = "uid://cddq8ak57bvui"
