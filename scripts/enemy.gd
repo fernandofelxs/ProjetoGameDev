@@ -78,7 +78,7 @@ func _process(_delta: float) -> void:
 
 
 func make_path() -> void:
-		navigation.target_position = player.global_position
+	navigation.target_position = player.global_position
 
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN

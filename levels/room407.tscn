@@ -7120,7 +7120,7 @@ players = [NodePath("../Player"), NodePath("../Player2")]
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
 position = Vector2(112, 173)
 scale = Vector2(1.5, 1.5)
-zoom = Vector2(5.615, 5.615)
+zoom = Vector2(5.5, 5.5)
 limit_left = -60
 limit_top = -700
 limit_right = 2840
@@ -7202,7 +7202,8 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(620, 28)
 scale = Vector2(1.5, 1.5)
 
-[node name="DialogueBox" parent="." instance=ExtResource("10_p4qdi")]
+[node name="DialogueBox" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_p4qdi")]
+camera = NodePath("../CharacterManager/Camera2D")
 
 [node name="NPC" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("11_r8xtp")]
 position = Vector2(89, -37)
