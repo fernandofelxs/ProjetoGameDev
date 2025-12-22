@@ -11,7 +11,10 @@ func _on_play_pressed() -> void:
 	transition.change_scene("initial_cutscene")
 
 func _on_quit_pressed() -> void:
-	get_tree().quit() 
+	get_tree().quit()
 
 func _on_options_pressed() -> void:
 	transition.change_scene("options")
+
+func _on_credits_pressed() -> void:
+	transition.change_scene("credits")

@@ -5,6 +5,7 @@ extends ScrollContainer
 
 @onready var margin : MarginContainer = $MarginContainer
 @onready var text_node : RichTextLabel = $MarginContainer/RichTextLabel
+@onready var transition: Transition = $Transition
 
 func _ready() -> void:
 	# Espera layout e BBCode terminarem
@@ -39,4 +40,4 @@ func _ready() -> void:
 	tween.finished.connect(_acabou)
 
 func _acabou() -> void:
-	print("acabou!")
+	transition.change_scene("main_menu")
