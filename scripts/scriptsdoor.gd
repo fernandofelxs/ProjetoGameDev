@@ -24,6 +24,7 @@ func try_open_with_key() -> bool:
 	if is_open or not player_inside:
 		return false
 
+	AudioManager.play_door_open()
 	is_open = true
 	sprite.play("activated")
 	door_collision.set_deferred("disabled", true)

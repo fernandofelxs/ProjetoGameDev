@@ -23,6 +23,7 @@ func _unhandled_input(_event) -> void:
 		player_id = character_manager.get_active_player_id()
 
 		if Inventory.add_item(player_id, item):
+			AudioManager.play_pickup()
 			item_collected.emit()
 			queue_free()
 
