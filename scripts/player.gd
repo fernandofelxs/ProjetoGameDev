@@ -36,13 +36,25 @@ var aim = load("res://assets/sprites/ui/aim-1.png")
 var cursor = load("res://assets/sprites/ui/Cursor.png")
 @onready var dust_position: Marker2D = $DustPosition
 @export var boss_mode: bool = false
+@onready var pointlight: PointLight2D = $PointLight2D
+@export var screenshake: Screenshake = null
 
 const DUST_SCENE: PackedScene = preload("res://scenes/others/dust.tscn")
 
 signal switch_mode
 signal player_dead
 
+func activate_boss_mode() -> void:
+	pointlight.hide()
+	flashlight.hide()
+	flashlight.set_process(false)
+	gun.hide()
+	gun.set_process(false)
+
 func _ready() -> void:
+	if boss_mode:
+		activate_boss_mode()
+	
 	sprite.material = sprite.material.duplicate()
 	animation.play("idle_down")
 	
@@ -199,6 +211,9 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_duration
 	)
 	player_damaged.emit(hp)
+	
+	if screenshake:
+		screenshake.apply_shake()
 
 	if hp <= 0:
 		death()

@@ -7500,6 +7500,7 @@ editor_draw_limits = true
 
 [node name="Screenshake" type="Node" parent="CharacterManager/Camera2D" node_paths=PackedStringArray("camera")]
 script = ExtResource("12_cstjq")
+random_strength = 8.0
 camera = NodePath("..")
 
 [node name="Base" type="TileMapLayer" parent="."]
@@ -7566,6 +7567,22 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(1235, 269)
 scale = Vector2(1.5, 1.5)
 
+[node name="Enemy18" parent="Enemies" instance=ExtResource("6_anu1b")]
+position = Vector2(1696, -460)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy21" parent="Enemies" instance=ExtResource("6_anu1b")]
+position = Vector2(1267, -404)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy19" parent="Enemies" instance=ExtResource("6_anu1b")]
+position = Vector2(1084, -572)
+scale = Vector2(1.5, 1.5)
+
+[node name="Enemy20" parent="Enemies" instance=ExtResource("6_anu1b")]
+position = Vector2(1084, -572)
+scale = Vector2(1.5, 1.5)
+
 [node name="Enemy9" parent="Enemies" instance=ExtResource("6_anu1b")]
 position = Vector2(1195, -166)
 scale = Vector2(1.5, 1.5)
@@ -7605,20 +7622,22 @@ navigation_polygon = SubResource("NavigationPolygon_r8xtp")
 position = Vector2(1484, -234)
 scene = NodePath("../ItemPickup")
 
-[node name="Player" parent="." instance=ExtResource("7_5ppdb")]
+[node name="Player" parent="." node_paths=PackedStringArray("screenshake") instance=ExtResource("7_5ppdb")]
 position = Vector2(127, 130)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
 can_switch = true
+screenshake = NodePath("../CharacterManager/Camera2D/Screenshake")
 
-[node name="Player2" parent="." instance=ExtResource("7_5ppdb")]
+[node name="Player2" parent="." node_paths=PackedStringArray("screenshake") instance=ExtResource("7_5ppdb")]
 position = Vector2(641, 297)
 scale = Vector2(1.5, 1.5)
 collision_mask = 10
 id = 2
+screenshake = NodePath("../CharacterManager/Camera2D/Screenshake")
 
 [node name="ItemPickup" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(133, 32)
+position = Vector2(189, 22)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("16_b0yrw")
 
@@ -7687,6 +7706,9 @@ position = Vector2(2426, 316)
 
 [node name="Lantern8" parent="Lanterns" instance=ExtResource("25_unjkd")]
 position = Vector2(2421, -414)
+
+[node name="Lantern9" parent="Lanterns" instance=ExtResource("25_unjkd")]
+position = Vector2(1700, -613)
 
 [node name="Lantern2" parent="Lanterns" instance=ExtResource("25_unjkd")]
 position = Vector2(507, 299)
