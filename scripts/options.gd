@@ -26,6 +26,7 @@ func _on_fullscreen_check_box_toggled(toggled_on: bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 func _on_back_pressed() -> void:
+	AudioManager.play_ui_click()
 	if is_paused_mode:
 		transition.play_fade_in()
 		await transition.animation.animation_finished

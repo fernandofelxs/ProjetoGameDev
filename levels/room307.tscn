@@ -7612,7 +7612,6 @@ position = Vector2(1198, 0)
 
 [node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_qns3t")]
 players = [NodePath("../Player"), NodePath("../Player2"), NodePath("../Player3"), NodePath("../Player4")]
-camera_speed = null
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
 position = Vector2(112, 173)
