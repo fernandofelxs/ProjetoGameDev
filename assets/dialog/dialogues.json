@@ -75,4 +75,10 @@
 			"text": "Agora podemos sair daqui"	
 		},
 	],
+	"exit": [
+		{
+			"name": "Você",
+			"text": "Não podemos sair daqui sem o pong!"	
+		},
+	],
 }

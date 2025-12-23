@@ -19,6 +19,7 @@ var new_player_direction: Vector2 = Vector2.ZERO
 var old_player_direction: Vector2 = Vector2.ZERO
 @onready var focus_area: Area2D = $Down
 var factor_flip: int = 1
+var dialog_activated = false
 
 func _ready() -> void:
 	arrow.hide()
@@ -64,7 +65,6 @@ func _on_npc_dialogue_finished() -> void:
 				old_player_direction
 			)
 		cardinal_direction = Vector2.DOWN
-	queue_free()
 	pc_activated.emit()
 
 func _on_any_body_exited(body: Node2D) -> void:

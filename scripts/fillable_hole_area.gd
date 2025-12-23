@@ -1,6 +1,7 @@
 class_name Hole
 extends Area2D
 
+signal hole_triggered
 @export var tilemap: TileMap
 @export var layer := 0
 @export var wood_atlas_coords := Vector2i(2, 0)
@@ -22,7 +23,7 @@ func _on_body_exited(body: Node2D) -> void:
 func try_fill_with_plank() -> bool:
 	if is_filled or not player_inside:
 		return false
-	# Implementar troca da tile do buraco pela da madeira
+	hole_triggered.emit()
 
 	queue_free()
 	return true
