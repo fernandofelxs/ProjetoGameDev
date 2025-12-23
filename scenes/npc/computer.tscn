@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://7xio0mwsva34"]
 
-[ext_resource type="Script" uid="uid://bty7cmi5bgngm" path="res://computer.gd" id="1_e5s1u"]
+[ext_resource type="Script" uid="uid://bty7cmi5bgngm" path="res://scripts/computer.gd" id="1_e5s1u"]
 [ext_resource type="Texture2D" uid="uid://cnfboe4d0p2wo" path="res://assets/sprites/npc/arrow.png" id="5_a4ce6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sspvn"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://cqs8ko4yuagjy"]
+[gd_scene load_steps=44 format=4 uid="uid://cqs8ko4yuagjy"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_qns3t"]
 [ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="2_222pg"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://7xio0mwsva34" path="res://scenes/npc/computer.tscn" id="22_apse7"]
 [ext_resource type="PackedScene" uid="uid://o85mb280buhu" path="res://scenes/npc/exit.tscn" id="24_7q05t"]
 [ext_resource type="PackedScene" uid="uid://bhtbmtumnc8xp" path="res://scenes/others/game_controller.tscn" id="25_y602g"]
+[ext_resource type="PackedScene" uid="uid://cbey13cqfjhge" path="res://scenes/npc/npc.tscn" id="26_w1a0u"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)
@@ -7718,7 +7719,7 @@ position = Vector2(346, -450)
 scale = Vector2(1.5, 1.5)
 
 [node name="StrongEnemy3" parent="Enemies" instance=ExtResource("18_ye4hj")]
-position = Vector2(1107, 50)
+position = Vector2(887, -3)
 scale = Vector2(1.5, 1.5)
 
 [node name="ItemPickup" parent="." instance=ExtResource("12_kqkf1")]
@@ -7822,6 +7823,12 @@ target_scene_name = "pong"
 [node name="GameController" parent="." node_paths=PackedStringArray("direction_light") instance=ExtResource("25_y602g")]
 direction_light = NodePath("../DirectionalLight2D")
 current_scene = "room307"
+
+[node name="NPC" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("26_w1a0u")]
+position = Vector2(63, -185)
+scale = Vector2(1.5, 1.5)
+dialogue_lines = "wheres_pong"
+dialogue_box = NodePath("../DialogueBox")
 
 [connection signal="body_entered" from="FillableHoleArea" to="FillableHoleArea" method="_on_body_entered"]
 [connection signal="body_exited" from="FillableHoleArea" to="FillableHoleArea" method="_on_body_exited"]
