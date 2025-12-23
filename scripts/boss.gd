@@ -138,6 +138,8 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		state = BossState.DEATH
 		sprite.play("death")
 		boss_dead.emit()
+		set_process(false)
+		set_physics_process(false)
 
 func apply_knockback(knockback_direction: Vector2, force: float, duration: float) -> void:
 	knockback = knockback_direction * force
