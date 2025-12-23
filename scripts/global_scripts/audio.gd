@@ -9,6 +9,8 @@ var basic_enemy_death := preload("res://audio/combat/basic_enemy_death.ogg")
 var strong_enemy_death := preload("res://audio/combat/strong_enemy_death.ogg")
 var door_open := preload("res://audio/interactions/door_open.wav.ogg")
 var door_close := preload("res://audio/interactions/door_close.wav.ogg")
+var use_calculus_book := preload("res://audio/interactions/use_calculus_book.ogg")
+var use_medkit := preload("res://audio/interactions/use_medkit.ogg")
 var footsteps := preload("res://audio/player/footsteps.ogg.mp3")
 var menu_music := preload("res://audio/music/menu_music.ogg")
 var game_music := preload("res://audio/music/game_music.ogg")
@@ -70,6 +72,18 @@ func play_door_open():
 func play_door_close():
 	var player = AudioStreamPlayer.new()
 	player.stream = door_close
+	add_child(player)
+	player.play()
+
+func play_use_calculus_book():
+	var player = AudioStreamPlayer.new()
+	player.stream = use_calculus_book
+	add_child(player)
+	player.play()
+
+func play_use_medkit():
+	var player = AudioStreamPlayer.new()
+	player.stream = use_medkit
 	add_child(player)
 	player.play()
 

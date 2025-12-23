@@ -119,10 +119,12 @@ func use_item_at_slot(slot_index: int) -> void:
 
 	match item.name:
 		"CalculusBook":
+			AudioManager.play_use_calculus_book()
 			_apply_fear_aoe(player, 110.0, 3.0)
 			Inventory.remove_item(player_id, item)
 		"Medkit":
 			if player.hp < 100:
+				AudioManager.play_use_medkit()
 				player.hp = 100
 				Inventory.remove_item(player_id, item)
 		"Keys":
