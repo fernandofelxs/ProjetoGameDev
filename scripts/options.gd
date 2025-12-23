@@ -11,7 +11,7 @@ var is_paused_mode: bool = false
 signal options_exited
 
 func _ready() -> void:
-	var volume_bus: float = AudioServer.get_bus_volume_db(audio_bus_id)
+	var volume_bus: float = db_to_linear(AudioServer.get_bus_volume_db(audio_bus_id))
 	volume_slider.value = volume_bus
 	update_percentage(volume_bus)
 
@@ -36,5 +36,5 @@ func _on_back_pressed() -> void:
 		transition.change_scene("main_menu")
 
 func _on_volume_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(audio_bus_id, value)
+	AudioServer.set_bus_volume_db(audio_bus_id, linear_to_db(value))
 	update_percentage(AudioServer.get_bus_index("Master"))

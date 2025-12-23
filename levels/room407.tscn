@@ -7661,7 +7661,7 @@ visible = false
 
 [node name="SceneTransitionArea" type="Area2D" parent="."]
 script = ExtResource("20_p4qdi")
-target_scene_name = "room307"
+target_scene_name = "pong"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransitionArea"]
 position = Vector2(2856, 80)
