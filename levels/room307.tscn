@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://cxoyusir2j2p8"]
+[gd_scene load_steps=39 format=4 uid="uid://cqs8ko4yuagjy"]
 
 [ext_resource type="PackedScene" uid="uid://brlbowc67l8yf" path="res://scenes/player/character_manager.tscn" id="1_qns3t"]
 [ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="2_222pg"]
@@ -18,9 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="16_pfeey"]
 [ext_resource type="Resource" uid="uid://5lse6624ely4" path="res://inventory/items/Medkit.tres" id="16_qns3t"]
 [ext_resource type="Script" uid="uid://blkse4gsh1x0u" path="res://scripts/enemy_spawn_area.gd" id="17_2253x"]
-[ext_resource type="Resource" uid="uid://but48xc6yfsqx" path="res://inventory/items/Plank.tres" id="18_222pg"]
+[ext_resource type="Resource" path="res://inventory/items/Plank.tres" id="18_222pg"]
 [ext_resource type="PackedScene" uid="uid://fvrxq7agcjyq" path="res://scenes/enemy3/Enemy3.tscn" id="18_ye4hj"]
-[ext_resource type="Script" uid="uid://cl0ili60qlqk" path="res://scripts/fillable_hole_area.gd" id="21_ruigs"]
+[ext_resource type="Script" path="res://scripts/fillable_hole_area.gd" id="21_ruigs"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_v6ury"]
 tile_data = PackedInt32Array(0, 5, 3, 65536, 5, 4, 131072, 5, 5, 1, 65541, 3, 65537, 65541, 4, 131073, 65541, 5, 2, 131077, 3, 65538, 131077, 4, 131074, 131077, 5)

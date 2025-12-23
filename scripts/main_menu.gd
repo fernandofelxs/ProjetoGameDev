@@ -20,3 +20,6 @@ func _on_quit_pressed() -> void:
 func _on_options_pressed() -> void:
 	AudioManager.play_ui_click()
 	transition.change_scene("options")
+
+func _on_credits_pressed() -> void:
+	transition.change_scene("credits")

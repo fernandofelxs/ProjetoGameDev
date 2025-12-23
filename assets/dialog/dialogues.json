@@ -2,21 +2,67 @@
 	"first_speech": [
 		{
 			"name": "Estudante",
-			"text": "Aperte E para pegar o item",
+			"text": "Aperte E para pegar um item do chão.",
+		},
+		{
+			"name": "Estudante",
+			"text": "Aperte TAB para trocar entre os estudantes."			
+		},
+		{
+			"name": "Estudante",
+			"text": "Outra coisa também: aqui está uma arma..."			
+		},
+		{
+			"name": "Gabriel",
+			"text": "Espera, como assim? Uma arma?"			
+		},
+		{
+			"name": "Estudante",
+			"text": "Sim. Use-a com sabedoria"			
+		},
+		{
+			"name": "Estudante",
+			"text": "Aperte S para poder alternar entre a arma e lanterna."			
+		},
+		{
+			"name": "Estudante",
+			"text": "Ao andar um pouco pelo campus, você encontrará munição para a arma."			
+		},
+		{
+			"name": "Estudante",
+			"text": "Vá até a biblioteca para pegar a chave e sair desse lugar."			
 		},
 		{
 			"name": "Estudante",
 			"text": "Depressa! Precisamos sair daqui o quanto antes!"			
-		}
+		},
 	],
-	"arma": [
+	"second_speech": [
 		{
 			"name": "Estudante",
-			"text": "placeholder"	
+			"text": "Eu estou perdido aqui..."	
 		},
 		{
 			"name": "Estudante",
-			"text": "placeholder"	
+			"text": "Você é louco de sair com uma lanterna dessa?"	
+		},
+		{
+			"name": "Fernando",
+			"text": "Eh... talvez."	
+		},
+	],
+	"third_speech": [
+		{
+			"name": "Bibliotecário",
+			"text": "Bem-vindo a biblioteca!"	
+		},
+		{
+			"name": "Bibliotecário",
+			"text": "Sei que não está em seus dias melhores..."	
+		},
+		{
+			"name": "Bibliotecário",
+			"text": "Achei aquela chave ali. Deve ser útil para algo."	
 		},
 	]
 }

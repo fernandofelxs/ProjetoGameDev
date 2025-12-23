@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd7w31uve04a1"]
+[gd_scene load_steps=4 format=3 uid="uid://cd7w31uve04a1"]
 
 [ext_resource type="Script" uid="uid://cs5jlcmo3lf4t" path="res://scripts/scriptteladecréditos.gd" id="1_i2oue"]
+[ext_resource type="PackedScene" uid="uid://dj5jaa1nygm4n" path="res://scenes/transition/transition.tscn" id="2_i2oue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hu300"]
 bg_color = Color(0, 0, 0, 1)
@@ -105,3 +106,6 @@ sem qualquer finalidade comercial.
 [/center]
 "
 fit_content = true
+
+[node name="Transition" parent="." instance=ExtResource("2_i2oue")]
+visible = false

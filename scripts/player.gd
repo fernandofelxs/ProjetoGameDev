@@ -34,11 +34,28 @@ var is_active: bool = true # Is he the current player?
 @export var can_switch: bool = false
 var aim = load("res://assets/sprites/ui/aim-1.png")
 var cursor = load("res://assets/sprites/ui/Cursor.png")
+@onready var dust_position: Marker2D = $DustPosition
+@export var boss_mode: bool = false
+@onready var pointlight: PointLight2D = $PointLight2D
+@export var screenshake: Screenshake = null
+
+const DUST_SCENE: PackedScene = preload("res://scenes/others/dust.tscn")
 
 signal switch_mode
 signal player_dead
 
+func activate_boss_mode() -> void:
+	pointlight.hide()
+	flashlight.hide()
+	flashlight.set_process(false)
+	gun.hide()
+	gun.set_process(false)
+
 func _ready() -> void:
+	if boss_mode:
+		activate_boss_mode()
+	
+	sprite.material = sprite.material.duplicate()
 	animation.play("idle_down")
 	
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
@@ -51,11 +68,18 @@ func _ready() -> void:
 	
 func update_texture(condition: String) -> void:
 	sprite.texture = load("res://assets/sprites/player/player_" + str(id) + condition + "_sprite_sheet.png")
-	
+
+func spawn_dust() -> void:
+	var dust: Node = DUST_SCENE.instantiate()
+	dust.position = dust_position.global_position
+	get_parent().add_child(dust)
+
 func _process(_delta: float) -> void:
 	if is_active and state != PlayerState.WITH_NPC and state != PlayerState.DEATH:
-		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		if state != PlayerState.ATTACK:
+			direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+			direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		
 		flashlight.set_process(true)
 		if Input.is_action_just_pressed("fire") and player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK:
 			AudioManager.play_attack()
@@ -77,6 +101,9 @@ func _process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		flashlight.set_process(false)
 		gun.set_process(false)
+
+func can_attack() -> bool:
+	return player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK
 
 func switch_player_mode() -> void:
 	match player_mode:
@@ -187,6 +214,9 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_duration
 	)
 	player_damaged.emit(hp)
+	
+	if screenshake:
+		screenshake.apply_shake()
 
 	if hp <= 0:
 		death()
@@ -197,6 +227,7 @@ func death() -> void:
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
 	gun.hide()
 	flashlight.hide()
+	hit_animation.play("no_hit")
 	remove_from_group("player")
 	change_state_and_direction_forced(
 		PlayerState.DEATH,

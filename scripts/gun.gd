@@ -9,6 +9,8 @@ const bullet = preload("res://scenes/gun/bullet.tscn")
 var shooting: bool = false
 @export var bullets: int = 3
 
+@onready var screenshake: Screenshake = get_parent().screenshake
+
 signal gun_shoot
 
 func _ready() -> void:
@@ -29,6 +31,9 @@ func _process(_delta: float) -> void:
 		timer.start(0.0)
 		bullets -= 1
 		gun_shoot.emit()
+		
+		if screenshake:
+			screenshake.apply_shake()
 		
 		var bullet_instance = bullet.instantiate()
 		get_tree().root.add_child(bullet_instance)

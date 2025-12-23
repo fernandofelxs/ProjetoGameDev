@@ -22,13 +22,24 @@ var knockback_timer: float = 0.0
 @export var knockback_duration: float = 0.2
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var area: Area2D = $Area2D
-var knockbacking: bool = false
 @onready var health_bar: HealthBar = $HealthBar
+@onready var map := navigation.get_navigation_map()
 
 # Fear aplicado pelo livro de cálculo
 @export var fear_speed_multiplier := 1.5
 var is_feared := false
 var fear_timer := 0.0
+
+func is_inside_navmesh(body, tolerance := 1.0) -> bool:
+	var p_closest := NavigationServer2D.map_get_closest_point(map, global_position)
+	var e_closest := NavigationServer2D.map_get_closest_point(map, body.global_position)
+	
+	if p_closest.distance_to(global_position) > tolerance:
+		return -1.0
+	if e_closest.distance_to(body.global_position) > tolerance:
+		return -1.0
+		
+	return p_closest.distance_to(e_closest)
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -37,12 +48,12 @@ func _ready() -> void:
 	area.connect("body_entered", Callable(self, "_on_area_activated"))
 	animation.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	make_path()
+	sprite.material = sprite.material.duplicate()
 	
 func _physics_process(delta: float) -> void:
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
-		return
-
+		#return
 	if is_feared:
 		_process_fear(delta)
 	elif hp > 0:
@@ -66,15 +77,12 @@ func _process_fear(delta: float) -> void:
 func _process(_delta: float) -> void:
 	if is_feared:
 		direction = velocity
-		if update_direction() or update_state():
-			update_animation()
-		return
-
-	if can_move():
-		direction = to_local(navigation.get_next_path_position())
-		velocity = direction.normalized() * speed
 	else:
-		velocity = Vector2.ZERO
+		if can_move():
+			direction = to_local(navigation.get_next_path_position())
+			velocity = direction.normalized() * speed
+		else:
+			velocity = Vector2.ZERO
 	
 	if update_direction() or update_state():
 		update_animation()
@@ -92,12 +100,9 @@ func make_path() -> void:
 	
 func update_state() -> bool:
 	if state == EnemyState.DAMAGE or state == EnemyState.DEATH:
-		return false
+		return true
 	
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN
-
-	if knockbacking:
-		new_state = EnemyState.DAMAGE
 
 	if is_feared:
 		new_state = EnemyState.RUN
@@ -107,7 +112,6 @@ func update_state() -> bool:
 
 	state = new_state
 	return true
-
 
 func _on_timeout() -> void:
 	make_path()
@@ -163,17 +167,15 @@ func move_and_knockback(delta: float) -> void:
 	velocity = knockback
 	knockback_timer -= delta
 	animation.play("hit_flash")
-	knockbacking = true
 	state = EnemyState.DAMAGE
 	
 	if knockback_timer <= 0.0:
 		knockback = Vector2.ZERO
 		animation.play("no_flash")
-		knockbacking = false
 		state = EnemyState.IDLE
 
 func _on_area_activated(body: Node2D) -> void:
-	if body is Player and body.is_in_group("player"):
+	if body is Player and body.is_in_group("player") and hp > 0:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.apply_damage(10, knockback_direction)		
 
@@ -186,7 +188,7 @@ func apply_fear(duration: float) -> void:
 	fear_timer = duration
 
 func _on_detect_area_body_entered(body: Node2D) -> void:
-	if body is Player and body.is_in_group("player"):
+	if body is Player and body.is_in_group("player") and is_inside_navmesh(body):
 		player = body
 		
 func _on_detect_area_body_exited(body: Node2D) -> void:

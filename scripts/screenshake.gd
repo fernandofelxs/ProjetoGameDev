@@ -12,9 +12,9 @@ func apply_shake() -> void:
 
 func _process(delta: float) -> void:
 	if shake_strength > 0:
-		shake_strength = lerpf(shake_strength, 0, shake_fade + delta)
+		shake_strength = lerpf(shake_strength, 0, shake_fade * delta)
 		if camera:
-			camera.offset += random_offset()
+			camera.offset = random_offset()
 
 func random_offset() -> Vector2:
 	return Vector2(

@@ -1,19 +1,23 @@
 class_name Transition extends CanvasLayer
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
+var cursor = load("res://assets/sprites/ui/Cursor.png")
 
 func _ready() -> void:
 	show()
 	animation.play_backwards("fade_in")
 
 func change_scene(target: String) -> void:
+	Input.set_custom_mouse_cursor(cursor)
 	animation.play("fade_in")
 	await animation.animation_finished
 	get_tree().change_scene_to_file("res://levels/" + target + ".tscn")
 	animation.play_backwards("fade_in")
 
 func play_fade_in() -> void:
+	Input.set_custom_mouse_cursor(cursor)
 	animation.play("fade_in")
 
 func play_fade_out() -> void:
+	Input.set_custom_mouse_cursor(cursor)
 	animation.play_backwards("fade_in")

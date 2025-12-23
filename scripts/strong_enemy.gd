@@ -8,12 +8,10 @@ var direction: Vector2 = Vector2.ZERO
 @onready var hit_animation: AnimationPlayer = $HitAnimation
 @onready var health_bar: HealthBar = $HealthBar
 @onready var hit_area: Area2D = $HitArea
-
 enum EnemyState {
 	IDLE,
 	RUN,
 }
-
 var speed: int = 40
 var state: EnemyState = EnemyState.IDLE
 var hp: int = 100
@@ -30,11 +28,14 @@ var fear_timer := 0.0
 
 func _ready() -> void:
 	add_to_group("enemies")
+	
 	attack_end_timer.one_shot = true
 	attack_end_timer.wait_time = attack_recover_time
 	attack_end_timer.timeout.connect(_on_attack_recover_timeout)
 	add_child(attack_end_timer)
+
 	animation.animation_finished.connect(_on_animation_finished)
+
 
 func _physics_process(delta: float) -> void:
 	if is_feared:
@@ -48,15 +49,16 @@ func _physics_process(delta: float) -> void:
 			velocity = away_dir * speed * fear_speed_multiplier
 			move_and_slide()
 			return
-			
 	if target and target.is_in_group("player"):
 		direction = (target.global_position - global_position).normalized()
 		velocity = direction * speed
 	else:
 		velocity = Vector2.ZERO
 		direction = Vector2.ZERO
+	
 	if knockback_timer > 0.0:
 		move_and_knockback(delta)
+	
 	if hp > 0:
 		move_and_slide()
 
@@ -66,21 +68,21 @@ func _process(_delta: float) -> void:
 
 func update_state() -> bool:
 	var new_state : EnemyState = EnemyState.IDLE if direction == Vector2.ZERO else EnemyState.RUN
+	
 	if is_feared:
 		new_state = EnemyState.RUN
+
 	if new_state == state:
 		return false
-		
+	
 	state = new_state
 	return true
 
 func update_animation() -> void:
 	var animation_state : String = "idle"
-
 	match state:
 		EnemyState.RUN:
 			animation_state = "run"
-			
 	animation.play(animation_state + "_" + animation_direction())
 
 func animation_direction() -> String:
@@ -103,42 +105,37 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func update_direction() -> bool:
 	var new_direction : Vector2 = cardinal_direction
-
+	
 	if direction == Vector2.ZERO:
 		return false
-
+	
 	if direction.y == 0:
 		new_direction = Vector2.LEFT if direction.x < 0 else Vector2.RIGHT
-
 	elif direction.x == 0:
 		new_direction = Vector2.UP if direction.y < 0 else Vector2.DOWN
-
+	
 	if new_direction == cardinal_direction:
 		return false
-		
 	cardinal_direction = new_direction
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
+		
 	collision_shape.position.x *= sprite.scale.x
-
 	return true
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 	AudioManager.play_enemy_hit()
 	hp -= damage
-
 	apply_knockback(
 		knockback_direction, 
 		knockback_force,
 		knockback_duration
 	)
-
 	health_bar.update_health(hp)
-
 	if hp <= 0:
 		AudioManager.play_strong_enemy_death()
 		animation.play("death")
 		hit_area.set_deferred("monitoring", false)
-
+	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force
 	knockback_timer = duration
@@ -147,7 +144,6 @@ func move_and_knockback(delta: float) -> void:
 	velocity = knockback
 	knockback_timer -= delta
 	hit_animation.play("hit_flash")
-	
 	if knockback_timer <= 0.0:
 		knockback = Vector2.ZERO
 		velocity = Vector2.ZERO
