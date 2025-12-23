@@ -36,7 +36,6 @@ func _ready() -> void:
 
 	animation.animation_finished.connect(_on_animation_finished)
 
-
 func _physics_process(delta: float) -> void:
 	if is_feared:
 		fear_timer -= delta
@@ -94,11 +93,11 @@ func animation_direction() -> String:
 		return "side"
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body is Player and body.is_in_group("player"):
 		target = body
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body is Player and body.is_in_group("player"):
 		target = null
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO

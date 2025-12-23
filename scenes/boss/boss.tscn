@@ -58,7 +58,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_s1g6i")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -179,8 +179,7 @@ material = SubResource("ShaderMaterial_whqtw")
 position = Vector2(10, -21)
 scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_8ftqf")
-animation = &"idle"
-frame_progress = 0.0628163
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 2

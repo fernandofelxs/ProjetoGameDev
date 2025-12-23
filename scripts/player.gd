@@ -97,6 +97,8 @@ func _process(_delta: float) -> void:
 			player_mode = PlayerMode.GUN
 			switch_player_mode()
 	else:
+		state = PlayerState.IDLE
+		update_animation()
 		direction = Vector2.ZERO
 		velocity = Vector2.ZERO
 		flashlight.set_process(false)
