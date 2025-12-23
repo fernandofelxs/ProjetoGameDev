@@ -38,7 +38,6 @@ script = ExtResource("2_dnnam")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(945, 538)
-scale = Vector2(1, 1)
 
 [node name="Screenshake" type="Node" parent="Camera2D"]
 script = ExtResource("2_ip8pf")
