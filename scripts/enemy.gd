@@ -144,6 +144,7 @@ func animation_direction() -> String:
 		return "side"
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
+	AudioManager.play_enemy_hit()
 	hp -= damage
 	health_bar.update_health(hp)
 	apply_knockback(
@@ -151,6 +152,8 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		knockback_force,
 		knockback_duration
 	)
+	if hp <= 0:
+		AudioManager.play_slime_death()
 	
 func apply_knockback(specific_direction: Vector2, force: float, duration: float) -> void:
 	knockback = specific_direction * force

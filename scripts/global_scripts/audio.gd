@@ -3,6 +3,10 @@ extends Node
 var ui_click := preload("res://audio/ui/ui_click.wav.ogg")
 var damage := preload("res://audio/combat/damage.wav.ogg")
 var attack := preload("res://audio/combat/attack.wav.ogg")
+var enemy_hit := preload("res://audio/combat/enemy_hit.ogg")
+var slime_death := preload("res://audio/combat/slime_death.ogg")
+var basic_enemy_death := preload("res://audio/combat/basic_enemy_death.ogg")
+var strong_enemy_death := preload("res://audio/combat/strong_enemy_death.ogg")
 var door_open := preload("res://audio/interactions/door_open.wav.ogg")
 var door_close := preload("res://audio/interactions/door_close.wav.ogg")
 var footsteps := preload("res://audio/player/footsteps.ogg.mp3")
@@ -30,6 +34,30 @@ func play_damage():
 func play_attack():
 	var player = AudioStreamPlayer.new()
 	player.stream = attack
+	add_child(player)
+	player.play()
+	
+func play_enemy_hit():
+	var player = AudioStreamPlayer.new()
+	player.stream = enemy_hit
+	add_child(player)
+	player.play()
+	
+func play_slime_death():
+	var player = AudioStreamPlayer.new()
+	player.stream = slime_death
+	add_child(player)
+	player.play()
+
+func play_basic_enemy_death():
+	var player = AudioStreamPlayer.new()
+	player.stream = basic_enemy_death
+	add_child(player)
+	player.play()
+	
+func play_strong_enemy_death():
+	var player = AudioStreamPlayer.new()
+	player.stream = strong_enemy_death
 	add_child(player)
 	player.play()
 
