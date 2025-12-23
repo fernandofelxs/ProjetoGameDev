@@ -7661,7 +7661,7 @@ visible = false
 
 [node name="SceneTransitionArea" type="Area2D" parent="."]
 script = ExtResource("20_p4qdi")
-target_scene_name = "room307"
+target_scene_name = "pong"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransitionArea"]
 position = Vector2(2856, 80)
@@ -7702,6 +7702,7 @@ position = Vector2(1173, 318)
 
 [node name="GameController" parent="." node_paths=PackedStringArray("direction_light") instance=ExtResource("21_xay7s")]
 direction_light = NodePath("../DirectionalLight2D")
+current_scene = "room407"
 
 [node name="Lanterns" type="Node2D" parent="."]
 position = Vector2(3, 64)

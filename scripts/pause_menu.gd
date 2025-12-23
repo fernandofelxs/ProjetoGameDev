@@ -4,6 +4,7 @@ const options_scene = preload("res://levels/options.tscn")
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var transition: Transition = $Transition
+@export var current_scene: String = "main_menu"
 
 func _ready() -> void:
 	hide()
@@ -43,5 +44,5 @@ func _on_options_exited() -> void:
 	transition.play_fade_out()
 
 func _on_reset_pressed() -> void:
-	
+	transition.change_scene(current_scene)
 	get_tree().paused = false
