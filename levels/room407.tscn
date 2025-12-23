@@ -7702,6 +7702,7 @@ position = Vector2(1173, 318)
 
 [node name="GameController" parent="." node_paths=PackedStringArray("direction_light") instance=ExtResource("21_xay7s")]
 direction_light = NodePath("../DirectionalLight2D")
+current_scene = "room407"
 
 [node name="Lanterns" type="Node2D" parent="."]
 position = Vector2(3, 64)

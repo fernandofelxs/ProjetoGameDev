@@ -2,54 +2,62 @@
 
 class_name GameUI extends CanvasLayer
 
-@onready var ui_slots: Array =  $VBoxContainer/HBoxContainer.get_children() 
+@onready var ui_slots: Array = $VBoxContainer/HBoxContainer.get_children()
+@onready var ui_inv: HBoxContainer = $VBoxContainer/HBoxContainer 
 @onready var player_health_bar: HealthBar = $VBoxContainer/PlayerHealth/HealthBar
 @onready var character_container: HBoxContainer = $CharacterContainer
 var character_id : int = 0
-var character_manager: CharacterManager
+var character_manager: CharacterManager = null
 var bullets: int = 0
 @onready var bullet_system: Control = $BulletSystem
 @onready var bullet_label: Label = $BulletSystem/BulletLabel
 var player_can_shoot: Player = null
+var unique_player: Player = null
 
 func _ready():
 	show()
-	Inventory.inventory_changed.connect(_on_inventory_changed)
 	character_manager = get_tree().get_first_node_in_group("character_manager")
-	if not character_manager:
-		push_error("CharacterManager not found")
-		return
+	
+	if character_manager:
+		Inventory.inventory_changed.connect(_on_inventory_changed)
 
-	character_manager.active_player_changed.connect(
-		_on_character_manager_active_player_changed
-	)
+		character_manager.active_player_changed.connect(
+			_on_character_manager_active_player_changed
+		)
+		
+		var size: int = len(character_manager.players)
+		var font_data = load("res://assets/fonts/VCR_OSD_MONO_1.001.ttf")
+		
+		for i in range(size):
+			var label = Label.new()
+			label.text = str(i + 1)
+			label.add_theme_font_size_override("font_size", 80)
+			label.add_theme_font_override("font", font_data)
+			character_container.add_child(label)
+		
+		update_character_container()
+		bullet_system.hide()
+		
+		for player in character_manager.players:
+			if player.can_switch: # Only one player can get the gun.
+				player_can_shoot = player		
+				break
+		
+		if player_can_shoot:		
+			update_bullets()
+			player_can_shoot.connect("switch_mode", Callable(self, "_on_switch_mode"))
+			player_can_shoot.gun.connect("gun_shoot", Callable(self, "_on_gun_shoot"))
+	else:
+		ui_inv.hide()
+		bullet_system.hide()
+		unique_player = get_tree().get_first_node_in_group("player")
 	
-	var size: int = len(character_manager.players)
-	var font_data = load("res://assets/fonts/VCR_OSD_MONO_1.001.ttf")
-	
-	for i in range(size):
-		var label = Label.new()
-		label.text = str(i + 1)
-		label.add_theme_font_size_override("font_size", 80)
-		label.add_theme_font_override("font", font_data)
-		character_container.add_child(label)
-	
-	update_character_container()
-	bullet_system.hide()
-	
-	for player in character_manager.players:
-		if player.can_switch: # Only one player can get the gun.
-			player_can_shoot = player		
-			break
-	
-	if player_can_shoot:		
-		update_bullets()
-		player_can_shoot.connect("switch_mode", Callable(self, "_on_switch_mode"))
-		player_can_shoot.gun.connect("gun_shoot", Callable(self, "_on_gun_shoot"))
-
 func _process(_delta: float) -> void:
-	if player_can_shoot:
+	if player_can_shoot and character_manager:
 		update_bullets()
+
+	if not character_manager:
+		player_health_bar.update_health(unique_player.hp)
 
 func update_bullets() -> void:
 	bullet_label.text = str(player_can_shoot.get_gun_bullets())
