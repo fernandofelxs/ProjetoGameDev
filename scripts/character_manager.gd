@@ -57,6 +57,7 @@ func _input(event: InputEvent) -> void:
 
 func switch_player_character() -> void:
 	if not game_over_mode:
+		AudioManager.stop_walk()
 		players[current_index].is_active = false
 		current_index = (current_index + 1) % players.size()
 		while not players[current_index].is_in_group("player"):
@@ -66,6 +67,8 @@ func switch_player_character() -> void:
 func _activate_player(index: int) -> void:
 	for i in players.size():
 		players[i].is_active = (i == index)
+	
+	AudioManager.stop_walk() 
 	active_player_changed.emit(index, players[index])
 
 	camera_speed = players[index].speed
@@ -116,10 +119,12 @@ func use_item_at_slot(slot_index: int) -> void:
 
 	match item.name:
 		"CalculusBook":
+			AudioManager.play_use_calculus_book()
 			_apply_fear_aoe(player, 110.0, 3.0)
 			Inventory.remove_item(player_id, item)
 		"Medkit":
 			if player.hp < 100:
+				AudioManager.play_use_medkit()
 				player.hp = 100
 				Inventory.remove_item(player_id, item)
 		"Keys":

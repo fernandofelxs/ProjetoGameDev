@@ -123,6 +123,7 @@ func update_direction() -> bool:
 	return true
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
+	AudioManager.play_enemy_hit()
 	hp -= damage
 	apply_knockback(
 		knockback_direction, 
@@ -131,6 +132,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 	)
 	health_bar.update_health(hp)
 	if hp <= 0:
+		AudioManager.play_strong_enemy_death()
 		animation.play("death")
 		hit_area.set_deferred("monitoring", false)
 	

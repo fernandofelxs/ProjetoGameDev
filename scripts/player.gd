@@ -81,8 +81,8 @@ func _process(_delta: float) -> void:
 			direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 		
 		flashlight.set_process(true)
-		
-		if Input.is_action_just_pressed("fire") and can_attack():
+		if Input.is_action_just_pressed("fire") and player_mode == PlayerMode.ATTACK and not state == PlayerState.ATTACK:
+			AudioManager.play_attack()
 			state = PlayerState.ATTACK
 		
 		if Input.is_action_just_pressed("switch_weapon") and can_switch:
@@ -129,6 +129,8 @@ func _physics_process(delta: float) -> void:
 	
 	if state != PlayerState.DEATH and state != PlayerState.WITH_NPC:
 		move_and_slide()
+
+	update_walk_sound()
 
 func update_state() -> bool:
 	if state == PlayerState.WITH_NPC or state == PlayerState.DEATH or state == PlayerState.ATTACK:
@@ -204,6 +206,7 @@ func _on_attack_area_activated(body: Node2D) -> void:
 		body.apply_damage(35, knockback_direction)
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
+	AudioManager.play_damage()
 	hp -= damage
 	apply_knockback(
 		knockback_direction, 
@@ -219,6 +222,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 		death()
 
 func death() -> void:
+	AudioManager.stop_walk()
 	player_dead.emit()
 	var direction_death: Vector2 = Vector2.LEFT if cardinal_direction.x < 0 else Vector2.RIGHT
 	gun.hide()
@@ -252,3 +256,11 @@ func add_bullets(quantity: int) -> void:
 
 func is_gun_mode() -> bool:
 	return player_mode == PlayerMode.GUN
+
+func update_walk_sound() -> void:
+	if not is_active:
+		return
+	if velocity.length() > 0.0 and knockback_timer <= 0.0:
+		AudioManager.start_walk()
+	else:
+		AudioManager.stop_walk()
