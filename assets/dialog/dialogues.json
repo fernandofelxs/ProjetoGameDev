@@ -64,5 +64,15 @@
 			"name": "Bibliotecário",
 			"text": "Achei aquela chave ali. Deve ser útil para algo."	
 		},
-	]
+	],
+	"pong": [
+		{
+			"name": "PC",
+			"text": "Você encontrou o flip-flop do Pong!"	
+		},
+		{
+			"name": "PC",
+			"text": "Agora podemos sair daqui"	
+		},
+	],
 }
