@@ -7598,7 +7598,7 @@ texture = ExtResource("7_y602g")
 5:47/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_jfyw0"]
-physics_layer_0/collision_layer = 3
+physics_layer_0/collision_layer = 8
 physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_bfga6")
 sources/1 = SubResource("TileSetAtlasSource_m8r0a")
@@ -7614,7 +7614,8 @@ size = Vector2(40, 30)
 [node name="Room307" type="Node2D"]
 position = Vector2(1198, 0)
 
-[node name="CharacterManager" parent="." node_paths=PackedStringArray("players") instance=ExtResource("1_qns3t")]
+[node name="CharacterManager" parent="." node_paths=PackedStringArray("transition", "players") instance=ExtResource("1_qns3t")]
+transition = NodePath("../Transition")
 players = [NodePath("../Player"), NodePath("../Player2")]
 
 [node name="Camera2D" type="Camera2D" parent="CharacterManager"]
@@ -7659,7 +7660,7 @@ can_switch = true
 screenshake = NodePath("../CharacterManager/Camera2D/Screenshake")
 
 [node name="Player2" parent="." node_paths=PackedStringArray("screenshake") instance=ExtResource("11_0wt1s")]
-position = Vector2(141, -169)
+position = Vector2(129, -194)
 scale = Vector2(1.5, 1.5)
 collision_mask = 138
 id = 2
@@ -7709,11 +7710,11 @@ position = Vector2(-278, -202)
 scale = Vector2(1.5, 1.5)
 
 [node name="StrongEnemy1" parent="Enemies" instance=ExtResource("18_ye4hj")]
-position = Vector2(401, -374)
+position = Vector2(414, -388)
 scale = Vector2(1.5, 1.5)
 
 [node name="StrongEnemy2" parent="Enemies" instance=ExtResource("18_ye4hj")]
-position = Vector2(408, -461)
+position = Vector2(346, -450)
 scale = Vector2(1.5, 1.5)
 
 [node name="StrongEnemy3" parent="Enemies" instance=ExtResource("18_ye4hj")]
@@ -7749,6 +7750,7 @@ item = ExtResource("13_4spnr")
 layer = 1
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(1, 1, 1, 0.784314)
 blend_mode = 1
 
