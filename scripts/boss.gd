@@ -119,6 +119,8 @@ func _on_timeout() -> void:
 		make_path()
 
 func apply_damage(damage: int, knockback_direction: Vector2) -> void:
+	AudioManager.play_enemy_hit()
+	
 	if knockback_timer > 0.0:
 		return
 	

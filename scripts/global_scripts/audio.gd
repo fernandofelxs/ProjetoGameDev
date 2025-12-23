@@ -14,6 +14,7 @@ var use_medkit := preload("res://audio/interactions/use_medkit.ogg")
 var footsteps := preload("res://audio/player/footsteps.ogg.mp3")
 var menu_music := preload("res://audio/music/menu_music.ogg")
 var game_music := preload("res://audio/music/game_music.ogg")
+var boss_fight_music := preload("res://audio/music/boss_fight.mp3")
 var pickup := preload("res://audio/player/pickup.ogg.mp3")
 
 
@@ -125,6 +126,13 @@ func play_music_game():
 		music_player.stop()
 
 	music_player.stream = game_music
+	music_player.play()
+	
+func play_music_boss_fight():
+	if music_player.playing:
+		music_player.stop()
+
+	music_player.stream = boss_fight_music
 	music_player.play()
 
 func play_pickup():
