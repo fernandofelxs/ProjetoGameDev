@@ -7,16 +7,16 @@
 size = Vector2(10, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcwmf"]
-size = Vector2(4, 12)
+size = Vector2(4, 3.55556)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dpyoa"]
-size = Vector2(19, 4)
+size = Vector2(7.92593, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4bp4"]
-size = Vector2(16, 4)
+size = Vector2(5.77778, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_woxlu"]
-size = Vector2(4, 13)
+size = Vector2(4.03704, 3.88889)
 
 [node name="Exit" type="StaticBody2D"]
 scale = Vector2(3, 3)
@@ -39,7 +39,7 @@ scale = Vector2(3, 3)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Down"]
-position = Vector2(0, 15)
+position = Vector2(0, 2.33333)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_pcwmf")
 
@@ -48,7 +48,7 @@ scale = Vector2(3, 3)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2(16.5, -1)
+position = Vector2(-0.111111, -1)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_dpyoa")
 
@@ -57,7 +57,7 @@ scale = Vector2(3, 3)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2(-15, -1)
+position = Vector2(0.333333, -1)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_r4bp4")
 
@@ -66,7 +66,7 @@ scale = Vector2(3, 3)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Up"]
-position = Vector2(0, -17.5)
+position = Vector2(0.0555557, -3.83333)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_woxlu")
 

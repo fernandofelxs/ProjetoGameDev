@@ -1,9 +1,9 @@
 class_name Exit extends StaticBody2D
 
-signal pc_activated
 @onready var arrow: Sprite2D = $Arrow
 @export var dialogue_lines: String = ""
 @export var dialogue_box: DialogueBox = null
+@export var target_scene_name: String
 var player: Player = null
 var cardinal_direction: Vector2 = Vector2.DOWN
 
@@ -19,6 +19,7 @@ var new_player_direction: Vector2 = Vector2.ZERO
 var old_player_direction: Vector2 = Vector2.ZERO
 @onready var focus_area: Area2D = $Down
 var factor_flip: int = 1
+var has_pong = false
 
 func _ready() -> void:
 	arrow.hide()
@@ -27,33 +28,30 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and state == NPCState.READY:
-		arrow.hide()
-		update_animation()
-		player.change_state_and_direction_forced(
-			player.PlayerState.WITH_NPC,
-			new_player_direction
-		)
-		dialogue_box.set_ref_dialogue(dialogue_lines)
-		dialogue_box.show_textbox()
-		state = NPCState.ON_SPEECH
+		if has_pong:
+			var transition = $"../Transition"
+			if transition:
+				transition.change_scene(target_scene_name)
+		else:				
+			arrow.hide()
+			update_animation()
+			player.change_state_and_direction_forced(
+				player.PlayerState.WITH_NPC,
+				new_player_direction
+			)
+			dialogue_box.set_ref_dialogue(dialogue_lines)
+			dialogue_box.show_textbox()
+			state = NPCState.ON_SPEECH
 	
-	if player in focus_area.get_overlapping_bodies() and state != NPCState.ON_SPEECH:
-		state = NPCState.READY
-	
-	if dialogue_box.is_finished() and dialogue_box.empty_dialogues():
-		state = NPCState.FINISHED
+	if not has_pong:
+		if player in focus_area.get_overlapping_bodies() and state != NPCState.ON_SPEECH:
+			state = NPCState.READY
+		
+		if dialogue_box.is_finished() and dialogue_box.empty_dialogues():
+			state = NPCState.FINISHED
 
 func update_animation() -> void:
-	var animation_selected = "idle_"
-	match cardinal_direction:
-		Vector2.DOWN:
-			animation_selected += "down"
-		Vector2.UP:
-			animation_selected += "up"
-		Vector2.RIGHT:
-			animation_selected += "side"
-		Vector2.LEFT:
-			animation_selected += "side"
+	pass
 
 func _on_npc_dialogue_finished() -> void:
 	if state == NPCState.FINISHED:
@@ -64,8 +62,6 @@ func _on_npc_dialogue_finished() -> void:
 				old_player_direction
 			)
 		cardinal_direction = Vector2.DOWN
-	queue_free()
-	pc_activated.emit()
 
 func _on_any_body_exited(body: Node2D) -> void:
 	if body is Player:
@@ -102,3 +98,6 @@ func enter_on_area(body: Node2D, new: Vector2, old: Vector2, focus: Area2D) -> v
 	new_player_direction = new
 	old_player_direction = old
 	focus_area = focus
+
+func _on_computer_pc_activated() -> void:
+	has_pong = true
