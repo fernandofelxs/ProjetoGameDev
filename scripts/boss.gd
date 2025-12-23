@@ -43,20 +43,21 @@ func _ready() -> void:
 		make_path()
 
 func _physics_process(delta: float) -> void:
-	if knockback_timer > 0.0:
-		move_and_knockback(delta)
-	else:
-		update_movement()
-
-	move_and_slide()
+	if state != BossState.DEATH:
+		if knockback_timer > 0.0:
+			move_and_knockback(delta)
+		else:
+			update_movement()
+		
+		move_and_slide()
 
 func _process(_delta: float) -> void:
-	if update_state():
+	if update_state() and state != BossState.DEATH:
 		update_animation()
 
 func update_state() -> bool:
 	if state == BossState.DEATH or state == BossState.DAMAGE:
-		return false
+		return true
 	
 	var new_state: BossState = BossState.IDLE
 	
@@ -108,10 +109,10 @@ func update_facing() -> void:
 	sprite.scale.x = -factor_flip if velocity.x < 0 else factor_flip
 
 func check_should_movement():
-	return player and player.is_in_group("player") or state == BossState.DAMAGE or state == BossState.DEATH
+	return player and player.is_in_group("player") and not state == BossState.DAMAGE and not state == BossState.DEATH
 
 func make_path() -> void:
-	if navigation.target_position != player.global_position:
+	if navigation.target_position != player.global_position and check_should_movement():
 		navigation.target_position = player.global_position
 
 func _on_timeout() -> void:
@@ -135,6 +136,7 @@ func apply_damage(damage: int, knockback_direction: Vector2) -> void:
 
 	if hp <= 0:
 		state = BossState.DEATH
+		sprite.play("death")
 		boss_dead.emit()
 
 func apply_knockback(knockback_direction: Vector2, force: float, duration: float) -> void:
