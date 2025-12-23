@@ -13,7 +13,7 @@
 			"text": "Outra coisa também: aqui está uma arma..."			
 		},
 		{
-			"name": "Gabriel",
+			"name": "Você",
 			"text": "Espera, como assim? Uma arma?"			
 		},
 		{
@@ -47,7 +47,7 @@
 			"text": "Você é louco de sair com uma lanterna dessa?"	
 		},
 		{
-			"name": "Fernando",
+			"name": "Você",
 			"text": "Eh... talvez."	
 		},
 	],
@@ -63,6 +63,24 @@
 		{
 			"name": "Bibliotecário",
 			"text": "Achei aquela chave ali. Deve ser útil para algo."	
+		},
+	],
+	"wheres_pong": [
+		{
+			"name": "Estudante",
+			"text": "Onde será que está o PC com o Pong?"	
+		},
+		{
+			"name": "Estudante",
+			"text": "Preciso encontrar o quanto antes."	
+		},
+		{
+			"name": "Estudante",
+			"text": "Vocês precisam encontrar para convencer o professor que Pong é um jogo bom."	
+		},
+		{
+			"name": "Estudante",
+			"text": "Só assim podemos nos tirar dessa enrascada!"	
 		},
 	],
 	"pong": [

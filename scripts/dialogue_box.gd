@@ -32,6 +32,7 @@ func _ready() -> void:
 	if camera:
 		camera_original_offset = camera.offset
 		camera_original_zoom = camera.zoom
+	
 
 func load_dialogue_data():
 	var file = FileAccess.open(dialogue_file_path, FileAccess.READ)
