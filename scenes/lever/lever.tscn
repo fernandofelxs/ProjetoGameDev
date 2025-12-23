@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cs6x1r8iujp5a"]
+[gd_scene load_steps=12 format=3 uid="uid://cs6x1r8iujp5a"]
 
 [ext_resource type="Script" uid="uid://do64xrpqif7vw" path="res://scripts/lever.gd" id="1_uu53q"]
 [ext_resource type="Texture2D" uid="uid://b4njphvrdjwkc" path="res://assets/sprites/objects/lever.png" id="2_uu53q"]
+[ext_resource type="Texture2D" uid="uid://cnfboe4d0p2wo" path="res://assets/sprites/npc/arrow.png" id="3_fyrhm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fyrhm"]
 atlas = ExtResource("2_uu53q")
@@ -52,17 +53,37 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7gua"]
+size = Vector2(10, 7)
 
-[node name="Lever" type="Area2D"]
-collision_layer = 16
+[sub_resource type="CircleShape2D" id="CircleShape2D_fyrhm"]
+radius = 18.0278
+
+[node name="Lever" type="StaticBody2D"]
+collision_layer = 8
 script = ExtResource("1_uu53q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_17rky")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 8)
+position = Vector2(-1, -1.5)
 shape = SubResource("RectangleShape2D_c7gua")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Arrow" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(-2, -14)
+scale = Vector2(0.708333, 0.708333)
+texture = ExtResource("3_fyrhm")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_fyrhm")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]

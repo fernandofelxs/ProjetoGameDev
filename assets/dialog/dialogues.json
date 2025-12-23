@@ -50,5 +50,19 @@
 			"name": "Fernando",
 			"text": "Eh... talvez."	
 		},
+	],
+	"third_speech": [
+		{
+			"name": "Bibliotecário",
+			"text": "Bem-vindo a biblioteca!"	
+		},
+		{
+			"name": "Bibliotecário",
+			"text": "Sei que não está em seus dias melhores..."	
+		},
+		{
+			"name": "Bibliotecário",
+			"text": "Achei aquela chave ali. Deve ser útil para algo."	
+		},
 	]
 }

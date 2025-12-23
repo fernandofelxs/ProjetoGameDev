@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://bn6ihldv40xli"]
+
+[ext_resource type="Script" uid="uid://dc0c0vvpqtxco" path="res://scripts/big_door.gd" id="1_7upog"]
+[ext_resource type="Texture2D" uid="uid://tuc6qsvucj06" path="res://assets/sprites/objects/door.png" id="2_tk0ay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7y7t"]
+size = Vector2(305, 30)
+
+[sub_resource type="Animation" id="Animation_tk0ay"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7upog"]
+resource_name = "default"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o7y7t"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5l4i7"]
+_data = {
+&"RESET": SubResource("Animation_tk0ay"),
+&"default": SubResource("Animation_7upog"),
+&"open": SubResource("Animation_o7y7t")
+}
+
+[node name="BigDoor" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_7upog")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-150, 0)
+texture = ExtResource("2_tk0ay")
+offset = Vector2(150, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_o7y7t")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5l4i7")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
