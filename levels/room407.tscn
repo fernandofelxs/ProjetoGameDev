@@ -7610,7 +7610,7 @@ dialogue_box = NodePath("../DialogueBox")
 [node name="NPC2" parent="." node_paths=PackedStringArray("dialogue_box") instance=ExtResource("21_envwi")]
 position = Vector2(545, 310)
 scale = Vector2(1.5, 1.5)
-dialogue_lines = "arma"
+dialogue_lines = "second_speech"
 dialogue_box = NodePath("../DialogueBox")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
@@ -7619,7 +7619,7 @@ scale = Vector2(1.5, 1.5)
 navigation_polygon = SubResource("NavigationPolygon_r8xtp")
 
 [node name="Chest" parent="." node_paths=PackedStringArray("scene") instance=ExtResource("24_grlq2")]
-position = Vector2(1484, -234)
+position = Vector2(1415, -229)
 scene = NodePath("../ItemPickup")
 
 [node name="Player" parent="." node_paths=PackedStringArray("screenshake") instance=ExtResource("7_5ppdb")]
@@ -7637,17 +7637,27 @@ id = 2
 screenshake = NodePath("../CharacterManager/Camera2D/Screenshake")
 
 [node name="ItemPickup" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(189, 22)
+position = Vector2(857, -113)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("16_b0yrw")
 
 [node name="ItemPickup2" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(1083, 179)
+position = Vector2(2411, -413)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("17_b0yrw")
 
 [node name="ItemPickup3" parent="." instance=ExtResource("15_5ppdb")]
-position = Vector2(1375, 61)
+position = Vector2(1371.71, 61)
+scale = Vector2(0.15, 0.15)
+item = ExtResource("18_a1a4m")
+
+[node name="ItemPickup4" parent="." instance=ExtResource("15_5ppdb")]
+position = Vector2(2308, 299)
+scale = Vector2(0.15, 0.15)
+item = ExtResource("18_a1a4m")
+
+[node name="ItemPickup5" parent="." instance=ExtResource("15_5ppdb")]
+position = Vector2(2527, 294)
 scale = Vector2(0.15, 0.15)
 item = ExtResource("18_a1a4m")
 
@@ -7674,26 +7684,28 @@ blend_mode = 1
 layer = 1
 visible = false
 
-[node name="GameController" parent="." node_paths=PackedStringArray("direction_light") instance=ExtResource("21_xay7s")]
-direction_light = NodePath("../DirectionalLight2D")
+[node name="BulletPickups" type="Node2D" parent="."]
 
-[node name="BulletPickup" parent="." instance=ExtResource("23_envwi")]
+[node name="BulletPickup" parent="BulletPickups" instance=ExtResource("23_envwi")]
 position = Vector2(977, 196)
 
-[node name="BulletPickup2" parent="." instance=ExtResource("23_envwi")]
+[node name="BulletPickup2" parent="BulletPickups" instance=ExtResource("23_envwi")]
 position = Vector2(1037, -83)
 
-[node name="BulletPickup3" parent="." instance=ExtResource("23_envwi")]
+[node name="BulletPickup3" parent="BulletPickups" instance=ExtResource("23_envwi")]
 position = Vector2(1333, -82)
 
-[node name="BulletPickup4" parent="." instance=ExtResource("23_envwi")]
+[node name="BulletPickup4" parent="BulletPickups" instance=ExtResource("23_envwi")]
 position = Vector2(1547, 17)
 
-[node name="BulletPickup5" parent="." instance=ExtResource("23_envwi")]
+[node name="BulletPickup5" parent="BulletPickups" instance=ExtResource("23_envwi")]
 position = Vector2(1423, 208)
 
-[node name="BulletPickup6" parent="." instance=ExtResource("23_envwi")]
+[node name="BulletPickup6" parent="BulletPickups" instance=ExtResource("23_envwi")]
 position = Vector2(1173, 318)
+
+[node name="GameController" parent="." node_paths=PackedStringArray("direction_light") instance=ExtResource("21_xay7s")]
+direction_light = NodePath("../DirectionalLight2D")
 
 [node name="Lanterns" type="Node2D" parent="."]
 position = Vector2(3, 64)
@@ -7702,7 +7714,7 @@ position = Vector2(3, 64)
 position = Vector2(-2, 11)
 
 [node name="Lantern7" parent="Lanterns" instance=ExtResource("25_unjkd")]
-position = Vector2(2426, 316)
+position = Vector2(2473, 296)
 
 [node name="Lantern8" parent="Lanterns" instance=ExtResource("25_unjkd")]
 position = Vector2(2421, -414)

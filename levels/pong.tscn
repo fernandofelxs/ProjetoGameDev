@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dss1ywedevgpg"]
+[gd_scene load_steps=16 format=3 uid="uid://dss1ywedevgpg"]
 
 [ext_resource type="PackedScene" uid="uid://r5737pf6ogiv" path="res://scenes/player/player.tscn" id="2_0m1ty"]
 [ext_resource type="Script" uid="uid://dx1r67mwuyw3m" path="res://scripts/pong.gd" id="2_dnnam"]
+[ext_resource type="Script" uid="uid://c53chpiw5vbls" path="res://scripts/screenshake.gd" id="2_ip8pf"]
 [ext_resource type="Script" uid="uid://du7fa7thbugkt" path="res://scripts/pong_bar.gd" id="4_1ym5j"]
 [ext_resource type="Script" uid="uid://drdi7ib282431" path="res://scripts/ball.gd" id="4_3ir3i"]
 [ext_resource type="PackedScene" uid="uid://duldf1jvdp4ai" path="res://scenes/boss/boss.tscn" id="6_1ym5j"]
@@ -35,12 +36,22 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-644.473, 464.37, 801.0
 texture_filter = 1
 script = ExtResource("2_dnnam")
 
-[node name="Player" parent="." instance=ExtResource("2_0m1ty")]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(945, 538)
+scale = Vector2(1, 1)
+
+[node name="Screenshake" type="Node" parent="Camera2D"]
+script = ExtResource("2_ip8pf")
+metadata/_custom_type_script = "uid://c53chpiw5vbls"
+
+[node name="Player" parent="." node_paths=PackedStringArray("screenshake") instance=ExtResource("2_0m1ty")]
 position = Vector2(200, 200)
-scale = Vector2(5, 5)
+scale = Vector2(7, 7)
 collision_mask = 12
 speed = 500.0
 knockback_force = 700.0
+boss_mode = true
+screenshake = NodePath("../Camera2D/Screenshake")
 
 [node name="LeftBar" type="StaticBody2D" parent="."]
 position = Vector2(80, 880)
@@ -104,18 +115,22 @@ shape = SubResource("RectangleShape2D_dnnam")
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_layer = 4
 collision_mask = 32
+metadata/_edit_lock_ = true
 
 [node name="BottomCollisionBox" type="CollisionShape2D" parent="Borders"]
 position = Vector2(960, 1148)
 shape = SubResource("RectangleShape2D_citqa")
+metadata/_edit_lock_ = true
 
 [node name="TopCollisionBox" type="CollisionShape2D" parent="Borders"]
 position = Vector2(960, -64)
 shape = SubResource("RectangleShape2D_3ir3i")
+metadata/_edit_lock_ = true
 
 [node name="Left" type="Area2D" parent="Borders"]
 collision_layer = 8
 collision_mask = 32
+metadata/_edit_lock_ = true
 
 [node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/Left"]
 position = Vector2(-64, 544)
@@ -124,6 +139,7 @@ shape = SubResource("RectangleShape2D_1ym5j")
 [node name="Right" type="Area2D" parent="Borders"]
 collision_layer = 8
 collision_mask = 32
+metadata/_edit_lock_ = true
 
 [node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/Right"]
 position = Vector2(1984, 544)
@@ -132,6 +148,7 @@ shape = SubResource("RectangleShape2D_58hqk")
 [node name="LeftBarrier" type="StaticBody2D" parent="Borders"]
 collision_layer = 12
 collision_mask = 32
+metadata/_edit_lock_ = true
 
 [node name="LeftCollisionBox" type="CollisionShape2D" parent="Borders/LeftBarrier"]
 position = Vector2(-85.5, 544)
@@ -140,6 +157,7 @@ shape = SubResource("RectangleShape2D_1ym5j")
 [node name="RightBarrier" type="StaticBody2D" parent="Borders"]
 collision_layer = 12
 collision_mask = 32
+metadata/_edit_lock_ = true
 
 [node name="RightCollisionBox" type="CollisionShape2D" parent="Borders/RightBarrier"]
 position = Vector2(2000.5, 544)
@@ -152,6 +170,7 @@ autostart = true
 
 [node name="Boss" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_1ym5j")]
 position = Vector2(1328, 544)
+scale = Vector2(2, 2)
 collision_mask = 0
 target_scene_name = "credits"
 speed = 200.0

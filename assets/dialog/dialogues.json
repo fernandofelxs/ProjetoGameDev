@@ -30,17 +30,25 @@
 		},
 		{
 			"name": "Estudante",
+			"text": "Vá até a biblioteca para pegar a chave e sair desse lugar."			
+		},
+		{
+			"name": "Estudante",
 			"text": "Depressa! Precisamos sair daqui o quanto antes!"			
 		},
 	],
-	"arma": [
+	"second_speech": [
 		{
 			"name": "Estudante",
-			"text": "placeholder"	
+			"text": "Eu estou perdido aqui..."	
 		},
 		{
 			"name": "Estudante",
-			"text": "placeholder"	
+			"text": "Você é louco de sair com uma lanterna dessa?"	
+		},
+		{
+			"name": "Fernando",
+			"text": "Eh... talvez."	
 		},
 	]
 }
