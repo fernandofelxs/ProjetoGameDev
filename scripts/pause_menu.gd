@@ -41,3 +41,7 @@ func _on_options_pressed() -> void:
 func _on_options_exited() -> void:
 	show()
 	transition.play_fade_out()
+
+func _on_reset_pressed() -> void:
+	
+	get_tree().paused = false
