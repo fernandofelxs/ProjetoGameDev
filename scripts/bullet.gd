@@ -5,6 +5,7 @@ class_name Bullet extends StaticBody2D
 @onready var area: Area2D = $Area2D
 
 func _ready() -> void:
+	AudioManager.play_shoot_gun()
 	notifier.connect("screen_exited", Callable(self, "_on_screen_exited"))
 	area.connect("body_entered", Callable(self, "_on_bullet_collide"))
 	

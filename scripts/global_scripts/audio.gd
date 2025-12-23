@@ -4,6 +4,7 @@ var ui_click := preload("res://audio/ui/ui_click.wav.ogg")
 var damage := preload("res://audio/combat/damage.wav.ogg")
 var attack := preload("res://audio/combat/attack.wav.ogg")
 var enemy_hit := preload("res://audio/combat/enemy_hit.ogg")
+var shoot_gun := preload("res://audio/combat/shoot_gun.ogg")
 var slime_death := preload("res://audio/combat/slime_death.ogg")
 var basic_enemy_death := preload("res://audio/combat/basic_enemy_death.ogg")
 var strong_enemy_death := preload("res://audio/combat/strong_enemy_death.ogg")
@@ -43,6 +44,12 @@ func play_attack():
 func play_enemy_hit():
 	var player = AudioStreamPlayer.new()
 	player.stream = enemy_hit
+	add_child(player)
+	player.play()
+	
+func play_shoot_gun():
+	var player = AudioStreamPlayer.new()
+	player.stream = shoot_gun
 	add_child(player)
 	player.play()
 	
