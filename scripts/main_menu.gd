@@ -10,6 +10,7 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	#get_tree().change_scene_to_file("res://scenes/levels/room407.tscn")
 	AudioManager.play_ui_click()
+	AudioManager.play_music_game()
 	transition.change_scene("initial_cutscene")
 
 func _on_quit_pressed() -> void:
